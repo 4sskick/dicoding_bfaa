@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="textColorPrimary">@color/text_medium</color>
+    <color name="textColorSecondary">@color/text_light</color>
+    <color name="textColorTertiary">@color/text_lighter</color>
+    <color name="windowBackgroundPrimary">@color/backgroundPrimary</color>
+    <color name="windowBackgroundSecondary">@color/backgroundSecondary</color>
+
+    <!--Button Color Variant-->
+    <color name="buttonPrimary">@color/colorAccent</color>
+    <color name="buttonPrimaryHover">@color/bondi_blue</color>
+    <color name="buttonBlue">@color/blue_info</color>
+    <color name="buttonBlueHover">@color/true_blue</color>
+    <color name="buttonGreen">@color/green_success</color>
+    <color name="buttonGreenHover">@color/shamrock_green</color>
+    <color name="buttonOrange">@color/orange_alert</color>
+    <color name="buttonOrangeHover">@color/orange_alert</color>
+    <color name="buttonRed">@color/red_error</color>
+    <color name="buttonRedHover">@color/cg_red</color>
+
+    <!--common colors-->
+    <color name="colorPrimary">@color/cerulean</color>
+    <color name="colorPrimaryDark">@color/cerulean_darker</color>
+    <color name="colorAccent">@color/cerulean</color>
+    <color name="white">#fff</color>
+    <color name="snow">#fafafa</color>
+    <color name="black">#000</color>
+
+    <!--Primary 1 Color Variant-->
+    <color name="cerulean_darkest">#005979</color>
+    <color name="cerulean_darker">#0076a1</color>
+    <color name="cerulean">#0094c9</color>
+    <color name="cerulean_lighter">#66bfdf</color>
+    <color name="cerulean_lightest">#cceaf4</color>
+    <color name="cerulean_selected">#edf8fb</color>
+
+    <color name="true_blue">#0277e5</color>
+    <color name="bondi_blue">#0085b5</color>
+    <color name="shamrock_green">#00994d</color>
+    <color name="harvest_gold">#e69700</color>
+    <color name="cg_red">#d73934</color>
+
+    <!--Primary 2 Color Variant-->
+    <color name="brown_darkest">#8d5c18</color>
+    <color name="brown_darker">#bc7a20</color>
+    <color name="orange">#eb9928</color>
+    <color name="orange_10">#1AEB9928</color>
+    <color name="orange_lighter">#f3c27e</color>
+    <color name="orange_lightest">#fbebd4</color>
+
+    <!--Notification Color Variant-->
+    <color name="blue_info">#0284fe</color>
+    <color name="t40_blue_info">#400284fe</color>
+    <color name="green_success">#00aa55</color>
+    <color name="t40_green_success">#4000aa55</color>
+    <color name="orange_alert">#ffa800</color>
+    <color name="t40_orange_alert">#40ffa800</color>
+    <color name="red_error">#ef3f3a</color>
+    <color name="t40_red_error">#40ef3f3a</color>
+
+    <!--Text Color Variant-->
+    <color name="text_medium">#353749</color>
+    <color name="text_light">#494b5b</color>
+    <color name="text_disabled">#aeafb6</color>
+    <color name="text_lighter">#71737f</color>
+    <color name="divider">#d7d7db</color>
+    <color name="backgroundPrimary">@color/white</color>
+    <color name="backgroundSecondary">#f9f9fa</color>
+    <color name="backgroundIcon">#edf8fb</color>
+
+    <!--transparent-->
+    <color name="t0_white">#00FFFFFF</color>
+    <color name="t40_white">#66FFFFFF</color>
+    <color name="t50_white">#80FFFFFF</color>
+    <color name="t60_white">#99FFFFFF</color>
+    <color name="t70_white">#B3FFFFFF</color>
+    <color name="t80_white">#CCFFFFFF</color>
+    <color name="t50_black">#80000000</color>
+    <color name="t40_black">#66000000</color>
+    <color name="t20_black">#38000000</color>
+    <color name="t75_blue">#BF091A34</color>
 </resources>

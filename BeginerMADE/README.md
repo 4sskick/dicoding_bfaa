@@ -15,7 +15,7 @@ Fitur yang harus ada pada aplikasi:
 2. **Halaman Detail**
     - Menampilkan gambar dan informasi pada **halaman detail**.
 3. **Halaman About**
-    - Menampilkan **foto diri, nama** dan ***email** yang terdaftar di Dicoding.
+    - Menampilkan **foto diri, nama** dan **email** yang terdaftar di Dicoding.
     
 Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
 ![alt text](https://dicodingacademy.blob.core.windows.net/academies/2019080111185794348711e5edf52f458f1d3eab45d0cf.png)
