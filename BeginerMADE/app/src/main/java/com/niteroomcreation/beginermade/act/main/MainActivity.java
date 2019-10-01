@@ -5,6 +5,7 @@ import android.widget.FrameLayout;
 
 import com.niteroomcreation.beginermade.R;
 import com.niteroomcreation.beginermade.base.BaseView;
+import com.niteroomcreation.beginermade.fragment.main.MainFragment;
 
 import butterknife.BindView;
 
@@ -34,5 +35,7 @@ public class MainActivity extends BaseView implements MainContract.View {
     @Override
     protected void initComponents() {
         presenter = new MainPresenter(this);
+
+        moveToFragment(flMainContent.getId(), MainFragment.newInstance(), MainFragment.class.getSimpleName());
     }
 }
