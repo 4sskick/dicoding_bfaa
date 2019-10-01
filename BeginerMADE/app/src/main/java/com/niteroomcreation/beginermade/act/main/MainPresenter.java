@@ -8,7 +8,7 @@ import com.niteroomcreation.beginermade.base.BasePresenter;
 public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 
     public MainPresenter(MainContract.View view) {
-        this.mView = view;
+        super.onViewActive(view);
     }
 
     @Override
@@ -19,5 +19,9 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     @Override
     public void onViewInactive() {
 
+    }
+
+    public String getDum(){
+        return "from presenter";
     }
 }
