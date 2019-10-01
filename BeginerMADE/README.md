@@ -21,9 +21,11 @@ Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
 ![alt text](https://dicodingacademy.blob.core.windows.net/academies/2019080111185794348711e5edf52f458f1d3eab45d0cf.png)
 
 Kesempatan untuk submission Anda diterima, akan lebih besar jika:
+
 - Membuat aplikasi yang unik dan menarik.
 
 Submission Anda akan ditolak jika:
+
 - Tidak menggunakan format List untuk menampilkan data di Halaman Utama.
 - List yang ditampilkan kurang dari 10 item.
 - Tidak bisa berpindah ke halaman detail ketika salah satu item di tekan.
@@ -38,6 +40,7 @@ Submission Anda akan ditolak jika:
 ## Ketentuan
 
 Beberapa ketentuan umum dari proyek aplikasi:
+
 - Menggunakan Android Studio.
 - Menggunakan bahasa pemrograman Kotlin atau Java.
 - Mengirimkan pekerjaan Anda dalam bentuk folder APK yang telah diarsipkan (ZIP).
@@ -50,5 +53,6 @@ Beberapa ketentuan umum dari proyek aplikasi:
 Sebelum mengirimkan proyek, pastikan Anda sudah mengekspornya dengan benar.
 
 Bagaimana cara membuat berkas APK?
+
 1. Silakan masuk ke tautan [ini](https://www.dicoding.com/academies/51/tutorials/1176).
 2. Setelah itu, masukkan berkas APK ke dalam folder dan ekstrak dalam bentuk ZIP.
