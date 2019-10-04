@@ -65,6 +65,12 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
 
     protected abstract int getDialogMode();
 
+    public interface MODEINTERFACE {
+        default int getDialogMode() {
+            return MODE_DEFAULT;
+        }
+    }
+
     protected abstract String getDialogTitle();
 
     protected abstract String getDialogSubTitle();

@@ -22,7 +22,7 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
 
     protected abstract int contentLayout();
 
-    abstract protected void initComponents();
+    protected abstract void initComponents();
 
     @Nullable
     @Override
