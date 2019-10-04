@@ -32,7 +32,7 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
         if (contentLayout() != ((BaseView) getActivity()).EMPTY_LAYOUT)
             view = getActivity().getLayoutInflater().inflate(contentLayout(), container, false);
         else
-            throw new IllegalStateException("contentLayout() can't be EMPTY " + this.getClass().getSimpleName());
+            throw new IllegalStateException("setDialogView() can't be EMPTY " + this.getClass().getSimpleName());
         ButterKnife.bind(this, view);
         initComponents();
 

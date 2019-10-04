@@ -51,10 +51,10 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
                 LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
                 inflater.inflate(contentLayout(), layoutContent);
             } catch (Exception e) {
-                throw new IllegalStateException("Inflating contentLayout() failed on " + this.getClass().getSimpleName());
+                throw new IllegalStateException("Inflating setDialogView() failed on " + this.getClass().getSimpleName());
             }
         else
-            throw new IllegalStateException("contentLayout() can't be EMPTY " + this.getClass().getSimpleName());
+            throw new IllegalStateException("setDialogView() can't be EMPTY " + this.getClass().getSimpleName());
 
         ButterKnife.bind(this);
         mActivity = this;
@@ -130,7 +130,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
         }
     }
 
-    public FragmentManager getBaseMainFragmentManager() {
+    public FragmentManager getBaseFragmentManager() {
         return fragmentManager;
     }
 }
