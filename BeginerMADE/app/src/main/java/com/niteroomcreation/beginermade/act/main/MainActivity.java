@@ -1,6 +1,8 @@
 package com.niteroomcreation.beginermade.act.main;
 
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.niteroomcreation.beginermade.R;
@@ -37,5 +39,21 @@ public class MainActivity extends BaseView implements MainContract.View {
         presenter = new MainPresenter(this);
 
         moveToFragment(flMainContent.getId(), MainFragment.newInstance(), MainFragment.class.getSimpleName());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_about:
+                showMessage("calling about");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.m_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

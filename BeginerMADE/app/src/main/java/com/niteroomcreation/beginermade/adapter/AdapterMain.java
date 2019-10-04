@@ -91,7 +91,7 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.ViewHolder> {
         void onViewItemClicked(View view) {
             switch (view.getId()) {
                 case R.id.layout_item:
-                    Log.e("tagCheck", "onViewItemClicked: clicking me?");
+                    listener.onItemClicked(getItem(getAdapterPosition()));
                     break;
             }
         }

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.niteroomcreation.beginermade.R;
 import com.niteroomcreation.beginermade.view.GenericStateView;
@@ -29,6 +30,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
 
     private Activity mActivity;
     private FragmentManager fragmentManager;
+    private Toast mToast;
 
     protected abstract int parentLayout();
 
@@ -80,7 +82,17 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
 
     @Override
     public void showMessage(String message) {
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
 
+        if (mToast == null) {
+            if (message != null && !message.isEmpty()) {
+                mToast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+                mToast.show();
+            }
+        }
     }
 
     @Override
