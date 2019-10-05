@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseView extends AppCompatActivity implements IBaseView, BaseFragmentView.BaseFragmentCallback {
 
-    public static final int EMPTY_LAYOUT = 0;
+    public final int EMPTY_LAYOUT = 0;
 
     @BindView(R.id.layout_content)
     RelativeLayout layoutContent;
