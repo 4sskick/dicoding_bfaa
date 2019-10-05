@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 
 import com.niteroomcreation.beginermade.R;
 import com.niteroomcreation.beginermade.base.BaseView;
+import com.niteroomcreation.beginermade.fragment.about.AboutFragment;
 import com.niteroomcreation.beginermade.fragment.main.MainFragment;
 
 import butterknife.BindView;
@@ -38,6 +39,8 @@ public class MainActivity extends BaseView implements MainContract.View {
     protected void initComponents() {
         presenter = new MainPresenter(this);
 
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle("MADE - Submission");
         moveToFragment(flMainContent.getId(), MainFragment.newInstance(), MainFragment.class.getSimpleName());
     }
 
@@ -45,7 +48,10 @@ public class MainActivity extends BaseView implements MainContract.View {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_about:
-                showMessage("calling about");
+//                showMessage("calling about");
+                AboutFragment fragment = AboutFragment.newInstance();
+                fragment.setDismissible(true);
+                fragment.show(getBaseFragmentManager(), AboutFragment.class.getSimpleName());
                 break;
         }
         return super.onOptionsItemSelected(item);

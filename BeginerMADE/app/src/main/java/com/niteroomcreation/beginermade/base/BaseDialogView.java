@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.niteroomcreation.beginermade.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Septian Adi Wijaya on 04/10/19
@@ -36,14 +38,19 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
     public static final int MODE_DEFAULT = 0;
     public static final int MODE_CUSTOM = 1;
 
+    DialogInterface baseDialogInterface;
+
     FrameLayout bDialogContent;
 
+    @Nullable
     @BindView(R.id.b_dialog_wrap_button)
     LinearLayout bDialogWrapButton;
 
+    @Nullable
     @BindView(R.id.b_dialog_ic_back)
     AppCompatImageView bDialogIcBack;
 
+    @Nullable
     @BindView(R.id.b_dialog_ic_close)
     AppCompatImageView bDialogIcClose;
 
@@ -55,6 +62,7 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
     @BindView(R.id.b_dialog_sub_title)
     AppCompatTextView bDialogSubTitle;
 
+    @Nullable
     @BindView(R.id.b_dialog_parent)
     ConstraintLayout bDialogParent;
 
@@ -65,7 +73,7 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
 
     protected abstract int getDialogMode();
 
-    public interface MODEINTERFACE {
+    public interface DialogInterface {
         default int getDialogMode() {
             return MODE_DEFAULT;
         }
@@ -102,10 +110,18 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(container.getContext()).inflate(getDialogMode() == MODE_DEFAULT
+
+//        if (baseDialogInterface == null) {
+//            Log.e("tagCheck", "onCreateView: baseDialogInterface null");
+////            dismiss();
+//        } else {
+//            Log.e("tagCheck", "onCreateView: baseDialogInterface not null");
+//        }
+
+        View view = inflater.inflate(/*baseDialogInterface.*/getDialogMode() == MODE_DEFAULT
                 ? R.layout.b_dialog_fragment : setDialogView(), container, false);
 
-        if (getDialogMode() == MODE_DEFAULT) {
+        if (/*baseDialogInterface.*/getDialogMode() == MODE_DEFAULT) {
             bDialogContent = view.findViewById(R.id.b_dialog_content);
 
             if (setDialogView() != 0) {
@@ -116,9 +132,16 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
 
         if (bDialogTitle != null) {
             if (getDialogTitle() != null) {
+                Log.e("tagCheck", "onCreateView: getDialogTitle() not null");
+
                 bDialogTitle.setText(getDialogTitle());
-            } else
+            } else {
+                Log.e("tagCheck", "onCreateView: getDialogTitle() null");
+
                 bDialogTitle.setVisibility(View.GONE);
+            }
+        } else {
+            Log.e("tagCheck", "onCreateView: bDialogTitle  null");
         }
 
         if (bDialogSubTitle != null) {
@@ -197,6 +220,8 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
             BaseView mActivity = (BaseView) context;
             mActivity.onFragmentAttached();
             this.mActivity = mActivity;
+
+            Log.e("tagCheck", "onAttach: baseview");
         }
     }
 
@@ -250,6 +275,7 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
         }
     }
 
+    @Optional
     @OnClick({R.id.b_dialog_dismiss_area, R.id.b_dialog_confirm, R.id.b_dialog_ic_back, R.id.b_dialog_ic_close})
     public void onViewClicked(View view) {
 
