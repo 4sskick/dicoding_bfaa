@@ -1,9 +1,11 @@
 package com.niteroomcreation.beginermade.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Septian Adi Wijaya on 01/10/19
  */
-public class TokohModel {
+public class TokohModel implements Serializable {
 
     public TokohModel(String name, String desc, int image) {
         this.name = name;
