@@ -46,6 +46,8 @@ public class DetailFragment extends BaseFragmentView implements DetailFragmentCo
         else
             throw new RuntimeException("Model isn't carried by bundle arguments!");
 
+        showBackButtonToolbar(true);
+        showTitleToolbar(false, null);
         Glide.with(this)
                 .load(model.getImage())
                 .into(imgDetailTokoh);

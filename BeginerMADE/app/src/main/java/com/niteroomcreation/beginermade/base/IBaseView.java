@@ -18,4 +18,10 @@ public interface IBaseView {
     void showEmptyState();
 
     void hideEmptyState();
+
+    default void showBackButtonToolbar(boolean show) {
+    }
+
+    default void showTitleToolbar(boolean show, String title) {
+    }
 }

@@ -45,11 +45,7 @@ public class MainActivity extends BaseView implements MainContract.View, MainFra
     protected void initComponents() {
         presenter = new MainPresenter(this);
 
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle("MADE - Submission");
-
         moveToFragment(flMainContent.getId(), MainFragment.newInstance(), MainFragment.class.getSimpleName());
-        showBackButton();
     }
 
     @Override
@@ -59,6 +55,10 @@ public class MainActivity extends BaseView implements MainContract.View, MainFra
                 AboutFragment fragment = AboutFragment.newInstance();
                 fragment.setDismissible(true);
                 fragment.show(getBaseFragmentManager(), AboutFragment.class.getSimpleName());
+                break;
+
+            case android.R.id.home:
+                onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -75,27 +75,27 @@ public class MainActivity extends BaseView implements MainContract.View, MainFra
         moveToFragment(flMainContent.getId(), DetailFragment.newInstance(item), DetailFragment.class.getSimpleName());
     }
 
-    public void showBackButton() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(flMainContent.getId());
-        if (fragment instanceof DetailFragment) {
-
-            Log.e(TAG, "showBackButton: ");
-
-            if (getSupportActionBar() != null)
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            else
-                Log.e(TAG, "showBackButton: else detailFragment");
-
-        } else {
-
-            Log.e(TAG, "showBackButton: else");
-
-            if (getSupportActionBar() != null)
-                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            else
-                Log.e(TAG, "showBackButton: else mainFragment");
-        }
-    }
+//    public void showBackButton() {
+//        Fragment fragment = getSupportFragmentManager().findFragmentById(flMainContent.getId());
+//        if (fragment instanceof DetailFragment) {
+//
+//            Log.e(TAG, "showBackButton: ");
+//
+//            if (getSupportActionBar() != null)
+//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            else
+//                Log.e(TAG, "showBackButton: else detailFragment");
+//
+//        } else {
+//
+//            Log.e(TAG, "showBackButton: else");
+//
+//            if (getSupportActionBar() != null)
+//                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//            else
+//                Log.e(TAG, "showBackButton: else mainFragment");
+//        }
+//    }
 
     @Override
     public void onBackPressed() {

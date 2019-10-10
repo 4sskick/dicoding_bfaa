@@ -3,12 +3,10 @@ package com.niteroomcreation.beginermade.fragment.main;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.niteroomcreation.beginermade.R;
 import com.niteroomcreation.beginermade.adapter.AdapterMain;
 import com.niteroomcreation.beginermade.base.BaseFragmentView;
-import com.niteroomcreation.beginermade.fragment.detail.DetailFragment;
 import com.niteroomcreation.beginermade.model.TokohModel;
 import com.niteroomcreation.beginermade.view.listener.GenericItemListener;
 
@@ -42,6 +40,8 @@ public class MainFragment extends BaseFragmentView implements MainFragmentContra
     protected void initComponents() {
         presenter = new MainFragmentPresenter(this);
 
+        showBackButtonToolbar(false);
+        showTitleToolbar(true, "MADE - Submission");
         models = presenter.constructModels();
         adapter = new AdapterMain(models, new GenericItemListener<TokohModel>() {
             @Override

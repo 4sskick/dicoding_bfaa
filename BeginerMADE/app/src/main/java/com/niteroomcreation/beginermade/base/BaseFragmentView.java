@@ -115,6 +115,16 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
         mActivity.hideEmptyState();
     }
 
+    @Override
+    public void showBackButtonToolbar(boolean show) {
+        mActivity.showBackButtonToolbar(show);
+    }
+
+    @Override
+    public void showTitleToolbar(boolean show, @Nullable String title) {
+        mActivity.showTitleToolbar(show, title);
+    }
+
     public interface BaseFragmentCallback {
         void onFragmentAttached();
 

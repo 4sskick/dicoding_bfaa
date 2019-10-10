@@ -66,6 +66,20 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
     }
 
     @Override
+    public void showBackButtonToolbar(boolean show) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(show);
+        }
+    }
+
+    @Override
+    public void showTitleToolbar(boolean show, @Nullable String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(show ? title : "");
+        }
+    }
+
+    @Override
     public void showLoading() {
 
     }
