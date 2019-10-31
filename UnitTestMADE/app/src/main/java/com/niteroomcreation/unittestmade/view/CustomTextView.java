@@ -1,9 +1,9 @@
 package com.niteroomcreation.unittestmade.view;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * Created by Septian Adi Wijaya on 01/10/19

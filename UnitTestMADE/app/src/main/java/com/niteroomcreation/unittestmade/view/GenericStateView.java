@@ -2,19 +2,19 @@ package com.niteroomcreation.unittestmade.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.niteroomcreation.unittestmade.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Septian Adi Wijaya on 03/09/19
@@ -137,6 +137,8 @@ public class GenericStateView extends ConstraintLayout {
         sTvFooter.setVisibility(VISIBLE);
     }
 
+
+    @Optional
     public void hideAll() {
         sWrapParent.setVisibility(GONE);
         if (getContent() != null) getContent().setVisibility(VISIBLE);

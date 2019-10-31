@@ -2,10 +2,10 @@ package com.niteroomcreation.unittestmade.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * Created by Septian Adi Wijaya on 09/10/19

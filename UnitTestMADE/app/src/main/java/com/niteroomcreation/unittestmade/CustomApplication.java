@@ -1,6 +1,7 @@
 package com.niteroomcreation.unittestmade;
 
-import androidx.multidex.MultiDexApplication;
+
+import android.support.multidex.MultiDexApplication;
 
 public class CustomApplication extends MultiDexApplication {
 

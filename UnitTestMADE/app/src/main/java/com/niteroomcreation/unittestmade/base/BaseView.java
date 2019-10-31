@@ -2,20 +2,21 @@ package com.niteroomcreation.unittestmade.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.niteroomcreation.unittestmade.R;
 import com.niteroomcreation.unittestmade.view.GenericStateView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 
 /**
  * Created by Septian Adi Wijaya on 03/09/19
@@ -24,8 +25,10 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
 
     public final int EMPTY_LAYOUT = 0;
 
+    @Nullable
     @BindView(R.id.layout_content)
     RelativeLayout layoutContent;
+    @Nullable
     @BindView(R.id.layout_empty)
     GenericStateView layoutEmpty;
 
@@ -48,16 +51,17 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
         else
             setContentView(R.layout.b_activity);
 
-        if (contentLayout() != EMPTY_LAYOUT)
-            try {
-                layoutContent = findViewById(R.id.layout_content);
-                LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-                inflater.inflate(contentLayout(), layoutContent);
-            } catch (Exception e) {
-                throw new IllegalStateException("Inflating setDialogView() failed on " + this.getClass().getSimpleName());
-            }
-        else
-            throw new IllegalStateException("setDialogView() can't be EMPTY " + this.getClass().getSimpleName());
+        if (parentLayout() == EMPTY_LAYOUT)
+            if (contentLayout() != EMPTY_LAYOUT)
+                try {
+                    layoutContent = findViewById(R.id.layout_content);
+                    LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                    inflater.inflate(contentLayout(), layoutContent);
+                } catch (Exception e) {
+                    throw new IllegalStateException("Inflating contentLayout() failed on " + this.getClass().getSimpleName());
+                }
+            else
+                throw new IllegalStateException("contentLayout() can't be EMPTY " + this.getClass().getSimpleName());
 
         ButterKnife.bind(this);
         mActivity = this;
@@ -134,7 +138,8 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
 
     @Override
     public void hideEmptyState() {
-        layoutEmpty.hideAll();
+        if (layoutEmpty != null)
+            layoutEmpty.hideAll();
     }
 
     @Override
