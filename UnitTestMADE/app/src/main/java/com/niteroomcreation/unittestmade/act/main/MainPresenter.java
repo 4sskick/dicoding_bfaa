@@ -13,6 +13,10 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         super.onViewActive(view);
     }
 
+    public MainPresenter(CuboidModel cuboidModel) {
+        this.cuboidModel = cuboidModel;
+    }
+
     @Override
     public void onViewActive(MainContract.View view) {
 
