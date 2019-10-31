@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -58,12 +59,35 @@ public class MainPresenterTest {
         assertEquals(dummyVolume, volume, 0.001);
     }
 
-    //test mock
-//    @Test
-//    public void testMockVolume() {
-//        when(presenter.getVolume()).thenReturn(dummyVolume);
-//        double volume = presenter.getVolume();
-//        verify(cuboidModel).getVolume();
-//        assertEquals(dummyVolume, volume, 0.001);
-//    }
+    //test variable class which mocked
+    //but not work with model class to verify mock
+    @Test
+    public void testMockVolume() {
+        presenter = mock(MainPresenter.class);
+
+        when(presenter.getVolume()).thenReturn(dummyVolume);
+        double volume = presenter.getVolume();
+        verify(presenter).getVolume();
+        assertEquals(dummyVolume, volume, 0.001);
+    }
+
+    @Test
+    public void testMockCircumference() {
+        presenter = mock(MainPresenter.class);
+
+        when(presenter.getCircumference()).thenReturn(dummyCircumference);
+        double volume = presenter.getCircumference();
+        verify(presenter).getCircumference();
+        assertEquals(dummyCircumference, volume, 0.001);
+    }
+
+    @Test
+    public void testMockSurfaceArea() {
+        presenter = mock(MainPresenter.class);
+
+        when(presenter.getSurfaceArea()).thenReturn(dummySurfaceArea);
+        double volume = presenter.getSurfaceArea();
+        verify(presenter).getSurfaceArea();
+        assertEquals(dummySurfaceArea, volume, 0.001);
+    }
 }
