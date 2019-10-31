@@ -1,0 +1,54 @@
+<resources>
+
+    <dimen name="padding_xxxsmall">@dimen/_3sdp</dimen>
+    <dimen name="padding_xxsmall">@dimen/_5sdp</dimen>
+    <dimen name="padding_xsmall">@dimen/_8sdp</dimen>
+    <dimen name="padding_small">@dimen/_12sdp</dimen>
+    <dimen name="padding_standard">@dimen/_16sdp</dimen>
+    <dimen name="padding_large">@dimen/_20sdp</dimen>
+    <dimen name="padding_xlarge">@dimen/_24sdp</dimen>
+    <dimen name="padding_xxlarge">@dimen/_26sdp</dimen>
+    <dimen name="padding_xxxlarge">@dimen/_30sdp</dimen>
+    <dimen name="padding_xxxxlarge">@dimen/_48sdp</dimen>
+    <dimen name="padding_huge">@dimen/_56sdp</dimen>
+    <dimen name="padding_xhuge">@dimen/_64sdp</dimen>
+
+    <dimen name="radius_standard">10dp</dimen>
+    <dimen name="button_radius_standard">5dp</dimen>
+    <dimen name="button_radius_small">@dimen/_2sdp</dimen>
+
+    <dimen name="font_size_xxsmall">8sp</dimen>
+    <dimen name="font_size_xsmall">10sp</dimen>
+    <dimen name="font_size_small">12sp</dimen>
+    <dimen name="font_size_standard">14sp</dimen>
+    <dimen name="font_size_large">16sp</dimen>
+    <dimen name="font_size_xlarge">18sp</dimen>
+    <dimen name="font_size_xxlarge">20sp</dimen>
+    <dimen name="font_size_xxxlarge">24sp</dimen>
+    <dimen name="font_size_huge">36sp</dimen>
+    <dimen name="font_size_xhuge">42sp</dimen>
+
+    <dimen name="divider_space_small">@dimen/_3sdp</dimen>
+    <dimen name="divider_space_standard">@dimen/_5sdp</dimen>
+    <dimen name="divider_space_large">@dimen/_8sdp</dimen>
+    <dimen name="divider_space_xlarge">@dimen/_10sdp</dimen>
+    <dimen name="divider_space_xxlarge">@dimen/_15sdp</dimen>
+    <dimen name="divider_space_xxxlarge">@dimen/_20sdp</dimen>
+    <dimen name="divider_space_huge">@dimen/_26sdp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--custom dimens for card material design-->
+    <dimen name="card_corner">5dp</dimen>
+    <dimen name="card_corner_large">8dp</dimen>
+    <dimen name="card_elevation">5dp</dimen>
+    <dimen name="card_elevation_large">18dp</dimen>
+
+    <!--default size icon-->
+    <dimen name="icon_default">@dimen/_24sdp</dimen>
+</resources>
