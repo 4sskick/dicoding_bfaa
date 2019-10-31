@@ -11,5 +11,13 @@ public class MainContract {
 
     interface Presenter extends IBasePresenter<View> {
 
+        void save(double width, double length, double height);
+
+        double getCircumference();
+
+        double getSurfaceArea();
+
+        double getVolume();
+
     }
 }
