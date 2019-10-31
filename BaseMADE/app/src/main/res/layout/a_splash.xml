@@ -20,7 +20,7 @@
         app:lottie_fileName="animations/ic_splash.json"
         app:lottie_loop="true" />
 
-    <com.niteroomcreation.beginermade.view.CustomTextView
+    <com.niteroomcreation.basemade.view.CustomTextView
         android:id="@+id/image_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

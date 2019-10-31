@@ -1,22 +1,105 @@
 apply plugin: 'com.android.application'
 
+
+ext {
+    // Sdk and tools
+    minSdkVersion = 16
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.3'
+
+}
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion this.ext.compileSdkVersion
+    buildToolsVersion this.ext.buildToolsVersion
+
+    flavorDimensions "default"
+
+    //app versioning
+    def versionMajor = 1
+    def versionMinor = 0
+    def versionPatch = 0
+    def versionBuild = 246
+
     defaultConfig {
-        applicationId "com.niteroomcreation.beginermade"
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
+        applicationId "com.niteroomcreation.basemade"
+        minSdkVersion this.ext.minSdkVersion
+        targetSdkVersion this.ext.targetSdkVersion
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file('production.jks')
+            storePassword '123456'
+            keyAlias 'production123456'
+            keyPassword '123456'
+        }
+
+        debug {
+            storeFile file('debug.jks')
+            storePassword '123456'
+            keyAlias 'debug123456'
+            keyPassword '123456'
+        }
+    }
+
+    productFlavors {
+        global {
+            signingConfig signingConfigs.release
+            buildConfigField "String", "BASE_URL", "\"https://production.co.id\""
+            dimension = "default"
+        }
+
+        staging {
+            signingConfig signingConfigs.debug
+            buildConfigField "String", "BASE_URL", "\"https://staging.co.id\""
+            dimension = "default"
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            useProguard true
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+            useProguard false
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -27,6 +110,8 @@ def butterknifeVersion = '8.8.1'
 def saripaarVersion = '2.0.3'
 def intuitVersion = '1.0.6'
 def lottieVersion = '2.7.0'
+def circleImageViewVersion = '3.0.0'
+def glideVersion = '4.9.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -47,6 +132,9 @@ dependencies {
     implementation "com.intuit.sdp:sdp-android:$intuitVersion"
     implementation "com.intuit.ssp:ssp-android:$intuitVersion"
 
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
