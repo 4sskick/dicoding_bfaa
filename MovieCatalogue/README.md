@@ -9,33 +9,39 @@ Untuk menyelesaikan kelas ini Anda diharuskan submit aplikasi yang Anda buat sen
 
 Fitur yang harus ada pada aplikasi:
 
-1. **Halaman Utama**
-    - Menampilkan gambar dan informasi dalam format List dengan jumlah minimal 10 item.
-    - Memunculkan halaman detail ketika salah satu item di tekan.
-2. **Halaman Detail**
-    - Menampilkan gambar dan informasi pada **halaman detail**.
+1. **Daftar Film**
+    - Menggunakan ListView untuk menampilkan daftar film dengan jumlah **minimal 10 item**.
+2. **Detail Film**
+    - Menampilkan poster dan informasi film pada halaman detail film.
+    - Menggunakan **Parcelable** sebagai interface dari obyek data yang akan dikirimkan antar **Activity**.
 3. **Halaman About**
     - Menampilkan **foto diri, nama** dan **email** yang terdaftar di Dicoding.
     
 Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
-![alt text](https://dicodingacademy.blob.core.windows.net/academies/2019080111185794348711e5edf52f458f1d3eab45d0cf.png)
+
+![alt text](https://dicodingacademy.blob.core.windows.net/academies/20190215162043df833baff8cf9928ff1357b30b05c9c1.png)
 
 Kesempatan untuk submission Anda diterima, akan lebih besar jika:
 
-- Membuat aplikasi yang unik dan menarik.
+- Menerapkan mekanisme **Intent** dengan baik dan benar.
+- Menuliskan kode dengan bersih.
 
 Submission Anda akan ditolak jika:
 
-- Tidak menggunakan format List untuk menampilkan data di Halaman Utama.
+- Tidak menggunakan **ListView** untuk menampilkan daftar film.
 - List yang ditampilkan kurang dari 10 item.
-- Tidak bisa berpindah ke halaman detail ketika salah satu item di tekan.
-- Menggunakan tema film, pahlawan atau presiden Indonesia.
+- Tidak menerapkan **Parcelable** sebagai interface dari obyek data yang akan dikirimkan antar **Activity**.
 - Gambar tidak berhasil ditampilkan.
 - Informasi yang ditampilkan pada daftar ataupun detail, tidak relevan.
-- Tidak menampilkan foto diri, nama dan email yang terdaftar di Dicoding pada halaman about.
+- Proyek tidak berhasil di-build.
 - Aplikasi force closed.
 - Mengirimkan aplikasi selain dengan format APK.
 - Mengirimkan proyek yang bukan karya sendiri.
+
+## Resource
+
+- Aset poster film dapat diunduh pada tautan [ini](https://dicodingacademy.blob.core.windows.net/picodiploma/made_academy/submission_1/asset_submission_1.zip). 
+- Informasi mengenai film seperti judul, deskripsi, tanggal rilis, dll dapat dilihat pada tautan [ini](https://www.themoviedb.org/discover/movie).
 
 ## Ketentuan
 
