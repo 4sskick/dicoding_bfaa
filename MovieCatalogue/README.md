@@ -14,8 +14,6 @@ Fitur yang harus ada pada aplikasi:
 2. **Detail Film**
     - Menampilkan poster dan informasi film pada halaman detail film.
     - Menggunakan **Parcelable** sebagai interface dari obyek data yang akan dikirimkan antar **Activity**.
-3. **Halaman About**
-    - Menampilkan **foto diri, nama** dan **email** yang terdaftar di Dicoding.
     
 Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
 

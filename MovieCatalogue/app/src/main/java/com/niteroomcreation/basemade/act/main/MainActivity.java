@@ -6,10 +6,12 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.fragment.main.MainFragment;
+import com.niteroomcreation.basemade.models.MoviesModel;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseView implements MainContract.View {
+public class MainActivity extends BaseView implements MainContract.View,
+        MainFragment.MainFragmentListener {
 
     @BindView(R.id.fl_main_content)
     FrameLayout flMainContent;
@@ -34,7 +36,13 @@ public class MainActivity extends BaseView implements MainContract.View {
 
     @Override
     protected void initComponents() {
-        presenter = new MainPresenter(this);
-        moveToFragment(flMainContent.getId(), MainFragment.newInstance(), MainFragment.class.getSimpleName());
+        presenter = new MainPresenter(this, this);
+        moveToFragment(flMainContent.getId(), MainFragment.newInstance(),
+                MainFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void onItemSelectedDetail(MoviesModel item) {
+        //move to detail act
     }
 }

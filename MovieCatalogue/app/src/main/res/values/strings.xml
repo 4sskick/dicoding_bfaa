@@ -1,3 +1,76 @@
 <resources>
-    <string name="app_name">BeginerMADE</string>
+    <string name="app_name">MADE</string>
+
+    <!--    dumm value sections-->
+    <string name="desc_a_star">
+        Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally.
+        She has just about given up on her dream to make it big as a singer — until Jack coaxes her
+        into the spotlight. But even as Ally\'s career takes off, the personal side of their
+        relationship
+        is breaking down, as Jack fights an ongoing battle with his own internal demons.
+    </string>
+
+    <string name="desc_aquaman">
+        Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom
+        ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer
+        the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry,
+        Orm\'s half-human, half-Atlantean brother and true heir to the throne.
+    </string>
+
+    <string name="desc_avenger">
+        As the Avengers and their allies have continued to protect the world from threats too large
+        for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot
+        of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable
+        power, and use them to inflict his twisted will on all of reality. Everything the Avengers
+        have fought for has led up to this moment - the fate of Earth and existence itself has never
+        been more uncertain.
+    </string>
+
+    <string name="desc_birdbox">
+        Five years after an ominous unseen presence drives most of society to suicide, a survivor
+        and her two children make a desperate bid to reach safety.
+    </string>
+
+    <string name="desc_bohemian">
+        Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon
+        take the music world by storm when they form the rock \'n\' roll band Queen in 1970. Hit
+        songs become instant classics. When Mercury\'s increasingly wild lifestyle starts to
+        spiral out of control, Queen soon faces its greatest challenge yet – finding a way to
+        keep the band together amid the success and excess.
+    </string>
+
+    <string name="desc_bumblebee">
+        On the run in the year 1987, Bumblebee finds refuge in a junkyard in a small Californian
+        beach town. Charlie, on the cusp of turning 18 and trying to find her place in the world,
+        discovers Bumblebee, battle-scarred and broken. When Charlie revives him, she quickly learns
+        this is no ordinary yellow VW bug.
+    </string>
+
+    <string name="desc_creed">
+        The former World Heavyweight Champion Rocky Balboa serves as a trainer and mentor to Adonis
+        Johnson, the son of his late friend and former rival Apollo Creed.
+    </string>
+
+    <string name="desc_deadpool">
+        A kidnapped Fred Savage is forced to endure Deadpool\'s PG-13 rendition of Deadpool 2 as a
+        Princess Bride-esque story that\'s full of magic, wonder &amp; zero F\'s.
+    </string>
+
+    <string name="desc_dragon">
+        As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of
+        an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s
+        reign as village chief is tested, both dragon and rider must make impossible decisions to
+        save their kind.
+    </string>
+
+    <string name="desc_dragonball">
+        Earth is peaceful following the Tournament of Power. Realizing that the universes still
+        hold  many more strong people yet to see, Goku spends all his days training to reach even
+        greater heights. Then one day, Goku and Vegeta are faced by a Saiyan called \'Broly\' who
+        they\'ve never seen before. The Saiyans were supposed to have been almost completely wiped
+        out in the destruction of Planet Vegeta, so what\'s this one doing on Earth? This
+        encounter  between the three Saiyans who have followed completely different destinies
+        turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in
+        the mix.
+    </string>
 </resources>

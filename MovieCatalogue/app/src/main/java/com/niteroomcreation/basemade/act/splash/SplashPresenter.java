@@ -1,5 +1,7 @@
 package com.niteroomcreation.basemade.act.splash;
 
+import android.content.Context;
+
 import com.niteroomcreation.basemade.base.BasePresenter;
 
 /**
@@ -7,12 +9,12 @@ import com.niteroomcreation.basemade.base.BasePresenter;
  */
 public class SplashPresenter extends BasePresenter<SplashContract.View> implements SplashContract.Presenter {
 
-    public SplashPresenter(SplashContract.View view) {
-        super.onViewActive(view);
+    public SplashPresenter(SplashContract.View view, Context context) {
+        super.onViewActive(view, context);
     }
 
     @Override
-    public void onViewActive(SplashContract.View view) {
+    public void onViewActive(SplashContract.View view, Context context) {
 
     }
 

@@ -1,5 +1,7 @@
 package com.niteroomcreation.basemade.act.main;
 
+import android.content.Context;
+
 import com.niteroomcreation.basemade.base.BasePresenter;
 
 /**
@@ -7,12 +9,12 @@ import com.niteroomcreation.basemade.base.BasePresenter;
  */
 public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 
-    public MainPresenter(MainContract.View view) {
-        super.onViewActive(view);
+    public MainPresenter(MainContract.View view, Context context) {
+        super.onViewActive(view, context);
     }
 
     @Override
-    public void onViewActive(MainContract.View view) {
+    public void onViewActive(MainContract.View view, Context context) {
 
     }
 
