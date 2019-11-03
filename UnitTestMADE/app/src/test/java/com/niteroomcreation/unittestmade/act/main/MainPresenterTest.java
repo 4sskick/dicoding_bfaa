@@ -25,6 +25,8 @@ public class MainPresenterTest {
     @Before
     public void before() {
         cuboidModel = mock(CuboidModel.class);
+//        presenter = mock(MainPresenter.class);
+
         presenter = new MainPresenter(cuboidModel);
     }
 
@@ -62,10 +64,12 @@ public class MainPresenterTest {
     //but not work with model class to verify mock
     @Test
     public void testMockVolume() {
-        presenter = mock(MainPresenter.class);
+//        presenter = mock(MainPresenter.class);
+//        cuboidModel = mock(CuboidModel.class);
 
         when(presenter.getVolume()).thenReturn(dummyVolume);
         double volume = presenter.getVolume();
+//        verify(presenter).getVolume();
         verify(presenter).getVolume();
         assertEquals(dummyVolume, volume, 0.001);
     }
