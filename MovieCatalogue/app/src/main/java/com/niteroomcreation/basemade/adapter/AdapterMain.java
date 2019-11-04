@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AdapterMain extends RecyclerView.Adapter<AdapterMain.MainViewHolder> {
 
@@ -71,9 +72,18 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.MainViewHolder
             txtDesc.setText(movie.getDesc());
 
             Glide.with(imgMovie.getContext())
-                    .load(movie.getPoster())
+                    .load(movie.getPosterBitmap())
                     .apply(new RequestOptions().override(55, 55))
                     .into(imgMovie);
+        }
+
+        @OnClick({R.id.layout_item})
+        void onViewClicked(View view) {
+            switch (view.getId()) {
+                case R.id.layout_item:
+                    listener.onItemClicked(getItem(getAdapterPosition()));
+                    break;
+            }
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.niteroomcreation.basemade.ui.act.main;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
+import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 import com.niteroomcreation.basemade.ui.fragment.main.MainFragment;
 import com.niteroomcreation.basemade.models.MoviesModel;
 
@@ -12,6 +14,8 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseView implements MainContract.View,
         MainFragment.MainFragmentListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.fl_main_content)
     FrameLayout flMainContent;
@@ -43,6 +47,7 @@ public class MainActivity extends BaseView implements MainContract.View,
 
     @Override
     public void onItemSelectedDetail(MoviesModel item) {
-        //move to detail act
+        Log.e(TAG, String.format("onItemSelectedDetail: %s", item.toString()));
+        DetailActivity.startActivity(this, item);
     }
 }
