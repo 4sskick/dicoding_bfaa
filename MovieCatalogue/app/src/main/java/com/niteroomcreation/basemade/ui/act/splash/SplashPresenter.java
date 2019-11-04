@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.act.splash;
+package com.niteroomcreation.basemade.ui.act.splash;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.act.splash;
+package com.niteroomcreation.basemade.ui.act.splash;
 
 import com.niteroomcreation.basemade.base.IBasePresenter;
 import com.niteroomcreation.basemade.base.IBaseView;

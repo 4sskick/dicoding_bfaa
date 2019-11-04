@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.fragment.main;
+package com.niteroomcreation.basemade.ui.fragment.main;
 
 import com.niteroomcreation.basemade.base.IBasePresenter;
 import com.niteroomcreation.basemade.base.IBaseView;

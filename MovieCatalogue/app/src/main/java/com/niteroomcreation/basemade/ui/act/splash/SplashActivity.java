@@ -1,9 +1,9 @@
-package com.niteroomcreation.basemade.act.splash;
+package com.niteroomcreation.basemade.ui.act.splash;
 
 import android.os.Handler;
 
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.act.main.MainActivity;
+import com.niteroomcreation.basemade.ui.act.main.MainActivity;
 import com.niteroomcreation.basemade.base.BaseView;
 
 /**

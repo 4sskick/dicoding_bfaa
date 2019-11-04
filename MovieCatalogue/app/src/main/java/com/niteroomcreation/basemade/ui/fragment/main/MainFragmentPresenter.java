@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.fragment.main;
+package com.niteroomcreation.basemade.ui.fragment.main;
 
 import android.content.Context;
 

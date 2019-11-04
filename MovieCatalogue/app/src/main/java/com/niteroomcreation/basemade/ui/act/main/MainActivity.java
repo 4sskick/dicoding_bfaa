@@ -1,11 +1,11 @@
-package com.niteroomcreation.basemade.act.main;
+package com.niteroomcreation.basemade.ui.act.main;
 
 import android.content.Intent;
 import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
-import com.niteroomcreation.basemade.fragment.main.MainFragment;
+import com.niteroomcreation.basemade.ui.fragment.main.MainFragment;
 import com.niteroomcreation.basemade.models.MoviesModel;
 
 import butterknife.BindView;

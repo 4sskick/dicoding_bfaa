@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.act.main;
+package com.niteroomcreation.basemade.ui.act.main;
 
 import android.content.Context;
 
@@ -11,19 +11,5 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
     public MainPresenter(MainContract.View view, Context context) {
         super.onViewActive(view, context);
-    }
-
-    @Override
-    public void onViewActive(MainContract.View view, Context context) {
-
-    }
-
-    @Override
-    public void onViewInactive() {
-
-    }
-
-    public String getDum(){
-        return "from presenter";
     }
 }
