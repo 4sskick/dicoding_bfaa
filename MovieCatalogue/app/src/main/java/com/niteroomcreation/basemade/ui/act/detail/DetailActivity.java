@@ -70,7 +70,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         txtDetailName.setText(model.getName());
         txtDetailDesc.setText(model.getDesc());
         txtDetailPercentage.setText(model.getPercentage());
-        txtDetailYear.setText(String.valueOf(model.getYear()));
+        txtDetailYear.setText(String.format("( %s )", String.valueOf(model.getYear())));
 
         Log.e(TAG, String.format("initComponents: %s", model.toString()));
     }

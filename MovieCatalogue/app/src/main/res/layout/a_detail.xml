@@ -84,21 +84,35 @@
 
             <View
                 style="@style/ComponentDivider"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/padding_xsmall"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_content_desc_title" />
 
-            <TextView
-                android:id="@+id/txt_detail_desc"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_standard"
-                android:lineSpacingMultiplier="1"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_content_desc_title"
-                tools:text="@string/lorem" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_content_desc_title">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_standard"
+                    android:text="Overview"
+                    android:textSize="@dimen/font_size_xxlarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_detail_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_xxsmall"
+                    android:lineSpacingMultiplier="1"
+                    tools:text="@string/lorem" />
+            </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
