@@ -72,7 +72,7 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.MainViewHolder
             txtDesc.setText(movie.getDesc());
 
             Glide.with(imgMovie.getContext())
-                    .load(movie.getPosterBitmap())
+                    .load(movie.getPoster())
                     .apply(new RequestOptions().override(55, 55))
                     .into(imgMovie);
         }

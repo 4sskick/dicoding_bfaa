@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.ImageFitView;
 
 import butterknife.BindView;
@@ -55,13 +56,15 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         } else
             throw new RuntimeException("Model isn't carried by parcelable arguments!");
 
-//        Glide.with(this)
-//                .load(model.getPoster())
-//                .placeholder(R.drawable.poster_glass)
-//                .into(imgDetailMovie);
-//
-//        txtDetailName.setText(model.getName());
-//        txtDetailDesc.setText(model.getDesc());
+        Glide.with(this)
+                .load(new ImageUtils(this)
+                        .setFileName(model.getName())
+                        .load())
+                .placeholder(R.drawable.poster_glass)
+                .into(imgDetailMovie);
+
+        txtDetailName.setText(model.getName());
+        txtDetailDesc.setText(model.getDesc());
 
         Log.e(TAG, String.format("initComponents: %s", model.toString()));
     }

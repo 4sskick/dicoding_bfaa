@@ -18,32 +18,31 @@ public class MoviesModel implements Parcelable {
 
     private String name;
     private String desc;
-    //    private int poster;
-    private Bitmap posterBitmap;
+
+    private int poster;
+    //    private Bitmap posterBitmap;
+    private String posterPath;
+
     private int ratePercentage;
     private FeaturedMovieModel featuredMovieModel;
 
     public MoviesModel(String name
             , String desc
-//            , int poster
-            , Bitmap posterBitmap
+
+            , int poster
+//            , Bitmap posterBitmap
+//            , String posterPath
+
             , int ratePercentage
             , FeaturedMovieModel featuredMovieModel) {
         this.name = name;
         this.desc = desc;
-//        this.poster = poster;
-        this.posterBitmap = posterBitmap;
+
+        this.poster = poster;
+//        this.posterBitmap = posterBitmap;
+
         this.ratePercentage = ratePercentage;
         this.featuredMovieModel = featuredMovieModel;
-    }
-
-    protected MoviesModel(Parcel in) {
-        name = in.readString();
-//        poster = in.readInt();
-        posterBitmap = ((Bitmap) in.readParcelable(Bitmap.class.getClassLoader()));
-        desc = in.readString();
-        ratePercentage = in.readInt();
-        featuredMovieModel = in.readParcelable(FeaturedMovieModel.class.getClassLoader());
     }
 
     public static final Creator<MoviesModel> CREATOR = new Creator<MoviesModel>() {
@@ -63,18 +62,33 @@ public class MoviesModel implements Parcelable {
         return hashCode();
     }
 
+    /**
+     * order of read & write does matter!
+     *
+     * @param in
+     */
+    protected MoviesModel(Parcel in) {
+        name = in.readString();
+        desc = in.readString();
+
+//        poster = in.readInt();
+//        posterBitmap = ((Bitmap) in.readParcelable(Bitmap.class.getClassLoader()));
+        posterPath = in.readString();
+
+        ratePercentage = in.readInt();
+        featuredMovieModel = in.readParcelable(FeaturedMovieModel.class.getClassLoader());
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(desc);
-//        dest.writeInt(poster);
-        dest.writeParcelable(posterBitmap, PARCELABLE_WRITE_RETURN_VALUE);
-        dest.writeInt(ratePercentage);
 
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(EXTRA_FEATURE, featuredMovieModel);
-//
-//        dest.writeBundle(bundle);
+//        dest.writeInt(poster);
+//        dest.writeParcelable(posterBitmap, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeString(posterPath);
+
+        dest.writeInt(ratePercentage);
         dest.writeParcelable(featuredMovieModel, PARCELABLE_WRITE_RETURN_VALUE);
     }
 
@@ -86,21 +100,29 @@ public class MoviesModel implements Parcelable {
         this.name = name;
     }
 
-//    public int getPoster() {
-//        return poster;
-//    }
-//
-//    public void setPoster(int poster) {
-//        this.poster = poster;
-//    }
-
-
-    public Bitmap getPosterBitmap() {
-        return posterBitmap;
+    public int getPoster() {
+        return poster;
     }
 
-    public void setPosterBitmap(Bitmap posterBitmap) {
-        this.posterBitmap = posterBitmap;
+    public void setPoster(int poster) {
+        this.poster = poster;
+    }
+//
+//    public Bitmap getPosterBitmap() {
+//        return posterBitmap;
+//    }
+//
+//    public void setPosterBitmap(Bitmap posterBitmap) {
+//        this.posterBitmap = posterBitmap;
+//    }
+
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
     public String getDesc() {
@@ -131,7 +153,8 @@ public class MoviesModel implements Parcelable {
     public String toString() {
         return "MoviesModel{" +
                 "name='" + name + '\'' +
-                ", poster=" + (posterBitmap != null ? "ga null" : "null looo!") +
+                ", poster=" + poster + '\'' +
+                ", poster path=" + posterPath + '\'' +
                 ", desc='" + desc + '\'' +
                 ", ratePercentage=" + ratePercentage +
                 ", featuredMovieModel=" + featuredMovieModel +
