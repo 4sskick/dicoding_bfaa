@@ -1,6 +1,5 @@
 package com.niteroomcreation.basemade.models;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -18,29 +17,23 @@ public class MoviesModel implements Parcelable {
 
     private String name;
     private String desc;
-
-    private int poster;
-    //    private Bitmap posterBitmap;
     private String posterPath;
-
+    private int year;
+    private int poster;
     private int ratePercentage;
+
     private FeaturedMovieModel featuredMovieModel;
 
     public MoviesModel(String name
             , String desc
-
             , int poster
-//            , Bitmap posterBitmap
-//            , String posterPath
-
+            , int year
             , int ratePercentage
             , FeaturedMovieModel featuredMovieModel) {
         this.name = name;
         this.desc = desc;
-
         this.poster = poster;
-//        this.posterBitmap = posterBitmap;
-
+        this.year = year;
         this.ratePercentage = ratePercentage;
         this.featuredMovieModel = featuredMovieModel;
     }
@@ -70,11 +63,8 @@ public class MoviesModel implements Parcelable {
     protected MoviesModel(Parcel in) {
         name = in.readString();
         desc = in.readString();
-
-//        poster = in.readInt();
-//        posterBitmap = ((Bitmap) in.readParcelable(Bitmap.class.getClassLoader()));
         posterPath = in.readString();
-
+        year = in.readInt();
         ratePercentage = in.readInt();
         featuredMovieModel = in.readParcelable(FeaturedMovieModel.class.getClassLoader());
     }
@@ -83,11 +73,8 @@ public class MoviesModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(desc);
-
-//        dest.writeInt(poster);
-//        dest.writeParcelable(posterBitmap, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeString(posterPath);
-
+        dest.writeInt(year);
         dest.writeInt(ratePercentage);
         dest.writeParcelable(featuredMovieModel, PARCELABLE_WRITE_RETURN_VALUE);
     }
@@ -107,15 +94,6 @@ public class MoviesModel implements Parcelable {
     public void setPoster(int poster) {
         this.poster = poster;
     }
-//
-//    public Bitmap getPosterBitmap() {
-//        return posterBitmap;
-//    }
-//
-//    public void setPosterBitmap(Bitmap posterBitmap) {
-//        this.posterBitmap = posterBitmap;
-//    }
-
 
     public String getPosterPath() {
         return posterPath;
@@ -137,8 +115,20 @@ public class MoviesModel implements Parcelable {
         return ratePercentage;
     }
 
+    public String getPercentage() {
+        return String.valueOf(getRatePercentage()) + "%";
+    }
+
     public void setRatePercentage(int ratePercentage) {
         this.ratePercentage = ratePercentage;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public FeaturedMovieModel getFeaturedMovieModel() {
@@ -153,11 +143,13 @@ public class MoviesModel implements Parcelable {
     public String toString() {
         return "MoviesModel{" +
                 "name='" + name + '\'' +
-                ", poster=" + poster + '\'' +
-                ", poster path=" + posterPath + '\'' +
                 ", desc='" + desc + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", year=" + year +
+                ", poster=" + poster +
                 ", ratePercentage=" + ratePercentage +
                 ", featuredMovieModel=" + featuredMovieModel +
                 '}';
     }
+
 }

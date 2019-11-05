@@ -7,6 +7,16 @@
     <color name="windowBackgroundPrimary">@color/backgroundPrimary</color>
     <color name="windowBackgroundSecondary">@color/backgroundSecondary</color>
 
+    <color name="a">#24367D</color>
+    <color name="b">#19265E</color>
+
+
+    <color name="c">#D05301</color>
+    <color name="cd">#BE4D01</color>
+    <color name="d">#3A3F45</color>
+
+
+
     <!--Button Color Variant-->
     <color name="buttonPrimary">@color/colorAccent</color>
     <color name="buttonPrimaryHover">@color/bondi_blue</color>
@@ -20,8 +30,10 @@
     <color name="buttonRedHover">@color/cg_red</color>
 
     <!--common colors-->
-    <color name="colorPrimary">@color/cerulean</color>
-    <color name="colorPrimaryDark">@color/cerulean_darker</color>
+<!--    <color name="colorPrimary">@color/cerulean</color>-->
+    <color name="colorPrimary">@color/c</color>
+<!--    <color name="colorPrimaryDark">@color/cerulean_darker</color>-->
+    <color name="colorPrimaryDark">@color/cd</color>
     <color name="colorAccent">@color/cerulean</color>
     <color name="white">#fff</color>
     <color name="snow">#fafafa</color>

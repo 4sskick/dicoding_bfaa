@@ -10,18 +10,43 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.niteroomcreation.basemade.view.ImageFitView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img_detail_movie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#30000000"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/poster_glass" />
 
+        <FrameLayout
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/padding_standard"
+            android:layout_marginRight="@dimen/padding_standard"
+            android:layout_marginBottom="@dimen/padding_small"
+            app:layout_constraintBottom_toTopOf="@+id/layout_item_content_desc"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/txt_detail_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_circular"
+                android:gravity="center"
+                android:maxLength="4"
+                android:padding="@dimen/padding_small"
+                android:text="78%"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_large"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_item_content_desc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/padding_standard"
@@ -30,16 +55,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_detail_movie">
 
-            <TextView
-                android:id="@+id/txt_detail_name"
+            <LinearLayout
+                android:id="@+id/layout_content_desc_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_huge"
-                android:textStyle="bold"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="nama tokoh" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/txt_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_huge"
+                    android:textStyle="bold"
+                    tools:text="nama tokoh" />
+
+                <TextView
+                    android:id="@+id/txt_detail_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="(2018)"
+                    android:textSize="@dimen/font_size_xxlarge"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                style="@style/ComponentDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/padding_xsmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_content_desc_title" />
 
             <TextView
                 android:id="@+id/txt_detail_desc"
@@ -49,7 +97,7 @@
                 android:lineSpacingMultiplier="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_detail_name"
+                app:layout_constraintTop_toBottomOf="@+id/layout_content_desc_title"
                 tools:text="@string/lorem" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>

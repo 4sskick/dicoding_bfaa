@@ -1,6 +1,7 @@
 package com.niteroomcreation.basemade.ui.act.detail;
 
 import android.content.Intent;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -9,7 +10,6 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.models.MoviesModel;
 import com.niteroomcreation.basemade.utils.ImageUtils;
-import com.niteroomcreation.basemade.view.ImageFitView;
 
 import butterknife.BindView;
 
@@ -23,11 +23,15 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     public static final String EXTRA_MODEL = "model.object";
 
     @BindView(R.id.img_detail_movie)
-    ImageFitView imgDetailMovie;
+    AppCompatImageView imgDetailMovie;
     @BindView(R.id.txt_detail_name)
     TextView txtDetailName;
     @BindView(R.id.txt_detail_desc)
     TextView txtDetailDesc;
+    @BindView(R.id.txt_detail_percentage)
+    TextView txtDetailPercentage;
+    @BindView(R.id.txt_detail_year)
+    TextView txtDetailYear;
 
     private MoviesModel model;
 
@@ -65,6 +69,8 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
         txtDetailName.setText(model.getName());
         txtDetailDesc.setText(model.getDesc());
+        txtDetailPercentage.setText(model.getPercentage());
+        txtDetailYear.setText(String.valueOf(model.getYear()));
 
         Log.e(TAG, String.format("initComponents: %s", model.toString()));
     }
