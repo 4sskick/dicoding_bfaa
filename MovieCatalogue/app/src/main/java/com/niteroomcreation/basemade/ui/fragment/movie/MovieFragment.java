@@ -1,19 +1,15 @@
-package com.niteroomcreation.basemade.ui.fragment.main;
+package com.niteroomcreation.basemade.ui.fragment.movie;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.adapter.AdapterMain;
 import com.niteroomcreation.basemade.adapter.AdapterMainList;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
 import com.niteroomcreation.basemade.models.MoviesModel;
-import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.List;
 
@@ -22,9 +18,9 @@ import butterknife.BindView;
 /**
  * Created by Septian Adi Wijaya on 01/10/19
  */
-public class MainFragment extends BaseFragmentView implements MainFragmentContract.View {
+public class MovieFragment extends BaseFragmentView implements MovieContract.View {
 
-    private static final String TAG = MainFragment.class.getSimpleName();
+    private static final String TAG = MovieFragment.class.getSimpleName();
 
     @BindView(R.id.list_main)
     ListView listMain;
@@ -34,20 +30,20 @@ public class MainFragment extends BaseFragmentView implements MainFragmentContra
 
     private MainFragmentListener listener;
     private List<MoviesModel> movies;
-    private MainFragmentPresenter presenter;
+    private MoviePresenter presenter;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static MovieFragment newInstance() {
+        return new MovieFragment();
     }
 
     @Override
     protected int contentLayout() {
-        return R.layout.f_main;
+        return R.layout.f_movies;
     }
 
     @Override
     protected void initComponents() {
-        presenter = new MainFragmentPresenter(this, getContext());
+        presenter = new MoviePresenter(this, getContext());
 
         movies = presenter.constructModels();
 //        adapter = new AdapterMain(movies, new GenericItemListener<MoviesModel>() {

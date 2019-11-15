@@ -3,27 +3,55 @@ package com.niteroomcreation.basemade.ui.act.main;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.models.MoviesModel;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
-import com.niteroomcreation.basemade.ui.fragment.main.MainFragment;
+import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
+import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseView implements MainContract.View,
-        MainFragment.MainFragmentListener {
+        MovieFragment.MainFragmentListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    @BindView(R.id.nav_view_main)
+    BottomNavigationView navView;
     @BindView(R.id.fl_main_content)
     FrameLayout flMainContent;
 
     private MainPresenter presenter;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_movies:
+                    moveToFragment(flMainContent.getId(), MovieFragment.newInstance()
+                            , MovieFragment.class.getSimpleName());
+
+                    Log.e(TAG, "onNavigationItemSelected: nav_movies");
+                    break;
+
+                case R.id.nav_tv_shows:
+                    moveToFragment(flMainContent.getId(), TvShowFragment.newInstance()
+                            , TvShowFragment.class.getSimpleName());
+
+                    Log.e(TAG, "onNavigationItemSelected: nav_tv_shows");
+                    break;
+            }
+
+            return false;
+        }
+    };
 
     public static void startActivity(BaseView act) {
         Intent i = new Intent(act, MainActivity.class);
@@ -44,8 +72,10 @@ public class MainActivity extends BaseView implements MainContract.View,
     @Override
     protected void initComponents() {
         presenter = new MainPresenter(this, this);
-        moveToFragment(flMainContent.getId(), MainFragment.newInstance(),
-                MainFragment.class.getSimpleName());
+        moveToFragment(flMainContent.getId(), MovieFragment.newInstance(),
+                MovieFragment.class.getSimpleName());
+
+        navView.setOnNavigationItemSelectedListener(mOnNavSelectedListener);
     }
 
     @Override
@@ -75,6 +105,7 @@ public class MainActivity extends BaseView implements MainContract.View,
                     @Override
                     public void failed(String errMsg) {
                         Log.e(TAG, String.format("failed: %s", errMsg));
+
                     }
                 });
     }

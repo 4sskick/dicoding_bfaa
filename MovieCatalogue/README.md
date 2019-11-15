@@ -71,3 +71,8 @@ Bagaimana cara ekspor proyek ke dalam berkas ZIP?
 
 1. Pilih menu **File → Export to ZIP File...** pada Android Studio.
 2. Pilih direktori penyimpanan dan klik **OK**.
+
+
+### Ref Design
+
+![alt text](https://cdn.dribbble.com/users/835462/screenshots/3550576/event-app-dribble-800x600-gif.gif)

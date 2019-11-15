@@ -1,30 +1,25 @@
-package com.niteroomcreation.basemade.ui.fragment.main;
+package com.niteroomcreation.basemade.ui.fragment.movie;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.models.MoviesModel;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Septian Adi Wijaya on 01/10/19
  */
-public class MainFragmentPresenter extends BasePresenter<MainFragmentContract.View> implements MainFragmentContract.Presenter {
+public class MoviePresenter extends BasePresenter<MovieContract.View> implements MovieContract.Presenter {
 
-    public MainFragmentPresenter(MainFragmentContract.View view, Context context) {
+    public MoviePresenter(MovieContract.View view, Context context) {
         super.onViewActive(view, context);
     }
 
     @Override
-    public void onViewActive(MainFragmentContract.View view, Context context) {
+    public void onViewActive(MovieContract.View view, Context context) {
 
     }
 

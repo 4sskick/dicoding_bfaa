@@ -85,4 +85,8 @@
         turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in
         the mix.
     </string>
+
+
+    <string name="nav_bot_movies">Movies</string>
+    <string name="nav_bot_tv_shows">Tv Shows</string>
 </resources>
