@@ -13,8 +13,6 @@ public class MoviesModel implements Parcelable {
      * - after in another act querying the URI to load the bitmap
      */
 
-    private static final String EXTRA_FEATURE = "feature_movie";
-
     private String name;
     private String desc;
     private String posterPath;
