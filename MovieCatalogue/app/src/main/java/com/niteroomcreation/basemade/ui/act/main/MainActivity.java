@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
@@ -20,7 +21,7 @@ import com.niteroomcreation.basemade.utils.ImageUtils;
 import butterknife.BindView;
 
 public class MainActivity extends BaseView implements MainContract.View,
-        MovieFragment.MainFragmentListener {
+        MovieFragment.MoviesListener, TvShowFragment.TvShowListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -30,7 +31,8 @@ public class MainActivity extends BaseView implements MainContract.View,
     FrameLayout flMainContent;
 
     private MainPresenter presenter;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
@@ -79,7 +81,7 @@ public class MainActivity extends BaseView implements MainContract.View,
     }
 
     @Override
-    public void onItemSelectedDetail(MoviesModel item) {
+    public void onItemSelectedDetail(Object item) {
         Log.e(TAG, String.format("onItemSelectedDetail: %s", item.toString()));
 
         //asking permission to access external storage
@@ -87,26 +89,31 @@ public class MainActivity extends BaseView implements MainContract.View,
         //accept: run store image
         //reject: do nothing & re-asking permission
 
-        Bitmap b = ((BitmapDrawable) getResources().getDrawable(item.getPoster())).getBitmap();
+        if (item instanceof MoviesModel) {
+            Bitmap b =
+                    ((BitmapDrawable) getResources().getDrawable(((MoviesModel) item).getPoster())).getBitmap();
 
-        new ImageUtils(MainActivity.this)
-                .setFileName(item.getName())
-                .save(b, new ImageUtils.ImageUtilsListener() {
-                    @Override
-                    public void success(String fileAbsolutePath) {
-                        Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
+            new ImageUtils(MainActivity.this)
+                    .setFileName(((MoviesModel) item).getName())
+                    .save(b, new ImageUtils.ImageUtilsListener() {
+                        @Override
+                        public void success(String fileAbsolutePath) {
+                            Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
 
-                        MoviesModel m = item;
-                        m.setPosterPath(fileAbsolutePath);
+                            MoviesModel m = ((MoviesModel) item);
+                            m.setPosterPath(fileAbsolutePath);
 
-                        DetailActivity.startActivity(MainActivity.this, m);
-                    }
+                            DetailActivity.startActivity(MainActivity.this, m);
+                        }
 
-                    @Override
-                    public void failed(String errMsg) {
-                        Log.e(TAG, String.format("failed: %s", errMsg));
+                        @Override
+                        public void failed(String errMsg) {
+                            Log.e(TAG, String.format("failed: %s", errMsg));
 
-                    }
-                });
+                        }
+                    });
+        } else if (item instanceof TvShowModel) {
+            Log.e(TAG, "onItemSelectedDetail: here tv show");
+        }
     }
 }

@@ -10,9 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -22,12 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHolder> {
+public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHolder> {
 
-    private List<MoviesModel> movies;
-    private GenericItemListener<MoviesModel> listener;
+    private List<TvShowModel> movies;
+    private GenericItemListener<TvShowModel> listener;
 
-    public AdapterMovies(List<MoviesModel> movies, GenericItemListener<MoviesModel> listener) {
+    public AdapterTvShow(List<TvShowModel> movies, GenericItemListener<TvShowModel> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -50,7 +49,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         return movies.size();
     }
 
-    private MoviesModel getItem(int pos) {
+    private TvShowModel getItem(int pos) {
         return movies.get(pos);
     }
 
@@ -69,13 +68,13 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         }
 
         void binds() {
-            MoviesModel movie = getItem(getAdapterPosition());
+            TvShowModel tvShow = getItem(getAdapterPosition());
 
-            txtName.setText(movie.getName());
-            txtDesc.setText(movie.getDesc());
+            txtName.setText(tvShow.getName());
+            txtDesc.setText(tvShow.getDesc());
 
             Glide.with(imgMovie.getContext())
-                    .load(movie.getPoster())
+                    .load(tvShow.getPoster())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .transform(BlurTransformation.init(imgMovie.getContext()))
                     .into(imgMovie);

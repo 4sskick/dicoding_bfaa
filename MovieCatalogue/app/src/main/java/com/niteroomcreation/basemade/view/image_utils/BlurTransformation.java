@@ -16,10 +16,19 @@ import java.security.MessageDigest;
 public class BlurTransformation extends BitmapTransformation {
 
     private RenderScript rs;
+    private static BlurTransformation reff;
 
-    public BlurTransformation(Context context) {
+    private BlurTransformation(Context context) {
         super();
         rs = RenderScript.create(context);
+    }
+
+    public static synchronized BlurTransformation init(Context context){
+        if(reff == null){
+            reff = new BlurTransformation(context);
+        }
+
+        return reff;
     }
 
     @Override
@@ -31,7 +40,6 @@ public class BlurTransformation extends BitmapTransformation {
         //allocate memory for renderscript to work with
         Allocation inp = Allocation.createFromBitmap(rs, blurredBitmap,
                 Allocation.MipmapControl.MIPMAP_FULL, Allocation.USAGE_SHARED);
-
         Allocation out = Allocation.createTyped(rs, inp.getType());
 
         // Load up an instance of the specific script that we want to use.
@@ -47,7 +55,8 @@ public class BlurTransformation extends BitmapTransformation {
         // Copy the output to the blurred bitmap
         out.copyTo(blurredBitmap);
 
-        //don't work in glide version 4, only work in version 3
+        // don't work in glide version 4, only work in version 3
+        // see: https://stackoverflow.com/a/57195802
 //        toTransform.recycle();
 
         return blurredBitmap;

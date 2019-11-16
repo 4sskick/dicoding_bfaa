@@ -22,12 +22,12 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     private static final String TAG = MovieFragment.class.getSimpleName();
 
     @BindView(R.id.list_movie)
-    RecyclerView listMain;
+    RecyclerView listMovie;
 
     private AdapterMovies adapter;
 //    private AdapterMainList adapterList;
 
-    private MainFragmentListener listener;
+    private MoviesListener listener;
     private List<MoviesModel> movies;
     private MoviePresenter presenter;
 
@@ -52,8 +52,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
             }
         });
 
-        listMain.setLayoutManager(new LinearLayoutManager(getContext()));
-        listMain.setAdapter(adapter);
+        listMovie.setLayoutManager(new LinearLayoutManager(getContext()));
+        listMovie.setAdapter(adapter);
 
 //        adapterList = new AdapterMainList(movies);
 //        listMain.setAdapter(adapterList);
@@ -71,8 +71,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof MainFragmentListener)
-            listener = (MainFragmentListener) context;
+        if (context instanceof MoviesListener)
+            listener = (MoviesListener) context;
         else
             throw new RuntimeException("Listener must implemented");
     }
@@ -83,7 +83,7 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         super.onDetach();
     }
 
-    public interface MainFragmentListener {
-        void onItemSelectedDetail(MoviesModel item);
+    public interface MoviesListener {
+        void onItemSelectedDetail(Object item);
     }
 }

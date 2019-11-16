@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="(2018)"
-                    android:textSize="@dimen/font_size_xxlarge"
+                    android:textSize="@dimen/font_size_xlarge"
                     android:textStyle="bold" />
             </LinearLayout>
 
