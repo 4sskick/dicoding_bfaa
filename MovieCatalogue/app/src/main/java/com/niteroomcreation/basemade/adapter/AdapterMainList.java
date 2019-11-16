@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.models.MoviesModel;
-import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class AdapterMainList extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.i_main, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.i_movie, parent, false);
         }
 
         MainListViewHolder vh = new MainListViewHolder(view);

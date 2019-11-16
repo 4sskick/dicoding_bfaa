@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.List;
@@ -20,12 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AdapterMain extends RecyclerView.Adapter<AdapterMain.MainViewHolder> {
+public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHolder> {
 
     private List<MoviesModel> movies;
     private GenericItemListener<MoviesModel> listener;
 
-    public AdapterMain(List<MoviesModel> movies, GenericItemListener<MoviesModel> listener) {
+    public AdapterMovies(List<MoviesModel> movies, GenericItemListener<MoviesModel> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -33,7 +34,8 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.MainViewHolder
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.i_main, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.i_movie,
+                viewGroup, false);
         return new MainViewHolder(view);
     }
 
@@ -73,7 +75,7 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.MainViewHolder
 
             Glide.with(imgMovie.getContext())
                     .load(movie.getPoster())
-                    .apply(new RequestOptions().override(55, 55))
+                    .transform(new BlurTransformation(imgMovie.getContext()))
                     .into(imgMovie);
         }
 
