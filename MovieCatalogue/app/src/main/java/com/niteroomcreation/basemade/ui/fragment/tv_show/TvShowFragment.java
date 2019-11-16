@@ -69,8 +69,4 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
         listener = null;
         super.onDetach();
     }
-
-    public interface TvShowListener {
-        void onItemSelectedDetail(Object item);
-    }
 }

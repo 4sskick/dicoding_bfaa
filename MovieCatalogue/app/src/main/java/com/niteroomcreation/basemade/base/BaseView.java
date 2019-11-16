@@ -21,7 +21,8 @@ import butterknife.ButterKnife;
 /**
  * Created by Septian Adi Wijaya on 03/09/19
  */
-public abstract class BaseView extends AppCompatActivity implements IBaseView, BaseFragmentView.BaseFragmentCallback {
+public abstract class BaseView extends AppCompatActivity implements IBaseView,
+        BaseFragmentView.BaseFragmentCallback {
 
     public final int EMPTY_LAYOUT = 0;
 
@@ -55,7 +56,8 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
             if (contentLayout() != EMPTY_LAYOUT)
                 try {
                     layoutContent = findViewById(R.id.layout_content);
-                    LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                    LayoutInflater inflater =
+                            (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
                     inflater.inflate(contentLayout(), layoutContent);
                 } catch (Exception e) {
                     throw new IllegalStateException("Inflating contentLayout() failed on " + this.getClass().getSimpleName());
@@ -152,13 +154,15 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
 
     }
 
-    public void moveToFragment(int viewIdFrameLayout, BaseFragmentView fragment, String fragmentTag) {
+    public void moveToFragment(int viewIdFrameLayout, BaseFragmentView fragment,
+                               String fragmentTag) {
         try {
             fragmentManager.beginTransaction()
                     .replace(viewIdFrameLayout, fragment, fragmentTag)
                     .commit();
         } catch (Exception e) {
-            throw new IllegalStateException(String.format("Seems like fragmentManager isn't initialized %s", e.getMessage()));
+            throw new IllegalStateException(String.format("Seems like fragmentManager isn't " +
+                    "initialized %s", e.getMessage()));
         }
     }
 
@@ -172,8 +176,9 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView, B
             case android.R.id.home:
                 onBackPressed();
                 return true;
-        }
 
-        return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -107,6 +107,10 @@ public class TvShowModel implements Parcelable {
         this.poster = poster;
     }
 
+    public String getPercentage() {
+        return String.valueOf(getRatePercentage()) + "%";
+    }
+
     public int getRatePercentage() {
         return ratePercentage;
     }

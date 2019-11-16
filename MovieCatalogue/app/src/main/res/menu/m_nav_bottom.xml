@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/nav_movies"
-        android:title="@string/nav_bot_movies" />
+        android:icon="@drawable/ic_movies"
+        android:title="@string/nav_bot_movies"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_tv_shows"
-        android:title="@string/nav_bot_tv_shows" />
+        android:icon="@drawable/ic_tv_show"
+        android:title="@string/nav_bot_tv_shows"
+        app:showAsAction="ifRoom" />
 
 </menu>
