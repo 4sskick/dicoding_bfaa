@@ -1,44 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/layout_item"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:padding="@dimen/padding_standard">-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:layout_toEndOf="@id/img_item_photo"-->
-<!--        android:layout_toRightOf="@id/img_item_photo"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/txt_item_name"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="@dimen/font_size_xlarge"-->
-<!--            android:textStyle="bold"-->
-<!--            tools:text="txt item name" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/txt_item_desc"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:ellipsize="end"-->
-<!--            android:maxLines="2"-->
-<!--            tools:text="txt item desc" />-->
-<!--    </LinearLayout>-->
-
-<!--    <android.support.v7.widget.AppCompatImageView-->
-<!--        android:id="@+id/img_item_photo"-->
-<!--        android:layout_width="@dimen/padding_huge"-->
-<!--        android:layout_height="@dimen/padding_huge"-->
-<!--        android:layout_marginEnd="@dimen/padding_standard"-->
-<!--        android:layout_marginRight="@dimen/padding_standard"-->
-<!--        tools:src="@android:color/darker_gray" />-->
-<!--</RelativeLayout>-->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_item"
@@ -53,9 +13,9 @@
         tools:src="@drawable/poster_aquaman" />
 
     <FrameLayout
-        android:background="@color/black_trans_45"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp"
+        android:background="@color/black_trans_45"
         android:padding="@dimen/padding_small">
 
         <LinearLayout
@@ -70,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_xxxlarge"
+                android:textSize="@dimen/font_size_xlarge"
                 android:textStyle="bold"
                 tools:text="txt item name" />
 
@@ -81,7 +41,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_large"
+                android:textSize="@dimen/font_size_small"
                 tools:text="txt item desc" />
 
         </LinearLayout>
