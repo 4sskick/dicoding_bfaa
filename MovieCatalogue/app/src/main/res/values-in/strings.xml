@@ -3,19 +3,6 @@
     <string name="app_name">MADE</string>
 
     <!--    dumm value sections-->
-    <string name="lorem">
-        Ada banyak variasi bagian dari Lorem Ipsum yang tersedia, tetapi mayoritas telah
-        mengalami perubahan dalam beberapa bentuk, dengan menyuntikkan humor, atau secara acak
-        kata-kata yang bahkan tidak bisa dipercaya. Jika Anda akan menggunakan bagian dari Lorem
-        Ipsum, Anda harus yakin tidak ada sesuatu yang memalukan yang tersembunyi di
-        tengah-tengah teks. Semua generator Lorem Ipsum di Internet cenderung mengulangi potongan
-        yang telah ditentukan sebelumnya diperlukan, menjadikan ini generator sejati pertama di
-        Internet. Ini menggunakan kamus lebih dari 200 kata Latin, dikombinasikan dengan beberapa
-        struktur model kalimat, untuk menghasilkan Lorem Ipsum yang terlihat masuk akal.
-        Karenanya Lorem Ipsum yang dihasilkan selalu bebas dari pengulangan, humor yang
-        disuntikkan, atau kata-kata non-karakteristik dll.
-    </string>
-
     <string name="desc_a_star">
         Musisi kawakan Jackson Maine menemukan - dan jatuh cinta dengan - artis yang sedang
         berjuang Ally. Dia baru saja menyerah pada mimpinya untuk menjadi besar sebagai penyanyi
