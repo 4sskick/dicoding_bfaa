@@ -75,7 +75,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
 
             Glide.with(imgMovie.getContext())
                     .load(tvShow.getPoster())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .transform(BlurTransformation.init(imgMovie.getContext()))
                     .into(imgMovie);
         }

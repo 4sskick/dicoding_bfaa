@@ -157,6 +157,8 @@ public class MainActivity extends BaseView implements MainContract.View,
                             MoviesModel m = ((MoviesModel) item);
                             m.setPosterPath(fileAbsolutePath);
 
+                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
+
                             DetailActivity.startActivity(MainActivity.this, m);
                         }
 
@@ -181,6 +183,8 @@ public class MainActivity extends BaseView implements MainContract.View,
 
                             TvShowModel m = ((TvShowModel) item);
                             m.setPosterPath(fileAbsolutePath);
+
+                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
 
                             DetailActivity.startActivity(MainActivity.this, m);
                         }

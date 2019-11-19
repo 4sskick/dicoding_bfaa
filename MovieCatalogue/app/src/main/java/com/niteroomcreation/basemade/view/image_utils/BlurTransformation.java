@@ -43,11 +43,11 @@ public class BlurTransformation extends BitmapTransformation {
         Allocation out = Allocation.createTyped(rs, inp.getType());
 
         // Load up an instance of the specific script that we want to use.
-        ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U16_4(rs));
+        ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
         script.setInput(inp);
 
         //set blur radius
-        script.setRadius(25);
+        script.setRadius(5);
 
         // Start the ScriptIntrinisicBlur
         script.forEach(out);

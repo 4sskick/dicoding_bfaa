@@ -76,7 +76,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
 
             Glide.with(imgMovie.getContext())
                     .load(movie.getPoster())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .transform(BlurTransformation.init(imgMovie.getContext()))
                     .into(imgMovie);
         }

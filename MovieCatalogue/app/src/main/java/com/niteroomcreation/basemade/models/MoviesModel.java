@@ -50,7 +50,7 @@ public class MoviesModel implements Parcelable {
 
     @Override
     public int describeContents() {
-        return hashCode();
+        return 0;
     }
 
     /**
@@ -74,7 +74,7 @@ public class MoviesModel implements Parcelable {
         dest.writeString(posterPath);
         dest.writeInt(year);
         dest.writeInt(ratePercentage);
-        dest.writeParcelable(featuredMovieModel, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeParcelable(featuredMovieModel, flags);
     }
 
     public String getName() {

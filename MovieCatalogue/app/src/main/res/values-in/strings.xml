@@ -159,6 +159,7 @@
         terakhir di alam semesta, jika itu benar-benar ada.
     </string>
 
-    <string name="nav_bot_movies">Movies</string>
-    <string name="nav_bot_tv_shows">Tv Shows</string>
+    <string name="nav_bot_movies">Layar Lebar</string>
+    <string name="nav_bot_tv_shows">Film TV</string>
+    <string name="str_overview">Deskripsi</string>
 </resources>

@@ -54,7 +54,7 @@ public class TvShowModel implements Parcelable {
 
     @Override
     public int describeContents() {
-        return hashCode();
+        return 0;
     }
 
     @Override
@@ -125,5 +125,18 @@ public class TvShowModel implements Parcelable {
 
     public void setFeaturedMovieModel(FeaturedMovieModel featuredMovieModel) {
         this.featuredMovieModel = featuredMovieModel;
+    }
+
+    @Override
+    public String toString() {
+        return "TvShowModel{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", year=" + year +
+                ", poster=" + poster +
+                ", ratePercentage=" + ratePercentage +
+                ", featuredMovieModel=" + featuredMovieModel +
+                '}';
     }
 }
