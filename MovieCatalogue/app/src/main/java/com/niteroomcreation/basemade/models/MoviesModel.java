@@ -114,7 +114,7 @@ public class MoviesModel implements Parcelable {
     }
 
     public String getPercentage() {
-        return String.valueOf(getRatePercentage()) + "%";
+        return getRatePercentage() + "%";
     }
 
     public void setRatePercentage(int ratePercentage) {

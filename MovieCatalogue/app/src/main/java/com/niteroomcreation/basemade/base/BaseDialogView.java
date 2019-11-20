@@ -89,16 +89,20 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        } else
+            throw new RuntimeException(String.format("Dialog layout is null, %s", mActivity.getClass().getSimpleName()));
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (dialog.getWindow() != null)
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
 

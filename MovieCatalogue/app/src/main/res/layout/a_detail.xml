@@ -25,7 +25,7 @@
             android:layout_width="@dimen/_48sdp"
             android:layout_height="@dimen/_48sdp"
             android:layout_marginEnd="@dimen/padding_standard"
-            android:layout_marginBottom="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_standard"
             app:layout_constraintBottom_toTopOf="@+id/txt_detail_name"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_standard"
             android:paddingEnd="@dimen/padding_standard"
-            android:text="(2018)"
+            tools:text="(2018)"
             android:textSize="@dimen/font_size_standard"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,7 @@
             android:paddingStart="@dimen/padding_standard"
             android:paddingTop="@dimen/padding_xsmall"
             android:paddingEnd="@dimen/padding_standard"
-            android:text="@string/str_overview"
+            tools:text="@string/str_overview"
             android:textSize="@dimen/font_size_xlarge"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
