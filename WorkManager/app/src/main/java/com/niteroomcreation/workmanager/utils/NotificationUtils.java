@@ -16,7 +16,7 @@ public class NotificationUtils {
 
     private static final int NOTIFICATION_ID = 1;
     private static final String CHANNEL_ID = "channel_01";
-    private static final String CHANNEL_NAME = "dicoding_channel";
+    private static final String CHANNEL_NAME = "4sskick_monta";
 
     private NotificationUtils(Context context) {
         this.context = context;
