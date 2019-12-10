@@ -22,7 +22,7 @@ Fitur yang harus ada pada aplikasi:
 3. **Localization**
     - Aplikasi harus mendukung bahasa Indonesia dan bahasa Inggris.
 4. **Configuration Changes**
-    - Aplikasi harus bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari potrait ke landscape atau sebaliknya.
+    - Aplikasi harus bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari `potrait` ke `landscape atau sebaliknya`.
     
 Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
 
