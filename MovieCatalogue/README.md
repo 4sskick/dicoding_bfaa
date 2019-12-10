@@ -12,7 +12,7 @@ Fitur yang harus ada pada aplikasi:
 1. **Daftar Film**
     - Terdapat 2 (dua) halaman yang menampilkan daftar film `(Movies dan Tv Show)`.
     - Menggunakan **Fragment** untuk menampung halaman `Movies` dan `Tv Show`.
-    - Menggunakan **RecyclerView** untuk menampilkan daftar film dengan jumlah `minimal 10 item`.
+    - Menggunakan **RecyclerView** untuk menampilkan daftar film.
     - Menggunakan **TabLayout, BottomNavigationView**, atau yang lainnya sebagai navigasi antara halaman `Movies` dan `Tv Show`.
     - Menampilkan indikator loading ketika data sedang dimuat.
 2. **Detail Film**
