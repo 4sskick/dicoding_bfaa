@@ -1,6 +1,6 @@
 **SUBSMISSION**
 
-Untuk menyelesaikan kelas ini Anda diharuskan submit aplikasi yang Anda buat sendiri. Aplikasi yang akan Anda buat **harus menggunakan tema selain yang dicontohkan di latihan Android Pemula dan MADE (aplikasi tidak boleh memiliki tema film, pahlawan atau presiden Indonesia)**
+Anda sudah mempelajari beberapa hal tentang **Background Service**, salah satunya adalah bagaimana cara mendapatkan data dari internet menggunakan `AsyncTaskLoader`. Untuk lanjut mempelajari modul berikutnya, kirimkan proyek aplikasi dengan tema Anda perlu **Movie Catalogue (API)**. Jika pada submission sebelumnya Anda hanya memanfaatkan data lokal untuk ditampilkan, kali ini data yang akan ditampilkan adalah data dari API, yaitu The [Movie DB](https://www.themoviedb.org/).
 
 
 ---
