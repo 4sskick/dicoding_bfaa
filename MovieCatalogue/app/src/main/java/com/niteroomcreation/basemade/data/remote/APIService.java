@@ -11,9 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIService {
 
-    private static APIInterface api;
+    private static RemoteRepo api;
 
-    public static APIInterface createService() {
+    public static RemoteRepo createService() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         //set logging level to NONE
         //so there is no log information while request
@@ -37,7 +37,7 @@ public class APIService {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(okHttpClient)
                     .build()
-                    .create(APIInterface.class);
+                    .create(RemoteRepo.class);
         }
 
     }

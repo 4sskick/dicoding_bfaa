@@ -29,7 +29,7 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @BindView(R.id.list_movie)
     RecyclerView listMovie;
 
-//    @Nullable
+    //    @Nullable
     @BindView(R.id.loader)
     NewtonCradleLoading loading;
 
@@ -48,11 +48,11 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         return R.layout.f_movies;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initComponents() {
         presenter = new MoviePresenter(this, getContext());
 
+        presenter.getMovies("en-EN");
         movies = presenter.constructModels();
         adapter = new AdapterMovies(movies, new GenericItemListener<MoviesModel>() {
             @Override
