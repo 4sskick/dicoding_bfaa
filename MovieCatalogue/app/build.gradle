@@ -52,13 +52,21 @@ android {
     productFlavors {
         global {
             signingConfig signingConfigs.release
-            buildConfigField "String", "BASE_URL", "\"https://production.co.id\""
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "BASE_PATH", "\"discover/\""
+            buildConfigField "String", "API_KEY", "\"0a2cc95ecf3bfef590c47493d7ab7b85\""
+            buildConfigField "String", "LANG_VER_ID", "\"id-ID\""
+            buildConfigField "String", "LANG_VER_EN", "\"en-EN\""
             dimension = "default"
         }
 
         staging {
             signingConfig signingConfigs.debug
-            buildConfigField "String", "BASE_URL", "\"https://staging.co.id\""
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "BASE_PATH", "\"discover/\""
+            buildConfigField "String", "API_KEY", "\"0a2cc95ecf3bfef590c47493d7ab7b85\""
+            buildConfigField "String", "LANG_VER_ID", "\"id-ID\""
+            buildConfigField "String", "LANG_VER_EN", "\"en-EN\""
             dimension = "default"
         }
     }
@@ -113,6 +121,7 @@ def lottieVersion = '2.7.0'
 def circleImageViewVersion = '3.0.0'
 def glideVersion = '4.9.0'
 def easyPermissionVersion = '2.0.1'
+def retrofitVersion = '2.5.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -138,6 +147,16 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     implementation "pub.devrel:easypermissions:$easyPermissionVersion"
+
+    //rx2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    //network request
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

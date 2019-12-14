@@ -16,6 +16,7 @@ public class MovieContract {
 
     interface Presenter extends IBasePresenter<MovieContract.View> {
         List<MoviesModel> constructModels();
+
     }
 }
 

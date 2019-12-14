@@ -25,7 +25,6 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     RecyclerView listMovie;
 
     private AdapterMovies adapter;
-//    private AdapterMainList adapterList;
 
     private MoviesListener listener;
     private List<MoviesModel> movies;
@@ -54,17 +53,6 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
         listMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         listMovie.setAdapter(adapter);
-
-//        adapterList = new AdapterMainList(movies);
-//        listMain.setAdapter(adapterList);
-//        listMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.e(TAG, String.format("onItemClick: %s", movies.get(position).toString()));
-//
-//                listener.onItemSelectedDetail(movies.get(position));
-//            }
-//        });
     }
 
     @Override
