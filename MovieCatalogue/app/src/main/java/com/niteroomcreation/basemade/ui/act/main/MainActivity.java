@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
+import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.models.MoviesModel;
 import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
@@ -142,31 +143,31 @@ public class MainActivity extends BaseView implements MainContract.View,
         //accept: run store image
         //reject: do nothing & re-asking permission
 
-        if (item instanceof MoviesModel) {
-            Bitmap b =
-                    ((BitmapDrawable) getResources().getDrawable(((MoviesModel) item).getPoster())).getBitmap();
-
-            new ImageUtils(MainActivity.this)
-                    .setFileName(((MoviesModel) item).getName())
-                    .save(b, new ImageUtils.ImageUtilsListener() {
-                        @Override
-                        public void success(String fileAbsolutePath) {
-                            Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
-
-                            MoviesModel m = ((MoviesModel) item);
-                            m.setPosterPath(fileAbsolutePath);
-
-                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
-
-                            DetailActivity.startActivity(MainActivity.this, m);
-                        }
-
-                        @Override
-                        public void failed(String errMsg) {
-                            Log.e(TAG, String.format("failed: %s", errMsg));
-
-                        }
-                    });
+        if (item instanceof Movies) {
+//            Bitmap b =
+//                    ((BitmapDrawable) getResources().getDrawable(((MoviesModel) item).getPoster())).getBitmap();
+//
+//            new ImageUtils(MainActivity.this)
+//                    .setFileName(((MoviesModel) item).getName())
+//                    .save(b, new ImageUtils.ImageUtilsListener() {
+//                        @Override
+//                        public void success(String fileAbsolutePath) {
+//                            Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
+//
+//                            MoviesModel m = ((MoviesModel) item);
+//                            m.setPosterPath(fileAbsolutePath);
+//
+//                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
+//
+//                            DetailActivity.startActivity(MainActivity.this, m);
+//                        }
+//
+//                        @Override
+//                        public void failed(String errMsg) {
+//                            Log.e(TAG, String.format("failed: %s", errMsg));
+//
+//                        }
+//                    });
         } else if (item instanceof TvShowModel) {
             Log.e(TAG, "onItemSelectedDetail: here tv show");
 
@@ -194,6 +195,7 @@ public class MainActivity extends BaseView implements MainContract.View,
 
                         }
                     });
-        }
+        } else
+            throw new RuntimeException("item object doesn't found");
     }
 }

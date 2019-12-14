@@ -26,7 +26,8 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         View view = null;
         if (contentLayout() != ((BaseView) getActivity()).EMPTY_LAYOUT)
@@ -34,8 +35,6 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
         else
             throw new IllegalStateException("setDialogView() can't be EMPTY " + this.getClass().getSimpleName());
         ButterKnife.bind(this, view);
-        initComponents();
-
         return view;
     }
 
@@ -43,6 +42,8 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivity = (BaseView) getActivity();
+        initComponents();
+
     }
 
     /**

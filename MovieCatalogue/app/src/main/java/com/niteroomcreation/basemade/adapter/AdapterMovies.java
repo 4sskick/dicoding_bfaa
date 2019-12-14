@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -23,10 +24,11 @@ import butterknife.OnClick;
 
 public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHolder> {
 
-    private List<MoviesModel> movies;
-    private GenericItemListener<MoviesModel> listener;
+    private List<Movies> movies;
+    private GenericItemListener<Movies> listener;
 
-    public AdapterMovies(List<MoviesModel> movies, GenericItemListener<MoviesModel> listener) {
+    public AdapterMovies(List<Movies> movies
+            , GenericItemListener<Movies> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -49,7 +51,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         return movies.size();
     }
 
-    private MoviesModel getItem(int pos) {
+    private Movies getItem(int pos) {
         return movies.get(pos);
     }
 
@@ -68,14 +70,15 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         }
 
         void binds() {
-            MoviesModel movie = getItem(getAdapterPosition());
+            Movies model = getItem(getAdapterPosition());
 
-            txtName.setText(movie.getName());
-            txtDesc.setText(movie.getDesc());
+            txtName.setText(model.getTitle());
+            txtDesc.setText(model.getOverview());
 
             Glide.with(imgMovie.getContext())
-                    .load(movie.getPoster())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .load(String.format("%s%sw154/%s", BuildConfig.BASE_URL_IMG,
+                            BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .transform(BlurTransformation.init(imgMovie.getContext()))
                     .into(imgMovie);
         }

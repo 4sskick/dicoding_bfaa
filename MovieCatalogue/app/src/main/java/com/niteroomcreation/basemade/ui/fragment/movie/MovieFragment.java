@@ -11,6 +11,7 @@ import android.view.View;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterMovies;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
+import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.models.MoviesModel;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 import com.niteroomcreation.basemade.view.loader.NewtonCradleLoading;
@@ -29,14 +30,10 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @BindView(R.id.list_movie)
     RecyclerView listMovie;
 
-    //    @Nullable
-    @BindView(R.id.loader)
-    NewtonCradleLoading loading;
-
     private AdapterMovies adapter;
 
     private MoviesListener listener;
-    private List<MoviesModel> movies;
+    private List</*MoviesModel*/Movies> movies;
     private MoviePresenter presenter;
 
     public static MovieFragment newInstance() {
@@ -53,19 +50,20 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         presenter = new MoviePresenter(this, getContext());
 
         presenter.getMovies("en-EN");
-        movies = presenter.constructModels();
-        adapter = new AdapterMovies(movies, new GenericItemListener<MoviesModel>() {
+    }
+
+    @Override
+    public void setData(List<Movies> data) {
+        movies = data;
+        adapter = new AdapterMovies(movies, new GenericItemListener<Movies>() {
             @Override
-            public void onItemClicked(MoviesModel item) {
+            public void onItemClicked(Movies item) {
                 listener.onItemSelectedDetail(item);
             }
         });
 
         listMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         listMovie.setAdapter(adapter);
-
-        loading.start();
-
     }
 
     @Override

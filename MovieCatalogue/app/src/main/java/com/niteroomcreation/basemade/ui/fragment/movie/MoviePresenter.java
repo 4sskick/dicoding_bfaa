@@ -18,15 +18,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.subscribers.DisposableSubscriber;
-import retrofit2.Response;
-
 /**
  * Created by Septian Adi Wijaya on 01/10/19
  */
 public class MoviePresenter extends BasePresenter<MovieContract.View> implements MovieContract.Presenter {
 
-    public static final String TAG = MoviePresenter.class.getSimpleName();
+    private static final String TAG = MoviePresenter.class.getSimpleName();
+
 
     public MoviePresenter(MovieContract.View view, Context context) {
         super.onViewActive(view, context);
@@ -34,23 +32,31 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
     @Override
     public void getMovies(String lang) {
+        mView.showLoading();
+
         addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
                 , new NetwokCallback<BaseResponse<Movies>>() {
                     @Override
                     public void onSuccess(BaseResponse<Movies> model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
+
+                        mView.setData(model.getResults());
                     }
 
                     @Override
                     public void onFailure(int code, String message,
                                           @Nullable JSONObject jsonObject) {
                         Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
-                                message, jsonObject.toString()));
+                                message, jsonObject != null ? jsonObject.toString() : "{}"));
+
+                        mView.showMessage(String.format("code %s, %s", code, message));
                     }
 
                     @Override
-                    public void onFinish() {
-                        Log.e(TAG, "onFinish: ");
+                    public void onFinish(boolean isFailure) {
+                        if (isFailure)
+                            onFailure(0, "Something not right", null);
+                        mView.hideLoading();
                     }
                 });
     }

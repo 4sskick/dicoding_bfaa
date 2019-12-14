@@ -24,7 +24,9 @@ public abstract class NetwokCallback<T> extends DisposableSubscriber<Response<T>
 
     public abstract void onFailure(int code, String message, @Nullable JSONObject jsonObject);
 
-    public abstract void onFinish();
+    public abstract void onFinish(boolean isFailure);
+
+    private boolean isFailure = false;
 
     public String extractMessageError(String message) {
         try {
@@ -70,6 +72,7 @@ public abstract class NetwokCallback<T> extends DisposableSubscriber<Response<T>
 
     @Override
     public void onError(Throwable t) {
+        isFailure = true;
         t.printStackTrace();
         if (t instanceof HttpException) {
             HttpException e = (HttpException) t;
@@ -82,11 +85,10 @@ public abstract class NetwokCallback<T> extends DisposableSubscriber<Response<T>
         } else {
             onFailure(-1, t.getMessage(), null);
         }
-        onFinish();
     }
 
     @Override
     public void onComplete() {
-        onFinish();
+        onFinish(isFailure);
     }
 }

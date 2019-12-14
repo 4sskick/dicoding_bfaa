@@ -31,7 +31,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     RelativeLayout layoutContent;
     @Nullable
     @BindView(R.id.layout_empty)
-    GenericStateView layoutEmpty;
+    GenericStateView layoutGenericPurpose;
 
     private Activity mActivity;
     private FragmentManager fragmentManager;
@@ -88,12 +88,15 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
 
     @Override
     public void showLoading() {
-
+        if (layoutGenericPurpose != null) {
+            layoutGenericPurpose.showLoadingState();
+        } else
+            throw new RuntimeException("layout empty null");
     }
 
     @Override
     public void hideLoading() {
-
+        hideEmptyState();
     }
 
     @Override
@@ -108,11 +111,9 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
             mToast = null;
         }
 
-        if (mToast == null) {
-            if (message != null && !message.isEmpty()) {
-                mToast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-                mToast.show();
-            }
+        if (message != null && !message.isEmpty()) {
+            mToast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+            mToast.show();
         }
     }
 
@@ -124,24 +125,27 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     @Override
     public void showEmptyState() {
         hideEmptyState();
-        layoutEmpty.setListener(new GenericStateView.GenericStateListener() {
-            @Override
-            public void onActionClicked() {
-                Log.e("tagTes", "onActionClicked: callng me? onActionClicked()");
-            }
 
-            @Override
-            public void onFooterClicked() {
-                Log.e("tagTes", "onActionClicked: callng me? onFooterClicked()");
-            }
-        });
-        layoutEmpty.showState();
+        if (layoutGenericPurpose != null) {
+            layoutGenericPurpose.setListener(new GenericStateView.GenericStateListener() {
+                @Override
+                public void onActionClicked() {
+                    Log.e("tagTes", "onActionClicked: callng me? onActionClicked()");
+                }
+
+                @Override
+                public void onFooterClicked() {
+                    Log.e("tagTes", "onActionClicked: callng me? onFooterClicked()");
+                }
+            });
+            layoutGenericPurpose.showEmptyState();
+        }
     }
 
     @Override
     public void hideEmptyState() {
-        if (layoutEmpty != null)
-            layoutEmpty.hideAll();
+        if (layoutGenericPurpose != null)
+            layoutGenericPurpose.hideAll();
     }
 
     @Override
@@ -154,8 +158,9 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
 
     }
 
-    public void moveToFragment(int viewIdFrameLayout, BaseFragmentView fragment,
-                               String fragmentTag) {
+    public void moveToFragment(int viewIdFrameLayout
+            , BaseFragmentView fragment
+            , String fragmentTag) {
         try {
             fragmentManager.beginTransaction()
                     .replace(viewIdFrameLayout, fragment, fragmentTag)

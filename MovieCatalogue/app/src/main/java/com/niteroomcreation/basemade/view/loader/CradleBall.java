@@ -17,7 +17,7 @@ public class CradleBall extends View {
 
     private Paint paint;
 
-    private int loadingColor = Color.BLACK;
+    private int loadingColor = Color.WHITE;
 
     public CradleBall(Context context) {
         super(context);
@@ -40,7 +40,7 @@ public class CradleBall extends View {
                     R.styleable.CradleBall);
 
             try {
-                loadingColor = typedArray.getColor(R.styleable.CradleBall_cradle_ball_color, Color.BLACK);
+                loadingColor = typedArray.getColor(R.styleable.CradleBall_cradle_ball_color, Color.WHITE);
             } finally {
                 typedArray.recycle();
             }

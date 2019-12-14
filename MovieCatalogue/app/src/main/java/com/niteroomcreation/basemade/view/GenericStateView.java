@@ -3,7 +3,6 @@ package com.niteroomcreation.basemade.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 
 import com.niteroomcreation.basemade.R;
+import com.niteroomcreation.basemade.view.loader.NewtonCradleLoading;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +30,7 @@ public class GenericStateView extends ConstraintLayout {
     @BindView(R.id.s_wrap_state)
     ConstraintLayout sWrapState;
     @BindView(R.id.s_progress)
-    ContentLoadingProgressBar sProgress;
+    NewtonCradleLoading sProgress;
     @BindView(R.id.s_wrap_parent)
     ConstraintLayout sWrapParent;
 
@@ -81,7 +81,8 @@ public class GenericStateView extends ConstraintLayout {
             icon = a.getResourceId(R.styleable.GenericStateView_state_icon, -1);
             idContent = a.getResourceId(R.styleable.GenericStateView_state_content_view, -1);
             buttonCaps = a.getBoolean(R.styleable.GenericStateView_state_button_caps, false);
-            templateContent = a.getBoolean(R.styleable.GenericStateView_state_template_empty_view, false);
+            templateContent = a.getBoolean(R.styleable.GenericStateView_state_template_empty_view
+                    , false);
         } finally {
             a.recycle();
         }
@@ -109,11 +110,21 @@ public class GenericStateView extends ConstraintLayout {
         this.mListener = mListener;
     }
 
-    public void showState() {
-        showState(icon, title, subTitle, footer, button, mListener);
+    public void showEmptyState() {
+        showEmptyState(icon, title, subTitle, footer, button, mListener);
     }
 
-    public void showState(int icon, String title, String subTitle, String footer, String button, GenericStateListener mListener) {
+    public void showLoadingState() {
+        sWrapParent.setVisibility(VISIBLE);
+        sWrapParent.setBackgroundColor(getResources().getColor(R.color.black_trans_45));
+
+        sWrapState.setVisibility(GONE);
+        sProgress.setVisibility(VISIBLE);
+        sProgress.start();
+    }
+
+    public void showEmptyState(int icon, String title, String subTitle, String footer, String button,
+                               GenericStateListener mListener) {
         this.icon = icon;
         this.title = title;
         this.subTitle = subTitle;
@@ -131,7 +142,8 @@ public class GenericStateView extends ConstraintLayout {
         sWrapParent.setVisibility(VISIBLE);
         if (getContent() != null) getContent().setVisibility(GONE);
         sWrapState.setVisibility(VISIBLE);
-        sProgress.setVisibility(VISIBLE);
+        sProgress.setVisibility(GONE);
+
     }
 
     private void setTemplateData() {
@@ -141,7 +153,9 @@ public class GenericStateView extends ConstraintLayout {
 
     @Optional
     public void hideAll() {
+        sProgress.stop();
         sWrapParent.setVisibility(GONE);
+
         if (getContent() != null) getContent().setVisibility(VISIBLE);
     }
 

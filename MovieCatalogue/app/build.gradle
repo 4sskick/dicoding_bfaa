@@ -52,8 +52,12 @@ android {
     productFlavors {
         global {
             signingConfig signingConfigs.release
-            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-            buildConfigField "String", "BASE_PATH", "\"discover/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/\""
+            buildConfigField "String", "BASE_PATH", "\"3/discover/\""
+
+            buildConfigField "String", "BASE_URL_IMG", "\"https://image.tmdb.org/\""
+            buildConfigField "String", "BASE_PATH_IMG", "\"t/p/\""
+
             buildConfigField "String", "API_KEY", "\"0a2cc95ecf3bfef590c47493d7ab7b85\""
             buildConfigField "String", "LANG_VER_ID", "\"id-ID\""
             buildConfigField "String", "LANG_VER_EN", "\"en-EN\""
@@ -62,8 +66,12 @@ android {
 
         staging {
             signingConfig signingConfigs.debug
-            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-            buildConfigField "String", "BASE_PATH", "\"discover/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/\""
+            buildConfigField "String", "BASE_PATH", "\"3/discover/\""
+
+            buildConfigField "String", "BASE_URL_IMG", "\"https://image.tmdb.org/\""
+            buildConfigField "String", "BASE_PATH_IMG", "\"t/p/\""
+
             buildConfigField "String", "API_KEY", "\"0a2cc95ecf3bfef590c47493d7ab7b85\""
             buildConfigField "String", "LANG_VER_ID", "\"id-ID\""
             buildConfigField "String", "LANG_VER_EN", "\"en-EN\""

@@ -53,9 +53,7 @@ public class NewtonCradleLoading extends LinearLayout {
     }
 
     private void initView(Context context) {
-//        LayoutInflater.from(context).inflate(R.layout.c_newton_cradle_loading, this, true);
         View view = inflate(context, R.layout.c_newton_cradle_loading, this);
-
         ButterKnife.bind(this, view);
     }
 
