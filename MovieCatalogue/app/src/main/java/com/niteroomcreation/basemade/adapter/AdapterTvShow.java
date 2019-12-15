@@ -24,9 +24,9 @@ import butterknife.OnClick;
 public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHolder> {
 
     private List<TvShowModel> movies;
-    private GenericItemListener<TvShowModel> listener;
+    private GenericItemListener<TvShowModel, View> listener;
 
-    public AdapterTvShow(List<TvShowModel> movies, GenericItemListener<TvShowModel> listener) {
+    public AdapterTvShow(List<TvShowModel> movies, GenericItemListener<TvShowModel, View> listener) {
         this.movies = movies;
         this.listener = listener;
     }

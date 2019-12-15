@@ -33,7 +33,7 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     private AdapterMovies adapter;
 
     private MoviesListener listener;
-    private List</*MoviesModel*/Movies> movies;
+    private List<Movies> movies;
     private MoviePresenter presenter;
 
     public static MovieFragment newInstance() {
@@ -55,10 +55,15 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @Override
     public void setData(List<Movies> data) {
         movies = data;
-        adapter = new AdapterMovies(movies, new GenericItemListener<Movies>() {
+        adapter = new AdapterMovies(movies, new GenericItemListener<Movies, View>() {
+//            @Override
+//            public void onItemClicked(Movies item) {
+//                listener.onItemSelectedDetail(item);
+//            }
+
             @Override
-            public void onItemClicked(Movies item) {
-                listener.onItemSelectedDetail(item);
+            public void onItemViewClicked(Movies item, View view) {
+                listener.onItemSelectedDetail(item, view);
             }
         });
 
@@ -83,6 +88,6 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     }
 
     public interface MoviesListener {
-        void onItemSelectedDetail(Object item);
+        void onItemSelectedDetail(Object item, View view);
     }
 }

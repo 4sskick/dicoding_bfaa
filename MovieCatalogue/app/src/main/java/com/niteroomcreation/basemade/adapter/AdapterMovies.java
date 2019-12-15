@@ -25,10 +25,10 @@ import butterknife.OnClick;
 public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHolder> {
 
     private List<Movies> movies;
-    private GenericItemListener<Movies> listener;
+    private GenericItemListener<Movies, View> listener;
 
     public AdapterMovies(List<Movies> movies
-            , GenericItemListener<Movies> listener) {
+            , GenericItemListener<Movies, View> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -76,7 +76,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
             txtDesc.setText(model.getOverview());
 
             Glide.with(imgMovie.getContext())
-                    .load(String.format("%s%sw154/%s", BuildConfig.BASE_URL_IMG,
+                    .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
                             BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .transform(BlurTransformation.init(imgMovie.getContext()))
@@ -87,7 +87,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.layout_item:
-                    listener.onItemClicked(getItem(getAdapterPosition()));
+                    listener.onItemViewClicked(getItem(getAdapterPosition()), imgMovie);
                     break;
             }
         }

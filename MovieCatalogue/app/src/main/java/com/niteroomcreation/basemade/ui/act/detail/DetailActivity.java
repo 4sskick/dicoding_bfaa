@@ -1,16 +1,21 @@
 package com.niteroomcreation.basemade.ui.act.detail;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
-import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.data.models.TvShow;
 import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 
@@ -36,22 +41,11 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     @BindView(R.id.txt_detail_year)
     TextView txtDetailYear;
 
-    private Object model;
-    private MoviesModel modelMovie;
-    private TvShowModel modelTV;
-
-    public static void startActivity(BaseView act, Object objModel) {
-        Intent i = new Intent(act, DetailActivity.class);
-
-        if (objModel instanceof MoviesModel)
-            i.putExtra(EXTRA_MODEL, (MoviesModel) objModel);
-        else if (objModel instanceof TvShowModel)
-            i.putExtra(EXTRA_MODEL, (TvShowModel) objModel);
-
-        act.startActivity(i);
-    }
+    private Movies movies;
+    private TvShow tvShows;
 
     @Override
+
     protected int parentLayout() {
         return 0;
     }
@@ -63,69 +57,58 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
     @Override
     protected void initComponents() {
+        supportPostponeEnterTransition();
+
         showBackButtonToolbar(true);
 
         if (getIntent() != null && getIntent().getExtras() != null) {
 
-            if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof MoviesModel) {
-
-                model = (MoviesModel) getIntent().getExtras().getParcelable(EXTRA_MODEL);
-                modelMovie = getIntent().getExtras().getParcelable(EXTRA_MODEL);
-
+            if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof Movies) {
+                movies = getIntent().getExtras().getParcelable(EXTRA_MODEL);
             } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvShowModel) {
-
-                model = (TvShowModel) getIntent().getExtras().getParcelable(EXTRA_MODEL);
-                modelTV = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+                tvShows = getIntent().getExtras().getParcelable(EXTRA_MODEL);
             }
         } else
             throw new RuntimeException("Model isn't carried by parcelable arguments!");
 
-//        if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof MoviesModel) {
-//            Glide.with(this)
-//                    .load(new ImageUtils(this)
-//                            .setFileName(((MoviesModel) model).getName())
-//                            .load())
-//                    .placeholder(R.drawable.poster_glass)
-//                    .into(imgDetailMovie);
-//
-//            txtDetailName.setText(((MoviesModel) model).getName());
-//            txtDetailDesc.setText(((MoviesModel) model).getDesc());
-//            txtDetailPercentage.setText(((MoviesModel) model).getPercentage());
-//            txtDetailYear.setText(String.format("( %s )",
-//                    String.valueOf(((MoviesModel) model).getYear())));
-//
-//            Log.e(TAG, String.format("initComponents: %s", ((MoviesModel) model).toString()));
-//
-//        } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvShowModel) {
-//
-//            Glide.with(this)
-//                    .asBitmap()
-//                    .load(new ImageUtils(this)
-//                            .setFileName(((TvShowModel) model).getName())
-//                            .load())
-//                    .placeholder(R.drawable.poster_glass)
-//                    .into(imgDetailMovie);
-//
-//            txtDetailName.setText(((TvShowModel) model).getName());
-//            txtDetailDesc.setText(((TvShowModel) model).getDesc());
-//            txtDetailPercentage.setText(((TvShowModel) model).getPercentage());
-//            txtDetailYear.setText(String.format("( %s )",
-//                    String.valueOf(((TvShowModel) model).getYear())));
-//
-//            Log.e(TAG, String.format("initComponents: %s", ((TvShowModel) model).toString()));
-//        }
-
         Glide.with(this)
-                .load(new ImageUtils(this)
-                        .setFileName(modelMovie != null ? modelMovie.getName() : modelTV.getName())
-                        .load())
-                .placeholder(R.drawable.poster_glass)
+                .load(String.format("%s%sw500%s"
+                        , BuildConfig.BASE_URL_IMG
+                        , BuildConfig.BASE_PATH_IMG
+                        , movies != null ? movies.getPosterPath() : tvShows.getPosterPath()))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource
+                            , Object model
+                            , Target<Drawable> target, DataSource dataSource
+                            , boolean isFirstResource) {
+                        DetailActivity.this.supportStartPostponedEnterTransition();
+                        return false;
+                    }
+                })
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .placeholder(R.drawable.ic_placeholder)
                 .into(imgDetailMovie);
 
-        txtDetailName.setText(modelMovie != null ? modelMovie.getName() : modelTV.getName());
-        txtDetailDesc.setText(modelMovie != null ? modelMovie.getDesc() : modelTV.getDesc());
-        txtDetailPercentage.setText(modelMovie != null ? modelMovie.getPercentage() : modelTV.getPercentage());
-        txtDetailYear.setText(String.format("( %s )",
-                String.valueOf(modelMovie != null ? modelMovie.getYear() : modelTV.getYear())));
+//        Glide.with(this)
+//                .load(String.format("%s%sw500/%s", BuildConfig.BASE_URL_IMG,
+//                        BuildConfig.BASE_PATH_IMG, movies != null
+//                                ? movies.getPosterPath() : tvShows.getPosterPath()))
+//                .placeholder(R.drawable.ic_placeholder)
+//                .into(imgDetailMovie);
+
+        txtDetailName.setText(movies != null ? movies.getTitle() : tvShows.getName());
+        txtDetailDesc.setText(movies != null ? movies.getOverview() : tvShows.getOverview());
+        txtDetailPercentage.setText(String.format("%s"
+                , String.valueOf(movies != null ? movies.getVoteAverage() :
+                        tvShows.getVoteAverage())));
+        txtDetailYear.setText(String.format("( %s )"
+                , String.valueOf(movies != null ? movies.getReleaseDate().split("-")[0] : -1)));
     }
 }

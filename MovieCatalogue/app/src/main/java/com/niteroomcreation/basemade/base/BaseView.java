@@ -179,7 +179,11 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                try {
+                    supportFinishAfterTransition();
+                } catch (Exception e) {
+                    onBackPressed();
+                }
                 return true;
 
             default:

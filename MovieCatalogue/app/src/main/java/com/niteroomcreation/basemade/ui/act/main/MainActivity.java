@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
@@ -22,6 +25,7 @@ import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
 import com.niteroomcreation.basemade.utils.ImageUtils;
+import com.niteroomcreation.basemade.utils.NavigationUtils;
 
 import butterknife.BindView;
 
@@ -135,7 +139,7 @@ public class MainActivity extends BaseView implements MainContract.View,
     }
 
     @Override
-    public void onItemSelectedDetail(Object item) {
+    public void onItemSelectedDetail(Object item, View view) {
         Log.e(TAG, String.format("onItemSelectedDetail: %s", item.toString()));
 
         //asking permission to access external storage
@@ -144,17 +148,26 @@ public class MainActivity extends BaseView implements MainContract.View,
         //reject: do nothing & re-asking permission
 
         if (item instanceof Movies) {
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this
+                    , /*new Pair(*/view.findViewById(R.id.img_item_photo), "img_item_photo")/*)*/;
+            NavigationUtils.directToDetailScreen(this, (Movies) item, options);
+
+        } else if (item instanceof TvShowModel) {
+            Log.e(TAG, "onItemSelectedDetail: here tv show");
+
 //            Bitmap b =
-//                    ((BitmapDrawable) getResources().getDrawable(((MoviesModel) item).getPoster())).getBitmap();
+//                    ((BitmapDrawable) getResources().getDrawable(((TvShowModel) item).getPoster
+//                    ())).getBitmap();
 //
 //            new ImageUtils(MainActivity.this)
-//                    .setFileName(((MoviesModel) item).getName())
+//                    .setFileName(((TvShowModel) item).getName())
 //                    .save(b, new ImageUtils.ImageUtilsListener() {
 //                        @Override
 //                        public void success(String fileAbsolutePath) {
 //                            Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
 //
-//                            MoviesModel m = ((MoviesModel) item);
+//                            TvShowModel m = ((TvShowModel) item);
 //                            m.setPosterPath(fileAbsolutePath);
 //
 //                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
@@ -168,33 +181,6 @@ public class MainActivity extends BaseView implements MainContract.View,
 //
 //                        }
 //                    });
-        } else if (item instanceof TvShowModel) {
-            Log.e(TAG, "onItemSelectedDetail: here tv show");
-
-            Bitmap b =
-                    ((BitmapDrawable) getResources().getDrawable(((TvShowModel) item).getPoster())).getBitmap();
-
-            new ImageUtils(MainActivity.this)
-                    .setFileName(((TvShowModel) item).getName())
-                    .save(b, new ImageUtils.ImageUtilsListener() {
-                        @Override
-                        public void success(String fileAbsolutePath) {
-                            Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
-
-                            TvShowModel m = ((TvShowModel) item);
-                            m.setPosterPath(fileAbsolutePath);
-
-                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
-
-                            DetailActivity.startActivity(MainActivity.this, m);
-                        }
-
-                        @Override
-                        public void failed(String errMsg) {
-                            Log.e(TAG, String.format("failed: %s", errMsg));
-
-                        }
-                    });
         } else
             throw new RuntimeException("item object doesn't found");
     }

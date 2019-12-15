@@ -25,8 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.act.main.MainActivity" />
-        <activity android:name=".ui.act.detail.DetailActivity" />
+        <activity
+            android:name=".ui.act.main.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.act.detail.DetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

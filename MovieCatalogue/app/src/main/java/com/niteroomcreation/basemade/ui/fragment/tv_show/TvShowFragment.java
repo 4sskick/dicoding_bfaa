@@ -3,6 +3,7 @@ package com.niteroomcreation.basemade.ui.fragment.tv_show;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterTvShow;
@@ -42,10 +43,10 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
         presenter = new TvShowPresenter(this, getContext());
 
         tvShows = presenter.constructModels();
-        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShowModel>() {
+        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShowModel, View>() {
             @Override
             public void onItemClicked(TvShowModel item) {
-                listener.onItemSelectedDetail(item);
+                listener.onItemSelectedDetail(item, null);
             }
         });
 
