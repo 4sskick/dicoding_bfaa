@@ -15,9 +15,8 @@ import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.data.models.TvShow;
+import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.models.TvShowModel;
-import com.niteroomcreation.basemade.utils.ImageUtils;
 
 import butterknife.BindView;
 
@@ -42,7 +41,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     TextView txtDetailYear;
 
     private Movies movies;
-    private TvShow tvShows;
+    private TvShows tvShows;
 
     @Override
 
@@ -65,9 +64,10 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
             if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof Movies) {
                 movies = getIntent().getExtras().getParcelable(EXTRA_MODEL);
-            } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvShowModel) {
+            } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvShows) {
                 tvShows = getIntent().getExtras().getParcelable(EXTRA_MODEL);
-            }
+            } else
+                throw new RuntimeException("Model isn't carried by parcelable arguments!");
         } else
             throw new RuntimeException("Model isn't carried by parcelable arguments!");
 
@@ -96,19 +96,14 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imgDetailMovie);
 
-//        Glide.with(this)
-//                .load(String.format("%s%sw500/%s", BuildConfig.BASE_URL_IMG,
-//                        BuildConfig.BASE_PATH_IMG, movies != null
-//                                ? movies.getPosterPath() : tvShows.getPosterPath()))
-//                .placeholder(R.drawable.ic_placeholder)
-//                .into(imgDetailMovie);
-
         txtDetailName.setText(movies != null ? movies.getTitle() : tvShows.getName());
         txtDetailDesc.setText(movies != null ? movies.getOverview() : tvShows.getOverview());
         txtDetailPercentage.setText(String.format("%s"
                 , String.valueOf(movies != null ? movies.getVoteAverage() :
                         tvShows.getVoteAverage())));
         txtDetailYear.setText(String.format("( %s )"
-                , String.valueOf(movies != null ? movies.getReleaseDate().split("-")[0] : -1)));
+                , String.valueOf(movies != null ?
+                        movies.getReleaseDate().split("-")[0] :
+                        tvShows.getFirstAirDate().split("-")[0])));
     }
 }

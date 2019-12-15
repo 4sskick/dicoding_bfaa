@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.data.remote.APIService;
 import com.niteroomcreation.basemade.data.remote.RemoteRepo;
 
@@ -17,7 +18,7 @@ import retrofit2.Response;
  * this class gonna be central to control which resources (remote or local) gonna used when
  * presenter requesting data
  */
-public class Repository {
+public class Repository implements RemoteRepo {
 
     private static Repository ref;
 
@@ -39,4 +40,8 @@ public class Repository {
         return remoteRepo.getMovies(apiKey, lang);
     }
 
+    @Override
+    public Flowable<Response<BaseResponse<TvShows>>> getTvShows(String apiKey, String lang) {
+        return remoteRepo.getTvShows(apiKey, lang);
+    }
 }

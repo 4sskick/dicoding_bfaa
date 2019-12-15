@@ -25,7 +25,6 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
     private static final String TAG = MoviePresenter.class.getSimpleName();
 
-
     public MoviePresenter(MovieContract.View view, Context context) {
         super.onViewActive(view, context);
     }

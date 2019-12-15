@@ -8,6 +8,7 @@ import android.view.View;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterTvShow;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
+import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -26,7 +27,7 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
 
     private TvShowPresenter presenter;
     private AdapterTvShow adapter;
-    private List<TvShowModel> tvShows;
+    private List<TvShows> tvShows;
     private MovieFragment.MoviesListener listener;
 
     public static TvShowFragment newInstance() {
@@ -41,12 +42,18 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     @Override
     protected void initComponents() {
         presenter = new TvShowPresenter(this, getContext());
+        presenter.getTvShows("en-EN");
+    }
 
-        tvShows = presenter.constructModels();
-        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShowModel, View>() {
+    @Override
+    public void setData(List<TvShows> data) {
+        tvShows = data;
+
+        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, View>() {
+
             @Override
-            public void onItemClicked(TvShowModel item) {
-                listener.onItemSelectedDetail(item, null);
+            public void onItemViewClicked(TvShows item, View view) {
+                listener.onItemSelectedDetail(item, view);
             }
         });
 

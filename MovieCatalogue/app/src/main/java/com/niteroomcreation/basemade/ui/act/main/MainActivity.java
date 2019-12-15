@@ -1,14 +1,11 @@
 package com.niteroomcreation.basemade.ui.act.main;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +16,9 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.models.MoviesModel;
-import com.niteroomcreation.basemade.models.TvShowModel;
-import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
+import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
-import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.utils.NavigationUtils;
 
 import butterknife.BindView;
@@ -150,37 +144,17 @@ public class MainActivity extends BaseView implements MainContract.View,
         if (item instanceof Movies) {
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this
-                    , /*new Pair(*/view.findViewById(R.id.img_item_photo), "img_item_photo")/*)*/;
-            NavigationUtils.directToDetailScreen(this, (Movies) item, options);
+                    , view.findViewById(R.id.img_item_photo), "img_item_photo");
+            NavigationUtils.directToDetailScreen(this, item, options);
 
-        } else if (item instanceof TvShowModel) {
+        } else if (item instanceof TvShows) {
             Log.e(TAG, "onItemSelectedDetail: here tv show");
 
-//            Bitmap b =
-//                    ((BitmapDrawable) getResources().getDrawable(((TvShowModel) item).getPoster
-//                    ())).getBitmap();
-//
-//            new ImageUtils(MainActivity.this)
-//                    .setFileName(((TvShowModel) item).getName())
-//                    .save(b, new ImageUtils.ImageUtilsListener() {
-//                        @Override
-//                        public void success(String fileAbsolutePath) {
-//                            Log.e(TAG, String.format("success: path image %s", fileAbsolutePath));
-//
-//                            TvShowModel m = ((TvShowModel) item);
-//                            m.setPosterPath(fileAbsolutePath);
-//
-//                            Log.e(TAG, String.format("success: model toString %s", m.toString()));
-//
-//                            DetailActivity.startActivity(MainActivity.this, m);
-//                        }
-//
-//                        @Override
-//                        public void failed(String errMsg) {
-//                            Log.e(TAG, String.format("failed: %s", errMsg));
-//
-//                        }
-//                    });
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this
+                            , view.findViewById(R.id.img_item_photo), "img_item_photo");
+            NavigationUtils.directToDetailScreen(this, item, options);
+
         } else
             throw new RuntimeException("item object doesn't found");
     }

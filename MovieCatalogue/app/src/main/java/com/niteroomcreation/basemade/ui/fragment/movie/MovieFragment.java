@@ -48,7 +48,6 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @Override
     protected void initComponents() {
         presenter = new MoviePresenter(this, getContext());
-
         presenter.getMovies("en-EN");
     }
 
@@ -56,10 +55,6 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     public void setData(List<Movies> data) {
         movies = data;
         adapter = new AdapterMovies(movies, new GenericItemListener<Movies, View>() {
-//            @Override
-//            public void onItemClicked(Movies item) {
-//                listener.onItemSelectedDetail(item);
-//            }
 
             @Override
             public void onItemViewClicked(Movies item, View view) {

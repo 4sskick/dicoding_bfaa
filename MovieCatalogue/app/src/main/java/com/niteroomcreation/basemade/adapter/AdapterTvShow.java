@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
+import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -23,10 +25,11 @@ import butterknife.OnClick;
 
 public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHolder> {
 
-    private List<TvShowModel> movies;
-    private GenericItemListener<TvShowModel, View> listener;
+    private List<TvShows> movies;
+    private GenericItemListener<TvShows, View> listener;
 
-    public AdapterTvShow(List<TvShowModel> movies, GenericItemListener<TvShowModel, View> listener) {
+    public AdapterTvShow(List<TvShows> movies,
+                         GenericItemListener<TvShows, View> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -49,7 +52,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         return movies.size();
     }
 
-    private TvShowModel getItem(int pos) {
+    private TvShows getItem(int pos) {
         return movies.get(pos);
     }
 
@@ -68,13 +71,14 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         }
 
         void binds() {
-            TvShowModel tvShow = getItem(getAdapterPosition());
+            TvShows model = getItem(getAdapterPosition());
 
-            txtName.setText(tvShow.getName());
-            txtDesc.setText(tvShow.getDesc());
+            txtName.setText(model.getName());
+            txtDesc.setText(model.getOverview());
 
             Glide.with(imgMovie.getContext())
-                    .load(tvShow.getPoster())
+                    .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
+                            BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .transform(BlurTransformation.init(imgMovie.getContext()))
                     .into(imgMovie);
@@ -84,7 +88,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.layout_item:
-                    listener.onItemClicked(getItem(getAdapterPosition()));
+                    listener.onItemViewClicked(getItem(getAdapterPosition()), imgMovie);
                     break;
             }
         }

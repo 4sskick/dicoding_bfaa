@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 
 import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 
 /**
@@ -15,11 +16,12 @@ import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 public class NavigationUtils {
 
     public static void directToDetailScreen(Activity act
-            , Movies movies
+            , Object obj
             , ActivityOptionsCompat options) {
 
         Intent intent = new Intent(act, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_MODEL, movies);
+        intent.putExtra(DetailActivity.EXTRA_MODEL, obj instanceof Movies ?
+                (Movies) obj : obj instanceof TvShows ? (TvShows) obj : null);
         ActivityCompat.startActivity(act, intent, options.toBundle());
     }
 }
