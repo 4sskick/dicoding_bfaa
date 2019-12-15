@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.niteroomcreation.basemade.R;
@@ -68,6 +69,7 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
     @Override
     public void onAttach(Context context) {
+        Log.e(TAG, "onAttach: ");
         super.onAttach(context);
 
         if (context instanceof MoviesListener)
@@ -78,8 +80,15 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
     @Override
     public void onDetach() {
+        Log.e(TAG, "onDetach: ");
         listener = null;
         super.onDetach();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e(TAG, "onDestroyView: ");
+        super.onDestroyView();
     }
 
     public interface MoviesListener {

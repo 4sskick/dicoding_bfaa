@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Movie Catalogue 11"
+        android:text="Movie Catalogue 111"
         android:textColor="#525252"
         android:textSize="30sp"
         android:textStyle="bold"
