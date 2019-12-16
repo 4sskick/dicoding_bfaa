@@ -97,7 +97,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                 .into(imgDetailMovie);
 
         txtDetailName.setText(movies != null ? movies.getTitle() : tvShows.getName());
-        txtDetailDesc.setText(movies != null ? movies.getOverview() : tvShows.getOverview());
+        txtDetailDesc.setText(getOverview(movies, tvShows));
         txtDetailPercentage.setText(String.format("%s"
                 , String.valueOf(movies != null ? movies.getVoteAverage() :
                         tvShows.getVoteAverage())));
@@ -105,5 +105,23 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                 , String.valueOf(movies != null ?
                         movies.getReleaseDate().split("-")[0] :
                         tvShows.getFirstAirDate().split("-")[0])));
+    }
+
+    private String getOverview(Movies m, TvShows t) {
+        if (m != null) {
+            if (m.getOverview().isEmpty()) {
+                return getResources().getString(R.string.str_trans_not_found);
+            } else
+                return m.getOverview();
+        }
+
+        if (t != null) {
+            if (t.getOverview().isEmpty()) {
+                return getResources().getString(R.string.str_trans_not_found);
+            } else
+                return t.getOverview();
+        }
+
+        throw new RuntimeException("Model isn't carried by parcelable arguments!");
     }
 }

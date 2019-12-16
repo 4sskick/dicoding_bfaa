@@ -3,6 +3,7 @@ package com.niteroomcreation.basemade.ui.fragment.tv_show;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.niteroomcreation.basemade.R;
@@ -14,6 +15,7 @@ import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 
@@ -21,6 +23,8 @@ import butterknife.BindView;
  * Created by Septian Adi Wijaya on 15/11/19
  */
 public class TvShowFragment extends BaseFragmentView implements TvShowContract.View {
+
+    private static final String TAG = TvShowFragment.class.getSimpleName();
 
     @BindView(R.id.list_tv_show)
     RecyclerView listTvShow;
@@ -43,6 +47,14 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     protected void initComponents() {
         presenter = new TvShowPresenter(this, getContext());
         presenter.getTvShows("en-EN");
+
+        String lang = Locale.getDefault().getDisplayLanguage();
+        if (lang.equalsIgnoreCase("English")) {
+            presenter.getTvShows("en-EN");
+        } else if (lang.equalsIgnoreCase("indonesia")) {
+            presenter.getTvShows("id-ID");
+        }
+        Log.e(TAG, "initComponents: language used " + lang);
     }
 
     @Override
@@ -76,5 +88,12 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     public void onDetach() {
         listener = null;
         super.onDetach();
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.onUnsubscribe();
+        presenter = null;
+        super.onDestroyView();
     }
 }

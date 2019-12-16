@@ -27,10 +27,9 @@ public class BasePresenter<ViewT> implements IBasePresenter<ViewT> {
 
     @Override
     public void onViewInactive() {
+        onUnsubscribe();
         this.mView = null;
         this.mContext = null;
-
-        onUnsubscribe();
     }
 
     public void onUnsubscribe() {

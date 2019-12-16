@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">DB Movies</string>
+    <string name="str_trans_not_found">Overview not found</string>
 
     <!--    dumm value sections-->
     <string name="lorem" translatable="false">

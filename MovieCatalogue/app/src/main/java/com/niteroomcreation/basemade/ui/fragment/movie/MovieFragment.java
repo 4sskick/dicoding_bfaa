@@ -18,6 +18,7 @@ import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 import com.niteroomcreation.basemade.view.loader.NewtonCradleLoading;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 
@@ -49,7 +50,14 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @Override
     protected void initComponents() {
         presenter = new MoviePresenter(this, getContext());
-        presenter.getMovies("en-EN");
+
+        String lang = Locale.getDefault().getDisplayLanguage();
+        if (lang.equalsIgnoreCase("English")) {
+            presenter.getMovies("en-EN");
+        } else if (lang.equalsIgnoreCase("indonesia")) {
+            presenter.getMovies("in-IN");
+        }
+        Log.e(TAG, "initComponents: language used " + lang);
     }
 
     @Override
@@ -88,6 +96,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @Override
     public void onDestroyView() {
         Log.e(TAG, "onDestroyView: ");
+        presenter.onUnsubscribe();
+        presenter = null;
         super.onDestroyView();
     }
 
