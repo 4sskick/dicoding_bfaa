@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +26,16 @@ public class ImageUtils {
     private Context context;
     private boolean external;
 
+    private static ImageUtils reff;
+
+    public static synchronized ImageUtils init(Context context) {
+        if (reff == null) {
+            reff = new ImageUtils(context);
+        }
+
+        return reff;
+    }
+
     public ImageUtils(Context context) {
         this.context = context;
     }
@@ -47,7 +56,7 @@ public class ImageUtils {
     }
 
     @NonNull
-    private File createFile() {
+    private synchronized File createFile() {
         File directory;
         if (external) {
             directory = getAlbumStorageDir(directoryName);
@@ -73,34 +82,38 @@ public class ImageUtils {
         save(b, null);
     }
 
-    public void save(Bitmap b, ImageUtilsListener listener) {
+    public synchronized void save(Bitmap b, ImageUtilsListener listener) {
         FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(createFile());
-            if (b.compress(Bitmap.CompressFormat.PNG, 80, fos)) {
-                if (listener != null)
-                    listener.success(getPathFile());
-            } else {
-                if (listener != null)
-                    listener.failed("compress not success");
-            }
-        } catch (Exception e) {
-            if (listener != null)
-                listener.failed("Exception 85");
-            e.printStackTrace();
-        } finally {
+
+        if (b != null) {
             try {
-                if (fos != null)
-                    fos.close();
-            } catch (IOException e) {
+                fos = new FileOutputStream(createFile());
+                if (b.compress(Bitmap.CompressFormat.PNG, 80, fos)) {
+                    if (listener != null)
+                        listener.success(getPathFile());
+                } else {
+                    if (listener != null)
+                        listener.failed("compress not success");
+                }
+            } catch (Exception e) {
                 if (listener != null)
-                    listener.failed("IOException 93");
+                    listener.failed("Exception 85");
                 e.printStackTrace();
+            } finally {
+                try {
+                    if (fos != null)
+                        fos.close();
+                } catch (IOException e) {
+                    if (listener != null)
+                        listener.failed("IOException 93");
+                    e.printStackTrace();
+                }
             }
-        }
+        } else
+            listener.failed("bitmap null");
     }
 
-    public Bitmap load() {
+    public synchronized Bitmap load() {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(createFile());

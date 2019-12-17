@@ -51,4 +51,6 @@
 
     <!--default size icon-->
     <dimen name="icon_default">@dimen/_24sdp</dimen>
+    <dimen name="thumb_height">100dp</dimen>
+    <dimen name="thumb_width">75dp</dimen>
 </resources>

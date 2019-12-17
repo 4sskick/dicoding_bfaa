@@ -82,7 +82,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                 txtDesc.setText(model.getOverview());
 
                 Glide.with(imgMovie.getContext())
-                        .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
+                        .load(String.format("%s%sw500%s", BuildConfig.BASE_URL_IMG,
                                 BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
