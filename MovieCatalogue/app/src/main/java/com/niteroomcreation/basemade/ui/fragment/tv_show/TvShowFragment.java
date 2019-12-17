@@ -1,6 +1,9 @@
 package com.niteroomcreation.basemade.ui.fragment.tv_show;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +15,11 @@ import com.niteroomcreation.basemade.base.BaseFragmentView;
 import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
+import com.niteroomcreation.basemade.utils.Constants;
+import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,20 +52,6 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     @Override
     protected void initComponents() {
         presenter = new TvShowPresenter(this, getContext());
-        presenter.getTvShows("en-EN");
-
-        String lang = Locale.getDefault().getDisplayLanguage();
-        if (lang.equalsIgnoreCase("English")) {
-            presenter.getTvShows("en-EN");
-        } else if (lang.equalsIgnoreCase("indonesia")) {
-            presenter.getTvShows("id-ID");
-        }
-        Log.e(TAG, "initComponents: language used " + lang);
-    }
-
-    @Override
-    public void setData(List<TvShows> data) {
-        tvShows = data;
 
         adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, View>() {
 
@@ -71,6 +63,38 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
 
         listTvShow.setLayoutManager(new LinearLayoutManager(getContext()));
         listTvShow.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.e(TAG, "onSaveInstanceState: ");
+
+        outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(tvShows));
+        outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+
+            if (!Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(savedInstanceState.getString(Constants.EXTRA_LANG_MODEL))) {
+                presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+            } else {
+                tvShows = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
+                setData(tvShows);
+            }
+        } else {
+            presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+        }
+    }
+
+    @Override
+    public void setData(List<TvShows> data) {
+        tvShows = data;
+        adapter.setData(tvShows);
     }
 
 

@@ -75,7 +75,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     }
 
     @Override
-    protected void initComponents() {
+    protected void initComponents(@Nullable Bundle savedInstanceState) {
         supportPostponeEnterTransition();
 
         showBackButtonToolbar(true);

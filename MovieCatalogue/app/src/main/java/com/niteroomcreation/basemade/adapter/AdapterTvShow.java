@@ -13,7 +13,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.models.TvShows;
-import com.niteroomcreation.basemade.models.TvShowModel;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -25,12 +24,12 @@ import butterknife.OnClick;
 
 public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHolder> {
 
-    private List<TvShows> movies;
+    private List<TvShows> tvShows;
     private GenericItemListener<TvShows, View> listener;
 
-    public AdapterTvShow(List<TvShows> movies,
+    public AdapterTvShow(List<TvShows> tvShows,
                          GenericItemListener<TvShows, View> listener) {
-        this.movies = movies;
+        this.tvShows = tvShows;
         this.listener = listener;
     }
 
@@ -49,11 +48,16 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return tvShows != null ? tvShows.size() : 0;
     }
 
     private TvShows getItem(int pos) {
-        return movies.get(pos);
+        return tvShows != null ? tvShows.get(pos) : null;
+    }
+
+    public void setData(List<TvShows> data) {
+        this.tvShows = data;
+        notifyDataSetChanged();
     }
 
     class MainViewHolder extends RecyclerView.ViewHolder {
@@ -73,15 +77,17 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         void binds() {
             TvShows model = getItem(getAdapterPosition());
 
-            txtName.setText(model.getName());
-            txtDesc.setText(model.getOverview());
+            if (model != null) {
+                txtName.setText(model.getName());
+                txtDesc.setText(model.getOverview());
 
-            Glide.with(imgMovie.getContext())
-                    .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
-                            BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .transform(BlurTransformation.init(imgMovie.getContext()))
-                    .into(imgMovie);
+                Glide.with(imgMovie.getContext())
+                        .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
+                                BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .transform(BlurTransformation.init(imgMovie.getContext()))
+                        .into(imgMovie);
+            }
         }
 
         @OnClick({R.id.layout_item})

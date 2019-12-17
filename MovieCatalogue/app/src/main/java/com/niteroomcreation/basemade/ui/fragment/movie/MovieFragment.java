@@ -1,11 +1,9 @@
 package com.niteroomcreation.basemade.ui.fragment.movie;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,9 +13,9 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterMovies;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
 import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.utils.Constants;
+import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
-import com.niteroomcreation.basemade.view.loader.NewtonCradleLoading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +29,6 @@ import butterknife.BindView;
 public class MovieFragment extends BaseFragmentView implements MovieContract.View {
 
     private static final String TAG = MovieFragment.class.getSimpleName();
-    private static final String EXTRA_ARR_MODEL = "extra.put.arr.model.state";
-
 
     @BindView(R.id.list_movie)
     RecyclerView listMovie;
@@ -71,46 +67,26 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e(TAG, "onSaveInstanceState: ");
+        Log.e(TAG, "onSaveInstanceState: " + Locale.getDefault().getDisplayLanguage());
 
-        outState.putParcelableArrayList(EXTRA_ARR_MODEL, new ArrayList<>(movies));
+        outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(movies));
+        outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Log.e(TAG, "onActivityCreated: ");
-
-        if (savedInstanceState != null)
-            Log.e(TAG, "onActivityCreated: inside IF");
-        else {
-            Log.e(TAG, "onActivityCreated: inside ELSE ");
-
-            String lang = Locale.getDefault().getDisplayLanguage();
-            if (lang.equalsIgnoreCase("English")) {
-                presenter.getMovies("en-EN");
-            } else if (lang.equalsIgnoreCase("indonesia")) {
-                presenter.getMovies("id-ID");
-            }
-            Log.e(TAG, "initComponents: language used " + lang);
-        }
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        Log.e(TAG, "onViewStateRestored: ");
-
         if (savedInstanceState != null) {
-            Log.e(TAG, "onViewStateRestored: inside IF");
-
-            movies = savedInstanceState.getParcelableArrayList(EXTRA_ARR_MODEL);
-            setData(movies);
-
-        } else
-            Log.e(TAG, "onViewStateRestored: inside ELSE");
-
+            if (!Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(savedInstanceState.getString(Constants.EXTRA_LANG_MODEL))) {
+                presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+            } else {
+                movies = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
+                setData(movies);
+            }
+        } else {
+            presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+        }
     }
 
     @Override

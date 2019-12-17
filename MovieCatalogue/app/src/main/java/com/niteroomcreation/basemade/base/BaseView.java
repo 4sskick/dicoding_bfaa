@@ -41,7 +41,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
 
     protected abstract int contentLayout();
 
-    abstract protected void initComponents();
+    abstract protected void initComponents(@Nullable Bundle savedInstanceState);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
         mActivity = this;
         fragmentManager = ((BaseView) mActivity).getSupportFragmentManager();
         hideEmptyState();
-        initComponents();
+        initComponents(savedInstanceState);
     }
 
     @Override

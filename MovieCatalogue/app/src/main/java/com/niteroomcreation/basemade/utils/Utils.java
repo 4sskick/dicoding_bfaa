@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Created by Septian Adi Wijaya on 05/11/19
@@ -79,7 +80,9 @@ public class Utils {
                 .skipMemoryCache(true)
                 .listener(listener)
                 .submit();
+    }
 
-
+    public static String getUniCodeLanguageDisplay() {
+        return Locale.getDefault().getDisplayCountry().equalsIgnoreCase("English") ? "en-EN" : "id-ID";
     }
 }

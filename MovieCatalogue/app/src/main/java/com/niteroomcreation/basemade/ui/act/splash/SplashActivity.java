@@ -1,6 +1,8 @@
 package com.niteroomcreation.basemade.ui.act.splash;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.ui.act.main.MainActivity;
@@ -21,7 +23,7 @@ public class SplashActivity extends BaseView implements SplashContract.View {
     }
 
     @Override
-    protected void initComponents() {
+    protected void initComponents(@Nullable Bundle savedInstanceState) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

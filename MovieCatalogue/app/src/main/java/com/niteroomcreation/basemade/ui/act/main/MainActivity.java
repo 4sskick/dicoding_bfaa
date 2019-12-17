@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseView implements MainContract.View,
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String EXTRA_INT = "extra.put.state";
+    private static final String EXTRA_STR = "extra.put.state.tag";
 
     @BindView(R.id.nav_view_main)
     BottomNavigationView navView;
@@ -35,6 +37,8 @@ public class MainActivity extends BaseView implements MainContract.View,
     FrameLayout flMainContent;
 
     private int lastActiveFragmentId;
+    private String lastActiveFragmentTag;
+
     private MainPresenter presenter;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,6 +57,7 @@ public class MainActivity extends BaseView implements MainContract.View,
                                     , MovieFragment.class.getSimpleName());
 
                             lastActiveFragmentId = R.id.nav_movies;
+                            lastActiveFragmentTag = MovieFragment.class.getSimpleName();
 
                             break;
 
@@ -61,6 +66,8 @@ public class MainActivity extends BaseView implements MainContract.View,
                                     , TvShowFragment.class.getSimpleName());
 
                             lastActiveFragmentId = R.id.nav_tv_shows;
+                            lastActiveFragmentTag = TvShowFragment.class.getSimpleName();
+
                             break;
                     }
 
@@ -85,27 +92,15 @@ public class MainActivity extends BaseView implements MainContract.View,
     }
 
     @Override
-    protected void initComponents() {
+    protected void initComponents(@Nullable Bundle savedInstanceState) {
         presenter = new MainPresenter(this, this);
 
         navView.setOnNavigationItemSelectedListener(mOnNavSelectedListener);
-        navView.setSelectedItemId(R.id.nav_movies);
-        navView.getMenu().findItem(R.id.nav_movies).setChecked(true);
-    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(EXTRA_INT, lastActiveFragmentId);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        lastActiveFragmentId = savedInstanceState.getInt(EXTRA_INT);
-//        navView.setSelectedItemId(lastActiveFragmentId);
-//        navView.getMenu().findItem(lastActiveFragmentId).setChecked(true);
+        if (savedInstanceState == null) {
+            navView.setSelectedItemId(R.id.nav_movies);
+            navView.getMenu().findItem(R.id.nav_movies).setChecked(true);
+        }
     }
 
     @Override
