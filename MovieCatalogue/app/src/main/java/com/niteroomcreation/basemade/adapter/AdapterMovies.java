@@ -48,11 +48,16 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return movies != null ? movies.size() : 0;
     }
 
     private Movies getItem(int pos) {
-        return movies.get(pos);
+        return movies != null ? movies.get(pos) : null;
+    }
+
+    public void setData(List<Movies> data) {
+        this.movies = data;
+        notifyDataSetChanged();
     }
 
     class MainViewHolder extends RecyclerView.ViewHolder {
@@ -72,15 +77,17 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         void binds() {
             Movies model = getItem(getAdapterPosition());
 
-            txtName.setText(model.getTitle());
-            txtDesc.setText(model.getOverview());
+            if (model != null) {
+                txtName.setText(model.getTitle());
+                txtDesc.setText(model.getOverview());
 
-            Glide.with(imgMovie.getContext())
-                    .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
-                            BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .transform(BlurTransformation.init(imgMovie.getContext()))
-                    .into(imgMovie);
+                Glide.with(imgMovie.getContext())
+                        .load(String.format("%s%sw342%s", BuildConfig.BASE_URL_IMG,
+                                BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .transform(BlurTransformation.init(imgMovie.getContext()))
+                        .into(imgMovie);
+            }
         }
 
         @OnClick({R.id.layout_item})

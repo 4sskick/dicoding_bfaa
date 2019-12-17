@@ -27,11 +27,9 @@
         </activity>
         <activity
             android:name=".ui.act.main.MainActivity"
-            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.act.detail.DetailActivity"
-            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme" />
     </application>
 

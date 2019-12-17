@@ -27,7 +27,7 @@ public class MainActivity extends BaseView implements MainContract.View,
         MovieFragment.MoviesListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final String EXTRA_INT = "extra_put_state";
+    private static final String EXTRA_INT = "extra.put.state";
 
     @BindView(R.id.nav_view_main)
     BottomNavigationView navView;
@@ -104,8 +104,8 @@ public class MainActivity extends BaseView implements MainContract.View,
         super.onRestoreInstanceState(savedInstanceState);
 
         lastActiveFragmentId = savedInstanceState.getInt(EXTRA_INT);
-        navView.setSelectedItemId(lastActiveFragmentId);
-        navView.getMenu().findItem(lastActiveFragmentId).setChecked(true);
+//        navView.setSelectedItemId(lastActiveFragmentId);
+//        navView.getMenu().findItem(lastActiveFragmentId).setChecked(true);
     }
 
     @Override

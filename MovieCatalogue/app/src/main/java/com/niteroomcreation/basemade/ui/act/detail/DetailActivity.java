@@ -1,6 +1,7 @@
 package com.niteroomcreation.basemade.ui.act.detail;
 
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.data.models.TvShows;
-import com.niteroomcreation.basemade.models.TvShowModel;
 
 import butterknife.BindView;
 
@@ -26,7 +26,6 @@ import butterknife.BindView;
 public class DetailActivity extends BaseView implements DetailContract.View {
 
     private static final String TAG = DetailActivity.class.getSimpleName();
-
     public static final String EXTRA_MODEL = "model.object";
 
     @BindView(R.id.img_detail_movie)
@@ -52,6 +51,27 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     @Override
     protected int contentLayout() {
         return R.layout.a_detail;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(EXTRA_MODEL, movies != null ? movies : tvShows);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getParcelable(EXTRA_MODEL) instanceof Movies) {
+                movies = savedInstanceState.getParcelable(EXTRA_MODEL);
+            }
+
+            if (savedInstanceState.getParcelable(EXTRA_MODEL) instanceof TvShows) {
+                tvShows = savedInstanceState.getParcelable(EXTRA_MODEL);
+            }
+        }
     }
 
     @Override
