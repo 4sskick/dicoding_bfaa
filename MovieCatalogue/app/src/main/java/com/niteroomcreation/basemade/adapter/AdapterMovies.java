@@ -26,6 +26,7 @@ import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.utils.ImageUtils;
+import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -42,6 +43,8 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
     private List<Movies> movies;
     private GenericItemListener<Movies, View> listener;
     private Bitmap localDataBitmap;
+
+    private ImageHandlerThread<AdapterMovies> mThread = null;
 
     public AdapterMovies(List<Movies> movies
             , GenericItemListener<Movies, View> listener) {
@@ -96,6 +99,12 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
             if (model != null) {
                 txtName.setText(model.getTitle());
                 txtDesc.setText(model.getOverview());
+
+                if (mThread == null) {
+                    mThread = new ImageHandlerThread<>(AdapterMovies.this, imgMovie.getContext());
+
+                    mThread.startBurst();
+                }
 
 
                 ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());

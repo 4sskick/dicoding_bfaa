@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.hardware.Camera;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -30,8 +31,8 @@ import java.util.Set;
  * Created by Septian Adi Wijaya on 17/12/19
  * see https://github.com/alphamu/ThreadPoolWithCameraPreview.git
  */
-public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
-    private static final String TAG = PictureUploadHandlerThread.class.getSimpleName();
+public class ImageUploadHandlerThread<T> extends HandlerThread {
+    private static final String TAG = ImageUploadHandlerThread.class.getSimpleName();
 
     private static final int WHAT_UPLOAD = 0;
     private static final int WHAT_WRITE_TO_DISK = 1;
@@ -41,6 +42,7 @@ public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
     private Context mContext;
 
     WeakReference<T> reffClass = null;
+    T clazz = null;
 
     private final File UPLOAD_DIR;
     private SimpleDateFormat FILE_NAME = new SimpleDateFormat("yyyymmddHHMMdssS", Locale.ENGLISH);
@@ -50,14 +52,15 @@ public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
     private Long mCounter = 1l;
     private boolean mUseThreads = true;
 
-    public PictureUploadHandlerThread(T clazz, Context context) {
+    public ImageUploadHandlerThread(T clazz, Context context) {
         super(TAG);
         start();
 
-        mHandler = new Handler(getLooper());
-        mContext = context;
-        reffClass = new WeakReference<>(clazz);
-//        UPLOAD_DIR = CameraConstants.getUploadDir(mContext);
+        this.clazz = clazz;
+        this.mContext = context;
+        this.mHandler = new Handler(getLooper());
+        this.reffClass = new WeakReference<>(clazz);
+        this.UPLOAD_DIR = UtilsThread.getUploadDir(mContext);
     }
 
     public void startUpload() {
@@ -110,9 +113,16 @@ public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
                         break;
                 }
 
-                return false;
+                return true;
             }
-        })
+        });
+    }
+
+    public void queueMakeBitmap(byte[] data, Camera camera) {
+        Log.i(TAG, "Added to make bitmap queue");
+        MakeBitmapData bitmapData = new MakeBitmapData();
+        bitmapData.data = data;
+        mHandler.obtainMessage(WHAT_CREATE_BITMAP, bitmapData).sendToTarget();
     }
 
     private void handleRequest(final File file) {
@@ -148,6 +158,13 @@ public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
         }
     }
 
+    public void queueMakeBitmap(byte[] data) {
+        Log.i(TAG, "Added to make bitmap queue");
+        MakeBitmapData bitmapData = new MakeBitmapData();
+        bitmapData.data = data;
+        mHandler.obtainMessage(WHAT_CREATE_BITMAP, bitmapData).sendToTarget();
+    }
+
     public void queueFileToUpload(File file) {
         queueFileToUpload(file, 0);
     }
@@ -164,43 +181,40 @@ public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
     private void makeBitmap(MakeBitmapData bitmapData) {
         Log.i(TAG, "Called make bitmap");
 
-        T c = reffClass.get();
-        if (c != null) {
-            Resources res = mContext.getResources();
+        Resources res = mContext.getResources();
 
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeByteArray(bitmapData.data, 0, bitmapData.data.length, options);
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(bitmapData.data, 0, bitmapData.data.length, options);
 
-            //Resize to 1MP 1280 x 960
-            int reqWidth = 1280;
-            int reqHeight = 960;
-            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        //Resize to 1MP 1280 x 960
+        int reqWidth = 1280;
+        int reqHeight = 960;
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
-            options.inJustDecodeBounds = false;
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData.data, 0, bitmapData.data.length, options);
-            Bitmap rotated = rotateImage(bitmap, bitmapData.orientation);
-            if (bitmap != rotated) {
-                //Recycle if they aren't referencing the same Bitmap object.
-                //This means the rotation was successful.
-                bitmap.recycle();
-            }
-
-            //Size for display
-            String fileName = "bitmap-" + mCounter + "-" + FILE_NAME.format(new Date()) + ".jpg";
-            mCounter += 1;
-            reqWidth = res.getDimensionPixelSize(R.dimen.thumb_height); //this is actually the height, since we display in portrait
-            reqHeight = res.getDimensionPixelSize(R.dimen.thumb_width);
-            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-            options.inJustDecodeBounds = false;
-
-            //Write to file/upload
-            if (!UPLOAD_DIR.exists()) {
-                UPLOAD_DIR.mkdir();
-            }
-
-            queueWriteToFile(rotated, fileName);
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapData.data, 0, bitmapData.data.length, options);
+        Bitmap rotated = rotateImage(bitmap, bitmapData.orientation);
+        if (bitmap != rotated) {
+            //Recycle if they aren't referencing the same Bitmap object.
+            //This means the rotation was successful.
+            bitmap.recycle();
         }
+
+        //Size for display
+        String fileName = "bitmap-" + mCounter + "-" + FILE_NAME.format(new Date()) + ".jpg";
+        mCounter += 1;
+        reqWidth = res.getDimensionPixelSize(R.dimen.thumb_height); //this is actually the height, since we display in portrait
+        reqHeight = res.getDimensionPixelSize(R.dimen.thumb_width);
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+
+        //Write to file/upload
+        if (!UPLOAD_DIR.exists()) {
+            UPLOAD_DIR.mkdir();
+        }
+
+        queueWriteToFile(rotated, fileName);
     }
 
     public void queueWriteToFile(Bitmap bitmap, String fileName) {
@@ -250,5 +264,16 @@ public class PictureUploadHandlerThread<T extends Class> extends HandlerThread {
     private static class MakeBitmapData {
         byte[] data;
         float orientation;
+    }
+
+    private static class UtilsThread {
+        private static File sUploadDir;
+
+        public static File getUploadDir(Context context) {
+            if (sUploadDir == null) {
+                sUploadDir = new File(context.getFilesDir(), "to_upload");
+            }
+            return sUploadDir;
+        }
     }
 }
