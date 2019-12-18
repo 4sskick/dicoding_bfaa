@@ -18,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ import java.util.Set;
  * Created by Septian Adi Wijaya on 17/12/19
  * see https://github.com/alphamu/ThreadPoolWithCameraPreview.git
  */
-public class ImageUploadHandlerThread<T> extends HandlerThread {
+public class ImageUploadHandlerThread extends HandlerThread {
     private static final String TAG = ImageUploadHandlerThread.class.getSimpleName();
 
     private static final int WHAT_UPLOAD = 0;
@@ -41,9 +40,6 @@ public class ImageUploadHandlerThread<T> extends HandlerThread {
     private Handler mHandler = null;
     private Context mContext;
 
-    WeakReference<T> reffClass = null;
-    T clazz = null;
-
     private final File UPLOAD_DIR;
     private SimpleDateFormat FILE_NAME = new SimpleDateFormat("yyyymmddHHMMdssS", Locale.ENGLISH);
     private Set<File> mQueue = new HashSet<>();
@@ -52,14 +48,12 @@ public class ImageUploadHandlerThread<T> extends HandlerThread {
     private Long mCounter = 1l;
     private boolean mUseThreads = true;
 
-    public ImageUploadHandlerThread(T clazz, Context context) {
+    public ImageUploadHandlerThread(Context context) {
         super(TAG);
         start();
 
-        this.clazz = clazz;
         this.mContext = context;
         this.mHandler = new Handler(getLooper());
-        this.reffClass = new WeakReference<>(clazz);
         this.UPLOAD_DIR = UtilsThread.getUploadDir(mContext);
     }
 
@@ -116,13 +110,6 @@ public class ImageUploadHandlerThread<T> extends HandlerThread {
                 return true;
             }
         });
-    }
-
-    public void queueMakeBitmap(byte[] data, Camera camera) {
-        Log.i(TAG, "Added to make bitmap queue");
-        MakeBitmapData bitmapData = new MakeBitmapData();
-        bitmapData.data = data;
-        mHandler.obtainMessage(WHAT_CREATE_BITMAP, bitmapData).sendToTarget();
     }
 
     private void handleRequest(final File file) {

@@ -16,8 +16,6 @@ public class TvShowContract {
     }
 
     interface Presenter extends IBasePresenter<TvShowContract.View> {
-        List<TvShowModel> constructModels();
-
         void getTvShows(String lang);
     }
 }

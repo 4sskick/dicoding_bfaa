@@ -24,42 +24,6 @@ import java.util.Locale;
  */
 public class Utils {
 
-//    public static String storeImageToInternalStorage(Context context, Bitmap b, String fileName) {
-//        ContextWrapper cw = new ContextWrapper(context);
-//
-//        // path to /data/data/yourapp/app_data/image_dir
-//        File directory = cw.getDir("image_dir", Context.MODE_PRIVATE);
-//        // Create imageDir
-//        File path = new File(directory, fileName);
-//
-//        FileOutputStream fos = null;
-//        try {
-//            fos = new FileOutputStream(path);
-//
-//            // Use the compress method on the BitMap object to write image to the OutputStream
-//            b.compress(Bitmap.CompressFormat.PNG, 80, fos);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                fos.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return directory.getAbsolutePath();
-//    }
-//
-//    public static Bitmap loadImageFromInternalStorage(String path, String fileName){
-//        try{
-//            File file = new File(path, fileName);
-//            Bitmap b = BitmapFactory.decodeResource(new FileInputStream(file));
-//        }catch (FileNotFoundException e){
-//            e.printStackTrace();
-//        }
-//    }
-
     public static void compressImage(Context context, Drawable resId, SimpleTarget<Bitmap> listener) {
         Glide.with(context)
                 .asBitmap()

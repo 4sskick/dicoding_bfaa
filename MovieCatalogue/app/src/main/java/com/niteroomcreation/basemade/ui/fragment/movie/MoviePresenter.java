@@ -8,6 +8,7 @@ import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.niteroomcreation.basemade.BuildConfig;
@@ -19,11 +20,13 @@ import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.data.remote.http.NetwokCallback;
 import com.niteroomcreation.basemade.models.MoviesModel;
 import com.niteroomcreation.basemade.utils.ImageUtils;
+import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Septian Adi Wijaya on 01/10/19
@@ -31,6 +34,8 @@ import java.util.List;
 public class MoviePresenter extends BasePresenter<MovieContract.View> implements MovieContract.Presenter {
 
     private static final String TAG = MoviePresenter.class.getSimpleName();
+
+    private ImageHandlerThread mThread = null;
 
     public MoviePresenter(MovieContract.View view, Context context) {
         super.onViewActive(view, context);
@@ -70,71 +75,66 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
         for (int i = 0; i < data.size(); i++) {
             Movies model = data.get(i);
+            mThread = new ImageHandlerThread(mContext);
 
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(String.format("%s%sw500%s"
-                            , BuildConfig.BASE_URL_IMG
-                            , BuildConfig.BASE_PATH_IMG
-                            , model.getPosterPath()))
-                    .listener(new RequestListener<Bitmap>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Bitmap resource, Object m, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                            new ImageUtils(mContext)
-                                    .setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getTitle()))
-                                    .save(resource, new ImageUtils.ImageUtilsListener() {
-                                        @Override
-                                        public void success(String fileAbsolutePath) {
-                                            Log.e(TAG, "success: " + fileAbsolutePath);
-
-                                        }
-
-                                        @Override
-                                        public void failed(String errMsg) {
-                                            Log.e(TAG, String.format("failed: %s", errMsg));
-                                        }
-                                    });
-                            return false;
-                        }
-                    })
-                    .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        mThread.generateByteArrayImage(
+                                String.format("%s%sw500%s"
+                                        , BuildConfig.BASE_URL_IMG
+                                        , BuildConfig.BASE_PATH_IMG
+                                        , model.getPosterPath())
+                        );
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
 
         }
 
+//        for (int i = 0; i < data.size(); i++) {
+//            Movies model = data.get(i);
+//
+//            Glide.with(mContext)
+//                    .asBitmap()
+//                    .load(String.format("%s%sw500%s"
+//                            , BuildConfig.BASE_URL_IMG
+//                            , BuildConfig.BASE_PATH_IMG
+//                            , model.getPosterPath()))
+//                    .listener(new RequestListener<Bitmap>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(Bitmap resource, Object m, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+//                            new ImageUtils(mContext)
+//                                    .setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getTitle()))
+//                                    .save(resource, new ImageUtils.ImageUtilsListener() {
+//                                        @Override
+//                                        public void success(String fileAbsolutePath) {
+//                                            Log.e(TAG, "success: " + fileAbsolutePath);
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void failed(String errMsg) {
+//                                            Log.e(TAG, String.format("failed: %s", errMsg));
+//                                        }
+//                                    });
+//                            return false;
+//                        }
+//                    })
+//                    .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+//
+//        }
+
         mView.setData(data);
-    }
-
-    @Override
-    public List<MoviesModel> constructModels() {
-        List<MoviesModel> a = new ArrayList<>();
-
-        a.add(new MoviesModel("A Star Is Born", mContext.getString(R.string.desc_a_star),
-                R.drawable.poster_a_star, 2018, 75, null));
-        a.add(new MoviesModel("Aquaman", mContext.getString(R.string.desc_aquaman),
-                R.drawable.poster_aquaman, 2018, 68, null));
-        a.add(new MoviesModel("Avengers: Infinity War", mContext.getString(R.string.desc_avenger)
-                , R.drawable.poster_avengerinfinity, 2018, 83, null));
-        a.add(new MoviesModel("Bird Box", mContext.getString(R.string.desc_birdbox),
-                R.drawable.poster_birdbox, 2018, 70, null));
-        a.add(new MoviesModel("Bohemian Rhapsody", mContext.getString(R.string.desc_bohemian),
-                R.drawable.poster_bohemian, 2018, 80, null));
-        a.add(new MoviesModel("Bumblebee", mContext.getString(R.string.desc_bumblebee),
-                R.drawable.poster_bumblebee, 2018, 65, null));
-        a.add(new MoviesModel("Creed", mContext.getString(R.string.desc_creed),
-                R.drawable.poster_creed, 2015, 73, null));
-        a.add(new MoviesModel("Once Upon a Deadpool", mContext.getString(R.string.desc_deadpool),
-                R.drawable.poster_deadpool, 2018, 69, null));
-        a.add(new MoviesModel("How to Train Your Dragon: The Hidden World",
-                mContext.getString(R.string.desc_dragon), R.drawable.poster_dragon, 2019, 77,
-                null));
-        a.add(new MoviesModel("Dragon Ball Super: Broly",
-                mContext.getString(R.string.desc_dragonball), R.drawable.poster_dragonball, 2018,
-                75, null));
-        return a;
     }
 }
