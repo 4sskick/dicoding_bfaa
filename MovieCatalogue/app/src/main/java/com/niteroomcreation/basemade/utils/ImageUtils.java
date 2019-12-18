@@ -86,29 +86,33 @@ public class ImageUtils {
         FileOutputStream fos = null;
 
         if (b != null) {
-            try {
-                fos = new FileOutputStream(createFile());
-                if (b.compress(Bitmap.CompressFormat.PNG, 80, fos)) {
-                    if (listener != null)
-                        listener.success(getPathFile());
-                } else {
-                    if (listener != null)
-                        listener.failed("compress not success");
-                }
-            } catch (Exception e) {
-                if (listener != null)
-                    listener.failed("Exception 85");
-                e.printStackTrace();
-            } finally {
+
+            if (load() != null)
+                listener.success("success loaded");
+            else
                 try {
-                    if (fos != null)
-                        fos.close();
-                } catch (IOException e) {
+                    fos = new FileOutputStream(createFile());
+                    if (b.compress(Bitmap.CompressFormat.PNG, 80, fos)) {
+                        if (listener != null)
+                            listener.success(getPathFile());
+                    } else {
+                        if (listener != null)
+                            listener.failed("compress not success");
+                    }
+                } catch (Exception e) {
                     if (listener != null)
-                        listener.failed("IOException 93");
+                        listener.failed("Exception 85");
                     e.printStackTrace();
+                } finally {
+                    try {
+                        if (fos != null)
+                            fos.close();
+                    } catch (IOException e) {
+                        if (listener != null)
+                            listener.failed("IOException 93");
+                        e.printStackTrace();
+                    }
                 }
-            }
         } else
             listener.failed("bitmap null");
     }

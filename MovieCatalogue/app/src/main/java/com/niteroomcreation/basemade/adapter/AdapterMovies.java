@@ -100,63 +100,11 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                 txtName.setText(model.getTitle());
                 txtDesc.setText(model.getOverview());
 
-                if (mThread == null) {
-                    mThread = new ImageHandlerThread<>(AdapterMovies.this, imgMovie.getContext());
-
-                    mThread.startBurst();
-                }
-
-
                 ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());
                 imageUtils.setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getTitle()));
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        localDataBitmap = imageUtils.load();
-                    }
-                }).start();
-
-                Log.e(TAG, "binds: localDataBitmap " + (localDataBitmap != null ? "not null" : "null"));
-
                 Glide.with(imgMovie.getContext())
-                        .load(localDataBitmap != null ?
-                                localDataBitmap :
-                                String.format("%s%sw500%s"
-                                        , BuildConfig.BASE_URL_IMG
-                                        , BuildConfig.BASE_PATH_IMG
-                                        , model.getPosterPath()))
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object m, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                if (localDataBitmap == null)
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            new ImageUtils(imgMovie.getContext())
-                                                    .setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getTitle()))
-                                                    .save(((BitmapDrawable) resource).getBitmap(), new ImageUtils.ImageUtilsListener() {
-                                                        @Override
-                                                        public void success(String fileAbsolutePath) {
-                                                            Log.e(TAG, "success: " + fileAbsolutePath);
-                                                        }
-
-                                                        @Override
-                                                        public void failed(String errMsg) {
-                                                            Log.e(TAG, String.format("failed: %s", errMsg));
-                                                        }
-                                                    });
-                                        }
-                                    }).start();
-
-                                return false;
-                            }
-                        })
+                        .load(imageUtils.load())
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .into(imgMovie);

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -81,9 +82,11 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                 txtName.setText(model.getName());
                 txtDesc.setText(model.getOverview());
 
+                ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());
+                imageUtils.setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getName()));
+
                 Glide.with(imgMovie.getContext())
-                        .load(String.format("%s%sw500%s", BuildConfig.BASE_URL_IMG,
-                                BuildConfig.BASE_PATH_IMG, model.getPosterPath()))
+                        .load(imageUtils.load())
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .into(imgMovie);

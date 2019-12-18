@@ -17,6 +17,7 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.utils.ImageUtils;
 
 import butterknife.BindView;
 
@@ -91,11 +92,14 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         } else
             throw new RuntimeException("Model isn't carried by parcelable arguments!");
 
+        ImageUtils imageUtils = ImageUtils.init(this);
+        imageUtils.setFileName(
+                movies != null ?
+                        String.format("%s_%s", movies.getPosterPath().split("/")[1].split(".jpg")[0], movies.getTitle()) :
+                        String.format("%s_%s", tvShows.getPosterPath().split("/")[1].split(".jpg")[0], tvShows.getName()));
+
         Glide.with(this)
-                .load(String.format("%s%sw500%s"
-                        , BuildConfig.BASE_URL_IMG
-                        , BuildConfig.BASE_PATH_IMG
-                        , movies != null ? movies.getPosterPath() : tvShows.getPosterPath()))
+                .load(imageUtils.load())
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model,
