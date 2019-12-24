@@ -14,7 +14,7 @@ public class CustomTypefaceText {
         if (instance != null)
             return instance;
 
-        instance = Typeface.createFromAsset(context.getAssets(), "billabong.ttf");
+        instance = Typeface.createFromAsset(context.getAssets(), "fonts/billabong.ttf");
         return instance;
 
     }

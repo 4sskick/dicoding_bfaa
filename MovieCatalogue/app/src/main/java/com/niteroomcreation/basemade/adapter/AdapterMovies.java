@@ -83,6 +83,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
             final Movies model = getItem(getAdapterPosition());
 
             // TODO: 24/12/19 see https://stackoverflow.com/a/48454860 for loader image
+            // TODO: 24/12/19 make scene animation for name & desc films
 
             if (model != null) {
                 txtName.setText(model.getTitle());
@@ -92,8 +93,15 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                 imageUtils.setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getTitle()));
 
                 Glide.with(imgMovie.getContext())
-                        .load(imageUtils.load())
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .load(
+                                imageUtils.load()!=null?
+                                        imageUtils.load():
+                                        String.format("%s%sw500%s"
+                                                , BuildConfig.BASE_URL_IMG
+                                                , BuildConfig.BASE_PATH_IMG
+                                                , model.getPosterPath())
+                                )
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
                         .transition(DrawableTransitionOptions.withCrossFade())

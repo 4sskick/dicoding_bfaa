@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.utils.ImageUtils;
@@ -86,8 +87,15 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                 imageUtils.setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getName()));
 
                 Glide.with(imgMovie.getContext())
-                        .load(imageUtils.load())
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .load(
+                                imageUtils.load()!=null?
+                                        imageUtils.load():
+                                        String.format("%s%sw500%s"
+                                                , BuildConfig.BASE_URL_IMG
+                                                , BuildConfig.BASE_PATH_IMG
+                                                , model.getPosterPath())
+                        )
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
                         .transition(DrawableTransitionOptions.withCrossFade())

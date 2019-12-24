@@ -4,6 +4,9 @@
     <string name="str_trans_not_found">Overview not found</string>
 
     <!--    dumm value sections-->
+    <string name="lorem_title" translatable="false">
+        All the Lorem Ipsum generators
+    </string>
     <string name="lorem" translatable="false">
         There are many variations of passages of Lorem Ipsum available,
         but the majority have suffered alteration in some form, by injected humour, or randomised

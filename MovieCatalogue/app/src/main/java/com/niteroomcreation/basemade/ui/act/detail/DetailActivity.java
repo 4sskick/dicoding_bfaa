@@ -34,10 +34,10 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     TextView txtDetailName;
     @BindView(R.id.txt_detail_desc)
     TextView txtDetailDesc;
-    @BindView(R.id.txt_detail_percentage)
-    TextView txtDetailPercentage;
-    @BindView(R.id.txt_detail_year)
-    TextView txtDetailYear;
+//    @BindView(R.id.txt_detail_percentage)
+//    TextView txtDetailPercentage;
+//    @BindView(R.id.txt_detail_year)
+//    TextView txtDetailYear;
 
     private Movies movies;
     private TvShows tvShows;
@@ -121,13 +121,13 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
         txtDetailName.setText(movies != null ? movies.getTitle() : tvShows.getName());
         txtDetailDesc.setText(getOverview(movies, tvShows));
-        txtDetailPercentage.setText(String.format("%s"
-                , String.valueOf(movies != null ? movies.getVoteAverage() :
-                        tvShows.getVoteAverage())));
-        txtDetailYear.setText(String.format("( %s )"
-                , String.valueOf(movies != null ?
-                        movies.getReleaseDate().split("-")[0] :
-                        tvShows.getFirstAirDate().split("-")[0])));
+//        txtDetailPercentage.setText(String.format("%s"
+//                , String.valueOf(movies != null ? movies.getVoteAverage() :
+//                        tvShows.getVoteAverage())));
+//        txtDetailYear.setText(String.format("( %s )"
+//                , String.valueOf(movies != null ?
+//                        movies.getReleaseDate().split("-")[0] :
+//                        tvShows.getFirstAirDate().split("-")[0])));
     }
 
     private String getOverview(Movies m, TvShows t) {
