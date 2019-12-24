@@ -82,6 +82,8 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         void binds() {
             final Movies model = getItem(getAdapterPosition());
 
+            // TODO: 24/12/19 see https://stackoverflow.com/a/48454860 for loader image
+
             if (model != null) {
                 txtName.setText(model.getTitle());
                 txtDesc.setText(model.getOverview());
