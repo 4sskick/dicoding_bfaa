@@ -2,7 +2,6 @@ package com.niteroomcreation.basemade.utils.thread;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.Nullable;
 
@@ -21,9 +20,6 @@ import java.util.concurrent.ExecutionException;
 public class ImageHandlerThread extends HandlerThread {
     private static final String TAG = ImageHandlerThread.class.getSimpleName();
 
-    private Handler mHandler;
-    private ImageHandlerListener mListener;
-
     private ImageUploadHandlerThread mPictureUploadThread;
     private Context mContext;
 
@@ -31,20 +27,23 @@ public class ImageHandlerThread extends HandlerThread {
         super(TAG);
 
         start();
-        this.mHandler = new Handler(getLooper());
         this.mContext = context;
     }
 
-    public void beginQueue(byte[] data) {
+    public void beginQueue(byte[] data, String fileName) {
         if (mPictureUploadThread == null) {
             mPictureUploadThread = new ImageUploadHandlerThread(mContext);
             mPictureUploadThread.startUpload();
         }
 
-        mPictureUploadThread.queueMakeBitmap(data);
+        mPictureUploadThread.queueMakeBitmap(data, fileName);
     }
 
-    public void generateByteArrayImage(String url) throws ExecutionException, InterruptedException {
+    public Bitmap loadQueue(String fileName) {
+        return null;
+    }
+
+    public void generateByteArrayImage(String url, String fileName) throws ExecutionException, InterruptedException {
         Glide.with(mContext)
                 .asBitmap()
                 .load(url)
@@ -59,7 +58,7 @@ public class ImageHandlerThread extends HandlerThread {
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         resource.compress(Bitmap.CompressFormat.PNG, 80, stream);
 
-                        beginQueue(stream.toByteArray());
+                        beginQueue(stream.toByteArray(), fileName);
 
                         return false;
                     }
@@ -68,7 +67,4 @@ public class ImageHandlerThread extends HandlerThread {
                 .get();
     }
 
-    interface ImageHandlerListener {
-        void onPorcess();
-    }
 }

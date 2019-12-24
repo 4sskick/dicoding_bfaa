@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.utils.ImageUtils;
@@ -91,6 +93,8 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                         .load(imageUtils.load())
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
+                        .placeholder(R.drawable.ic_placeholder)
+                        .transition(DrawableTransitionOptions.withCrossFade())
                         .into(imgMovie);
             }
         }

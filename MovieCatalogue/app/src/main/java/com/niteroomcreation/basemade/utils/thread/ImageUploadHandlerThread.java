@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.hardware.Camera;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -18,11 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,12 +37,8 @@ public class ImageUploadHandlerThread extends HandlerThread {
     private Context mContext;
 
     private final File UPLOAD_DIR;
-    private SimpleDateFormat FILE_NAME = new SimpleDateFormat("yyyymmddHHMMdssS", Locale.ENGLISH);
     private Set<File> mQueue = new HashSet<>();
-    private Map<File, Bitmap> mWritePictureRequest = new HashMap<>();
-
-    private Long mCounter = 1l;
-    private boolean mUseThreads = true;
+    private Map<File, Bitmap> mWriteImageToProcess = new HashMap<>();
 
     public ImageUploadHandlerThread(Context context) {
         super(TAG);
@@ -71,7 +63,7 @@ public class ImageUploadHandlerThread extends HandlerThread {
                                 File file = data;
                                 mQueue.remove(file);
                                 Log.i(TAG, String.format("Processing %s", file.getName()));
-                                handleRequest(file);
+                                handleUploadRequest(file);
                             }
 
                             private Runnable init(File data) {
@@ -88,10 +80,14 @@ public class ImageUploadHandlerThread extends HandlerThread {
                             @Override
                             public void run() {
                                 File f = data;
-                                Bitmap bmp = mWritePictureRequest.get(f);
+
+                                //processing write image file
+                                Bitmap bmp = mWriteImageToProcess.get(f);
                                 writeToFile(f, bmp, true);
-                                mWritePictureRequest.remove(f);
-                                queueFileToUpload(f);
+                                mWriteImageToProcess.remove(f);
+
+                                //begin process to upload file
+                                //queueFileToUpload(f);
                             }
 
                             private Runnable init(File data) {
@@ -112,8 +108,8 @@ public class ImageUploadHandlerThread extends HandlerThread {
         });
     }
 
-    private void handleRequest(final File file) {
-        //Do upload
+    private void handleUploadRequest(final File file) {
+        //Doing upload
         try {
             Log.i(TAG, "Uploading picture " + file.getName());
             sleep(1000); //simulate upload
@@ -145,11 +141,22 @@ public class ImageUploadHandlerThread extends HandlerThread {
         }
     }
 
-    public void queueMakeBitmap(byte[] data) {
+    public void queueMakeBitmap(byte[] data, String fileName) {
         Log.i(TAG, "Added to make bitmap queue");
         MakeBitmapData bitmapData = new MakeBitmapData();
         bitmapData.data = data;
+        bitmapData.nameFile = String.format("poster_%s", fileName.replaceAll("\\s+", "_"));
+        bitmapData.extFile = "PNG";
         mHandler.obtainMessage(WHAT_CREATE_BITMAP, bitmapData).sendToTarget();
+    }
+
+    public void queueWriteToFile(Bitmap bitmap, String fileName) {
+        File f = new File(UPLOAD_DIR, fileName);
+
+        Log.i(TAG, f.getName() + " added to write to disk queue");
+
+        mWriteImageToProcess.put(f, bitmap);
+        mHandler.obtainMessage(WHAT_WRITE_TO_DISK, f).sendToTarget();
     }
 
     public void queueFileToUpload(File file) {
@@ -159,7 +166,9 @@ public class ImageUploadHandlerThread extends HandlerThread {
     public void queueFileToUpload(File file, long delay) {
         synchronized (mQueue) {
             mQueue.add(file);
+
             Log.i(TAG, file.getName() + " added to the upload queue");
+
             Message msg = mHandler.obtainMessage(WHAT_UPLOAD, file);
             mHandler.sendMessageDelayed(msg, delay);
         }
@@ -172,7 +181,10 @@ public class ImageUploadHandlerThread extends HandlerThread {
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(bitmapData.data, 0, bitmapData.data.length, options);
+        BitmapFactory.decodeByteArray(bitmapData.data
+                , 0
+                , bitmapData.data.length
+                , options);
 
         //Resize to 1MP 1280 x 960
         int reqWidth = 1280;
@@ -189,32 +201,24 @@ public class ImageUploadHandlerThread extends HandlerThread {
         }
 
         //Size for display
-        String fileName = "bitmap-" + mCounter + "-" + FILE_NAME.format(new Date()) + ".jpg";
-        mCounter += 1;
+        String extFileName = String.format("%s.%s", bitmapData.nameFile, bitmapData.extFile);
         reqWidth = res.getDimensionPixelSize(R.dimen.thumb_height); //this is actually the height, since we display in portrait
         reqHeight = res.getDimensionPixelSize(R.dimen.thumb_width);
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
         options.inJustDecodeBounds = false;
 
-        //Write to file/upload
+        //Write to file/app_images
         if (!UPLOAD_DIR.exists()) {
             UPLOAD_DIR.mkdir();
         }
 
-        queueWriteToFile(rotated, fileName);
+        queueWriteToFile(rotated, extFileName);
     }
 
-    public void queueWriteToFile(Bitmap bitmap, String fileName) {
-        File f = new File(UPLOAD_DIR, fileName);
+    private static int calculateInSampleSize(BitmapFactory.Options options
+            , int reqWidth
+            , int reqHeight) {
 
-        Log.i(TAG, f.getName() + " added to write to disk queue");
-
-        mWritePictureRequest.put(f, bitmap);
-        mHandler.obtainMessage(WHAT_WRITE_TO_DISK, f).sendToTarget();
-    }
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -248,17 +252,23 @@ public class ImageUploadHandlerThread extends HandlerThread {
     /**
      * custom class
      */
-    private static class MakeBitmapData {
+    public static class MakeBitmapData {
         byte[] data;
         float orientation;
+        String nameFile;
+        String extFile;
+
+        public MakeBitmapData getData() {
+            return this;
+        }
     }
 
     private static class UtilsThread {
         private static File sUploadDir;
 
-        public static File getUploadDir(Context context) {
+        private static File getUploadDir(Context context) {
             if (sUploadDir == null) {
-                sUploadDir = new File(context.getFilesDir(), "to_upload");
+                sUploadDir = new File(context.getFilesDir(), "app_images");
             }
             return sUploadDir;
         }

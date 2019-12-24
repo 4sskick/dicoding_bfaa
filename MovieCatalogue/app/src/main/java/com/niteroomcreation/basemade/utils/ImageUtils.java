@@ -61,7 +61,8 @@ public class ImageUtils {
         if (external) {
             directory = getAlbumStorageDir(directoryName);
         } else {
-            directory = context.getDir(directoryName, Context.MODE_PRIVATE);
+//            directory = context.getDir(directoryName, Context.MODE_PRIVATE);
+            directory = new File(context.getFilesDir(), "app_images");
         }
 
 //        if (!directory.exists() && !directory.mkdirs()) {
