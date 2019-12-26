@@ -11,12 +11,13 @@
     app:elevation="0dp">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/c_action_bar_toolbar"
+        android:id="@+id/c_actionbar_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_height="match_parent"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <include layout="@layout/c_action_normal" />
+        <include layout="@layout/c_actionbar_normal" />
 
     </android.support.v7.widget.Toolbar>
 

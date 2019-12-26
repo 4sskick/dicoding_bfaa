@@ -1,6 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
+    <style name="AppTheme.BaseColor">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -8,9 +14,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme.BaseColor">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Main" parent="AppTheme.NoActionBar">
+
     </style>
 
     <style name="AppTheme.Cerulean">
@@ -74,7 +84,7 @@
     </style>
 
     <!--font external-->
-    <style name="BaseFontLineAwesome" parent="@style/Base.Widget.AppCompat.Button.Borderless.Colored">
+    <style name="BaseFontLineAwesome" parent="@style/Base.Widget.AppCompat.Button.Borderless">
         <item name="fontPath">fonts/line-awesome.ttf</item>
         <item name="android:textSize">@dimen/font_size_xlarge</item>
     </style>

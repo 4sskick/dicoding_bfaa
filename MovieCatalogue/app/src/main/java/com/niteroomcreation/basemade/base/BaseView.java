@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -17,12 +20,16 @@ import com.niteroomcreation.basemade.view.GenericStateView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Septian Adi Wijaya on 03/09/19
  */
 public abstract class BaseView extends AppCompatActivity implements IBaseView,
         BaseFragmentView.BaseFragmentCallback {
+
+    private static final String TAG = BaseView.class.getSimpleName();
 
     public final int EMPTY_LAYOUT = 0;
 
@@ -32,6 +39,12 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     @Nullable
     @BindView(R.id.layout_empty)
     GenericStateView layoutGenericPurpose;
+    @Nullable
+    @BindView(R.id.c_actionbar_ic_back)
+    AppCompatImageView toolbarIcBack;
+    @Nullable
+    @BindView(R.id.c_actionbar_title)
+    TextView toolbarTextTitle;
 
     private Activity mActivity;
     private FragmentManager fragmentManager;
@@ -52,18 +65,17 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
         else
             setContentView(R.layout.b_activity);
 
-        if (parentLayout() == EMPTY_LAYOUT)
-            if (contentLayout() != EMPTY_LAYOUT)
-                try {
-                    layoutContent = findViewById(R.id.layout_content);
-                    LayoutInflater inflater =
-                            (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-                    inflater.inflate(contentLayout(), layoutContent);
-                } catch (Exception e) {
-                    throw new IllegalStateException("Inflating contentLayout() failed on " + this.getClass().getSimpleName());
-                }
-            else
-                throw new IllegalStateException("contentLayout() can't be EMPTY " + this.getClass().getSimpleName());
+        if (contentLayout() != EMPTY_LAYOUT)
+            try {
+                layoutContent = findViewById(R.id.layout_content);
+                LayoutInflater inflater =
+                        (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                inflater.inflate(contentLayout(), layoutContent);
+            } catch (Exception e) {
+                throw new IllegalStateException("Inflating contentLayout() failed on " + this.getClass().getSimpleName());
+            }
+        else
+            throw new IllegalStateException("contentLayout() can't be EMPTY " + this.getClass().getSimpleName());
 
         ButterKnife.bind(this);
         mActivity = this;
@@ -173,6 +185,22 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
 
     public FragmentManager getBaseFragmentManager() {
         return fragmentManager;
+    }
+
+    @Optional
+    @OnClick({R.id.c_actionbar_ic_back})
+    void onItemClickedView(View view) {
+
+        Log.e(TAG, "onItemClickedView: ");
+        switch (view.getId()) {
+            case R.id.c_actionbar_ic_back:
+                try {
+                    supportFinishAfterTransition();
+                } catch (Exception e) {
+                    onBackPressed();
+                }
+                break;
+        }
     }
 
     @Override

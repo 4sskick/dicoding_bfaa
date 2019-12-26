@@ -13,16 +13,18 @@
         android:layout_height="@dimen/icon_default"
         android:adjustViewBounds="true"
         android:tint="@color/windowBackgroundSecondary"
-        app:srcCompat="@drawable/ic_back" />
+        app:srcCompat="@drawable/ic_back"
+        tools:tint="@color/colorPrimary" />
 
     <TextView
-        android:textColor="@color/windowBackgroundSecondary"
         android:id="@+id/c_actionbar_title"
-        style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        tools:text="title action bar" />
+        android:text="title action bar"
+        android:textColor="@color/windowBackgroundSecondary"
+        tools:textColor="@color/colorPrimary" />
 
 </RelativeLayout>

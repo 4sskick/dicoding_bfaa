@@ -16,7 +16,6 @@ import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.utils.ImageUtils;
-import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -85,7 +84,6 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
             final Movies model = getItem(getAdapterPosition());
 
             // TODO: 24/12/19 see https://stackoverflow.com/a/48454860 for loader image
-            // TODO: 24/12/19 make scene animation for name & desc films
 
             if (model != null) {
                 txtName.setText(model.getTitle());

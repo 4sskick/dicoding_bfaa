@@ -36,97 +36,109 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_center">
 
-        <ScrollView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:overScrollMode="never">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toTopOf="@+id/layout_bottom_detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/txt_detail_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1"
-                    android:paddingStart="@dimen/padding_standard"
-                    android:paddingTop="@dimen/padding_xxxsmall"
-                    android:paddingEnd="@dimen/padding_standard"
-                    android:text="@string/lorem_title"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_xxlarge"
-                    android:textStyle="bold"
-                    android:transitionName="@string/transition_name"
-                    tools:targetApi="lollipop"
-                    tools:text="@string/lorem_title" />
+                    android:layout_gravity="start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_detail_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1"
+                        android:paddingStart="@dimen/padding_standard"
+                        android:paddingTop="@dimen/padding_xxxsmall"
+                        android:paddingEnd="@dimen/padding_standard"
+                        android:text="@string/lorem_title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_xxlarge"
+                        android:textStyle="bold"
+                        android:transitionName="@string/transition_name"
+                        tools:targetApi="lollipop"
+                        tools:text="@string/lorem_title" />
+
+                    <TextView
+                        android:id="@+id/txt_detail_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1"
+                        android:paddingStart="@dimen/padding_standard"
+                        android:paddingTop="@dimen/padding_xxxsmall"
+                        android:paddingEnd="@dimen/padding_standard"
+                        android:paddingBottom="@dimen/padding_standard"
+                        android:text="@string/lorem_title"
+                        android:textColor="@color/white"
+                        tools:text="@string/lorem_title" />
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/layout_bottom_detail"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/padding_standard"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/txt_detail_desc"
+                    style="@style/BaseFontLineAwesome.Ripple"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1"
-                    android:paddingStart="@dimen/padding_standard"
-                    android:paddingTop="@dimen/padding_xxxsmall"
-                    android:paddingEnd="@dimen/padding_standard"
-                    android:paddingBottom="@dimen/padding_standard"
-                    android:text="@string/lorem_title"
-                    android:textColor="@color/white"
-                    tools:text="@string/lorem_title" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/padding_xxsmall"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ic_circular"
+                    android:text="@string/la_angle_down"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    style="@style/BaseFontLineAwesome.Ripple"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/padding_xxsmall"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ic_circular"
+                    android:text="@string/la_search"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    style="@style/BaseFontLineAwesome.Ripple"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/padding_xxsmall"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ic_circular"
+                    android:text="@string/la_trash_o"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    style="@style/BaseFontLineAwesome.Ripple"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/padding_xxsmall"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ic_circular"
+                    android:text="@string/la_caret_up"
+                    android:textColor="@color/black" />
+
             </LinearLayout>
-        </ScrollView>
-
-        <LinearLayout
-            android:id="@+id/layout_bottom_detail"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/padding_standard"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/BaseFontLineAwesome.Ripple"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/padding_xxsmall"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ic_circular"
-                android:text="@string/la_angle_down"
-                android:textColor="@color/black" />
-
-            <TextView
-                style="@style/BaseFontLineAwesome.Ripple"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/padding_xxsmall"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ic_circular"
-                android:text="@string/la_search"
-                android:textColor="@color/black" />
-
-            <TextView
-                style="@style/BaseFontLineAwesome.Ripple"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/padding_xxsmall"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ic_circular"
-                android:text="@string/la_trash_o"
-                android:textColor="@color/black" />
-
-            <TextView
-                style="@style/BaseFontLineAwesome.Ripple"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/padding_xxsmall"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ic_circular"
-                android:text="@string/la_caret_up"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

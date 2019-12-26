@@ -45,7 +45,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     @Override
 
     protected int parentLayout() {
-        return 0;
+        return R.layout.b_activity_actionbar;
     }
 
     @Override
