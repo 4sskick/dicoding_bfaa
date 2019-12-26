@@ -1,6 +1,7 @@
 package com.niteroomcreation.basemade.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,10 +32,10 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
     private static final String TAG = AdapterMovies.class.getSimpleName();
 
     private List<Movies> movies;
-    private GenericItemListener<Movies, View> listener;
+    private GenericItemListener<Movies, List<Pair<View, String>>> listener;
 
     public AdapterMovies(List<Movies> movies
-            , GenericItemListener<Movies, View> listener) {
+            , GenericItemListener<Movies, List<Pair<View, String>>> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -113,7 +115,14 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.layout_item:
-                    listener.onItemViewClicked(getItem(getAdapterPosition()), imgMovie);
+
+                    Pair<View, String> t1 = Pair.create(imgMovie, "anim_enter_item_img");
+                    Pair<View, String> t2 = Pair.create(txtName, "anim_enter_item_name");
+                    List<Pair<View, String>> a = new ArrayList<>();
+                    a.add(t1);
+                    a.add(t2);
+
+                    listener.onItemViewClicked(getItem(getAdapterPosition()), a);
                     break;
             }
         }

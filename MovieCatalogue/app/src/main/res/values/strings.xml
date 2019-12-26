@@ -167,4 +167,6 @@
     <string name="nav_bot_movies">Movies</string>
     <string name="nav_bot_tv_shows">Tv Shows</string>
     <string name="str_overview">Overview</string>
+    <string name="transistion_img">anim_enter_item_img</string>
+    <string name="transition_name">anim_enter_item_name</string>
 </resources>

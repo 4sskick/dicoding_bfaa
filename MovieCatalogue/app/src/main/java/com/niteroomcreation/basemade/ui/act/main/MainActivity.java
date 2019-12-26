@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,8 @@ import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
 import com.niteroomcreation.basemade.utils.NavigationUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -128,7 +131,7 @@ public class MainActivity extends BaseView implements MainContract.View,
     }
 
     @Override
-    public void onItemSelectedDetail(Object item, View view) {
+    public void onItemSelectedDetail(Object item, List<Pair<View, String>> view) {
         Log.e(TAG, String.format("onItemSelectedDetail: %s", item.toString()));
 
         //asking permission to access external storage
@@ -139,7 +142,8 @@ public class MainActivity extends BaseView implements MainContract.View,
         if (item instanceof Movies) {
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this
-                    , view.findViewById(R.id.img_item_photo), "img_item_photo");
+                    , view.get(0)
+                    , view.get(1));
             NavigationUtils.directToDetailScreen(this, item, options);
 
         } else if (item instanceof TvShows) {
@@ -147,7 +151,8 @@ public class MainActivity extends BaseView implements MainContract.View,
 
             ActivityOptionsCompat options =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(this
-                            , view.findViewById(R.id.img_item_photo), "img_item_photo");
+                            , view.get(0)
+                            , view.get(1));
             NavigationUtils.directToDetailScreen(this, item, options);
 
         } else

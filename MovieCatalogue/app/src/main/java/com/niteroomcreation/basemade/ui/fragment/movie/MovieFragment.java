@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,11 +53,12 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     protected void initComponents() {
         presenter = new MoviePresenter(this, getContext());
 
-        adapter = new AdapterMovies(movies, new GenericItemListener<Movies, View>() {
+        adapter = new AdapterMovies(movies, new GenericItemListener<Movies, List<Pair<View, String>>>() {
 
             @Override
-            public void onItemViewClicked(Movies item, View view) {
+            public void onItemViewClicked(Movies item, List<Pair<View, String>> view) {
                 listener.onItemSelectedDetail(item, view);
+
             }
         });
 
@@ -119,6 +121,6 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     }
 
     public interface MoviesListener {
-        void onItemSelectedDetail(Object item, View view);
+        void onItemSelectedDetail(Object item, List<Pair<View, String>> view);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,10 +54,10 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     protected void initComponents() {
         presenter = new TvShowPresenter(this, getContext());
 
-        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, View>() {
+        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, List<Pair<View, String>>>() {
 
             @Override
-            public void onItemViewClicked(TvShows item, View view) {
+            public void onItemViewClicked(TvShows item, List<Pair<View, String>> view) {
                 listener.onItemSelectedDetail(item, view);
             }
         });
