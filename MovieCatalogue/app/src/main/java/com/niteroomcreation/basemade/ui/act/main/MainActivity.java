@@ -86,7 +86,7 @@ public class MainActivity extends BaseView implements MainContract.View,
 
     @Override
     protected int parentLayout() {
-        return 0;
+        return R.layout.b_activity_actionbar_base;
     }
 
     @Override
@@ -96,6 +96,9 @@ public class MainActivity extends BaseView implements MainContract.View,
 
     @Override
     protected void initComponents(@Nullable Bundle savedInstanceState) {
+
+        showTitleToolbar(false, null);
+
         presenter = new MainPresenter(this, this);
 
         navView.setOnNavigationItemSelectedListener(mOnNavSelectedListener);
@@ -103,30 +106,6 @@ public class MainActivity extends BaseView implements MainContract.View,
         if (savedInstanceState == null) {
             navView.setSelectedItemId(R.id.nav_movies);
             navView.getMenu().findItem(R.id.nav_movies).setChecked(true);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.m_main, menu);
-
-        //make it return true to tell system menu you've created
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_setting:
-                Intent i = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-                startActivity(i);
-
-                Log.e(TAG, "onOptionsItemSelected: menu setting");
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

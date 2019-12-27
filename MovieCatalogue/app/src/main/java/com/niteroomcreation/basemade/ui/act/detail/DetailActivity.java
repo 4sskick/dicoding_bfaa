@@ -77,11 +77,9 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     @Override
     protected void initComponents(@Nullable Bundle savedInstanceState) {
         supportPostponeEnterTransition();
-
-        showBackButtonToolbar(true);
+        showTitleToolbar(false, null);
 
         if (getIntent() != null && getIntent().getExtras() != null) {
-
             if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof Movies) {
                 movies = getIntent().getExtras().getParcelable(EXTRA_MODEL);
             } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvShows) {

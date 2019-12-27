@@ -96,7 +96,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                         .load(
                                 imageUtils.load()!=null?
                                         imageUtils.load():
-                                        String.format("%s%sw500%s"
+                                        String.format("%s%soriginal%s"
                                                 , BuildConfig.BASE_URL_IMG
                                                 , BuildConfig.BASE_PATH_IMG
                                                 , model.getPosterPath())

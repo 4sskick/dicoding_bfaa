@@ -14,8 +14,9 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // TODO: 27/12/19 not work for changing fonts
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Nunito-Regular.ttf")
+                .setDefaultFontPath("fonts/billabong.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

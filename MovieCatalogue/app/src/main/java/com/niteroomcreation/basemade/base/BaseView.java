@@ -1,7 +1,9 @@
 package com.niteroomcreation.basemade.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -39,9 +41,6 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     @Nullable
     @BindView(R.id.layout_empty)
     GenericStateView layoutGenericPurpose;
-    @Nullable
-    @BindView(R.id.c_actionbar_ic_back)
-    AppCompatImageView toolbarIcBack;
     @Nullable
     @BindView(R.id.c_actionbar_title)
     TextView toolbarTextTitle;
@@ -95,6 +94,10 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     public void showTitleToolbar(boolean show, @Nullable String title) {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(show ? title : "");
+        }
+
+        if (toolbarTextTitle != null) {
+            toolbarTextTitle.setText(show ? title : "");
         }
     }
 
@@ -188,7 +191,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     }
 
     @Optional
-    @OnClick({R.id.c_actionbar_ic_back})
+    @OnClick({R.id.c_actionbar_ic_back, R.id.c_actionbar_ic_setting})
     void onItemClickedView(View view) {
 
         Log.e(TAG, "onItemClickedView: ");
@@ -199,6 +202,11 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
                 } catch (Exception e) {
                     onBackPressed();
                 }
+                break;
+
+            case R.id.c_actionbar_ic_setting:
+                Intent i = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(i);
                 break;
         }
     }

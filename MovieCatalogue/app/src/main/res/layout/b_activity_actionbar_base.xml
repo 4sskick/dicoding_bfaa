@@ -11,6 +11,6 @@
 
     <include
         android:id="@+id/layout_appbar"
-        layout="@layout/v_actionbar" />
+        layout="@layout/v_actionbar_base" />
 
 </RelativeLayout>
