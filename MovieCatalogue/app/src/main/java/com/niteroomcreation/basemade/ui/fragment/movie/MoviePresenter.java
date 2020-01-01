@@ -1,30 +1,19 @@
 package com.niteroomcreation.basemade.ui.fragment.movie;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.FutureTarget;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.niteroomcreation.basemade.BuildConfig;
-import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.data.remote.http.NetwokCallback;
-import com.niteroomcreation.basemade.models.MoviesModel;
-import com.niteroomcreation.basemade.utils.ImageUtils;
+import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -46,7 +35,7 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
         mView.showLoading();
 
         addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
-                , new NetwokCallback<BaseResponse<Movies>>() {
+                , new NetworkCallback<BaseResponse<Movies>>() {
                     @Override
                     public void onSuccess(BaseResponse<Movies> model) {
                         Log.e(TAG, "onSuccess: " + model.toString());

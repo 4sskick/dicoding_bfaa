@@ -7,6 +7,8 @@ import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.data.remote.APIService;
 import com.niteroomcreation.basemade.data.remote.RemoteRepo;
+import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
+import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
 
 import io.reactivex.Flowable;
 import retrofit2.Response;
@@ -43,5 +45,15 @@ public class Repository implements RemoteRepo {
     @Override
     public Flowable<Response<BaseResponse<TvShows>>> getTvShows(String apiKey, String lang) {
         return remoteRepo.getTvShows(apiKey, lang);
+    }
+
+    @Override
+    public Flowable<Response<TvShowsDetail>> getTvShowsDetail(String tvId, String apiKey) {
+        return remoteRepo.getTvShowsDetail(tvId, apiKey);
+    }
+
+    @Override
+    public Flowable<Response<MoviesDetail>> getMoviesDetail(String movieId, String apiKey) {
+        return remoteRepo.getMoviesDetail(movieId, apiKey);
     }
 }

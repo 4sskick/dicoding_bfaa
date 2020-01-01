@@ -13,6 +13,8 @@ public class DetailContract {
     }
 
     interface Presenter extends IBasePresenter<View> {
+        void getMovieDetail(String movieId);
 
+        void getTvShowDetail(String tvId);
     }
 }

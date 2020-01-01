@@ -43,7 +43,7 @@ public class Movies implements Parcelable {
     private double voteAverage;
 
     @SerializedName("id")
-    private int id;
+    private long id;
 
     @SerializedName("adult")
     private boolean adult;
@@ -62,7 +62,7 @@ public class Movies implements Parcelable {
         releaseDate = in.readString();
         popularity = in.readDouble();
         voteAverage = in.readDouble();
-        id = in.readInt();
+        id = in.readLong();
         adult = in.readByte() != 0;
         voteCount = in.readInt();
     }
@@ -79,7 +79,7 @@ public class Movies implements Parcelable {
         dest.writeString(releaseDate);
         dest.writeDouble(popularity);
         dest.writeDouble(voteAverage);
-        dest.writeInt(id);
+        dest.writeLong(id);
         dest.writeByte((byte) (adult ? 1 : 0));
         dest.writeInt(voteCount);
     }
@@ -189,11 +189,11 @@ public class Movies implements Parcelable {
         return voteAverage;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

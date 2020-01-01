@@ -19,8 +19,8 @@ android {
     //app versioning
     def versionMajor = 3
     def versionMinor = 0
-    def versionPatch = 10
-    def versionBuild = 419
+    def versionPatch = 23
+    def versionBuild = 572
 
     defaultConfig {
         applicationId "com.niteroomcreation.basemade"
@@ -54,6 +54,7 @@ android {
             signingConfig signingConfigs.release
             buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/\""
             buildConfigField "String", "BASE_PATH", "\"3/discover/\""
+            buildConfigField "String", "BASE_PATH_BASIC", "\"3/\""
 
             buildConfigField "String", "BASE_URL_IMG", "\"https://image.tmdb.org/\""
             buildConfigField "String", "BASE_PATH_IMG", "\"t/p/\""

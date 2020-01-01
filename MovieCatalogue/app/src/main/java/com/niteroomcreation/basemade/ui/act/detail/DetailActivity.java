@@ -50,6 +50,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
     private Movies movies;
     private TvShows tvShows;
+    private DetailPresenter presenter;
 
     @Override
 
@@ -87,6 +88,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     protected void initComponents(@Nullable Bundle savedInstanceState) {
         supportPostponeEnterTransition();
         showTitleToolbar(false, null);
+        presenter = new DetailPresenter(this, this);
 
         if (getIntent() != null && getIntent().getExtras() != null) {
             if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof Movies) {
@@ -139,6 +141,15 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 //                , String.valueOf(movies != null ?
 //                        movies.getReleaseDate().split("-")[0] :
 //                        tvShows.getFirstAirDate().split("-")[0])));
+
+
+        //trial request detail
+        if (movies != null)
+            presenter.getMovieDetail(String.valueOf(movies.getId()));
+
+        if (tvShows != null)
+            presenter.getTvShowDetail(String.valueOf(tvShows.getId()));
+
     }
 
     private String getOverview(Movies m, TvShows t) {

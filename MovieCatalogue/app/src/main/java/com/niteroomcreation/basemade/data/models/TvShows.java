@@ -43,7 +43,7 @@ public class TvShows implements Parcelable {
     private String name;
 
     @SerializedName("id")
-    private int id;
+    private long id;
 
     @SerializedName("vote_count")
     private int voteCount;
@@ -59,7 +59,7 @@ public class TvShows implements Parcelable {
         popularity = in.readDouble();
         voteAverage = in.readDouble();
         name = in.readString();
-        id = in.readInt();
+        id = in.readLong();
         voteCount = in.readInt();
     }
 
@@ -75,7 +75,7 @@ public class TvShows implements Parcelable {
         dest.writeDouble(popularity);
         dest.writeDouble(voteAverage);
         dest.writeString(name);
-        dest.writeInt(id);
+        dest.writeLong(id);
         dest.writeInt(voteCount);
     }
 
@@ -184,11 +184,11 @@ public class TvShows implements Parcelable {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

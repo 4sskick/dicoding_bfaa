@@ -9,7 +9,7 @@ import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.models.TvShows;
-import com.niteroomcreation.basemade.data.remote.http.NetwokCallback;
+import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
 import org.json.JSONObject;
@@ -35,7 +35,7 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
         mView.showLoading();
 
         addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
-                , new NetwokCallback<BaseResponse<TvShows>>() {
+                , new NetworkCallback<BaseResponse<TvShows>>() {
                     @Override
                     public void onSuccess(BaseResponse<TvShows> model) {
                         Log.e(TAG, "onSuccess: " + model.toString());

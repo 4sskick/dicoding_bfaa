@@ -16,9 +16,9 @@ import retrofit2.Response;
  * Created by Septian Adi Wijaya on 14/12/2019.
  * please be sure to add credential if you use people's code
  */
-public abstract class NetwokCallback<T> extends DisposableSubscriber<Response<T>> {
+public abstract class NetworkCallback<T> extends DisposableSubscriber<Response<T>> {
 
-    private static final String TAG = NetwokCallback.class.getSimpleName();
+    private static final String TAG = NetworkCallback.class.getSimpleName();
 
     public abstract void onSuccess(T model);
 
