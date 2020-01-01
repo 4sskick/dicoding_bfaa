@@ -20,7 +20,7 @@
         app:lottie_fileName="animations/ic_splash.json"
         app:lottie_loop="true" />
 
-    <com.niteroomcreation.basemade.view.CustomTextView
+    <com.niteroomcreation.basemade.view.custom_text.BillabongText
         android:id="@+id/image_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.6" />
 
-    <com.niteroomcreation.basemade.view.CustomTextView
+    <com.niteroomcreation.basemade.view.custom_text.BillabongText
         android:id="@+id/image_sub_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

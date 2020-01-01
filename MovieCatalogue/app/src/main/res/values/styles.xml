@@ -89,7 +89,7 @@
         <item name="android:textSize">@dimen/font_size_xlarge</item>
     </style>
 
-    <style name="BaseFontLineAwesome.Ripple" parent="BaseFontLineAwesome">
+    <style name="BaseFontLineAwesome.Ripple" >
         <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:clickable">true</item>

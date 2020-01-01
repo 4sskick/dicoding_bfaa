@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.view;
+package com.niteroomcreation.basemade.view.custom_text;
 
 import android.content.Context;
 import android.graphics.Typeface;

@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.view;
+package com.niteroomcreation.basemade.view.custom_text;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
@@ -8,17 +8,17 @@ import android.util.AttributeSet;
 /**
  * Created by Septian Adi Wijaya on 01/10/19
  */
-public class CustomTextView extends AppCompatTextView {
+public class BillabongText extends AppCompatTextView {
 
-    public CustomTextView(Context context) {
+    public BillabongText(Context context) {
         super(context);
     }
 
-    public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BillabongText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomTextView(Context context, AttributeSet attrs) {
+    public BillabongText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(CustomTypefaceText.getInstance(context));
     }

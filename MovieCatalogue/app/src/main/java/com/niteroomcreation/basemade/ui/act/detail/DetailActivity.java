@@ -4,6 +4,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +22,7 @@ import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Septian Adi Wijaya on 04/11/19
@@ -38,6 +42,11 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 //    TextView txtDetailPercentage;
 //    @BindView(R.id.txt_detail_year)
 //    TextView txtDetailYear;
+
+    @BindView(R.id.layout_bottom_detail_content)
+    FrameLayout layoutBottomContent;
+
+    private boolean isVisible;
 
     private Movies movies;
     private TvShows tvShows;
@@ -92,8 +101,12 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         ImageUtils imageUtils = ImageUtils.init(this);
         imageUtils.setFileName(
                 movies != null ?
-                        String.format("%s_%s", movies.getPosterPath().split("/")[1].split(".jpg")[0], movies.getTitle()) :
-                        String.format("%s_%s", tvShows.getPosterPath().split("/")[1].split(".jpg")[0], tvShows.getName()));
+                        String.format("%s_%s",
+                                movies.getPosterPath().split("/")[1].split(".jpg")[0],
+                                movies.getTitle()) :
+                        String.format("%s_%s",
+                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0],
+                                tvShows.getName()));
 
         Glide.with(this)
                 .load(imageUtils.load())
@@ -144,5 +157,42 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         }
 
         throw new RuntimeException("Model isn't carried by parcelable arguments!");
+    }
+
+    @OnClick({R.id.txt_detail_cast_crew
+            , R.id.txt_detail_review
+            , R.id.txt_detail_video
+            , R.id.txt_detail_save_fav})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.txt_detail_cast_crew:
+                visibleFrame(view);
+                break;
+
+            case R.id.txt_detail_review:
+                visibleFrame(view);
+                break;
+
+            case R.id.txt_detail_video:
+                visibleFrame(view);
+                break;
+
+            case R.id.txt_detail_save_fav:
+                showMessage("SAVED!");
+                break;
+        }
+    }
+
+    private void visibleFrame(View contentView) {
+//        layoutBottomContent.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+////        TranslateAnimation animate = new TranslateAnimation(0
+////                , 0
+////                , layoutBottomContent.getHeight()
+////                , -layoutBottomContent.getHeight()
+////        );
+////        animate.setDuration(500);
+////        animate.setFillAfter(true);
+////        layoutBottomContent.startAnimation(animate);
+//        isVisible = !isVisible;
     }
 }
