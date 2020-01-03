@@ -21,6 +21,7 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.TagPickerView;
 
 import java.util.List;
@@ -96,7 +97,9 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
     @Override
     protected void initComponents(@Nullable Bundle savedInstanceState) {
+        showLoading();
         supportPostponeEnterTransition();
+
         showTitleToolbar(false, null);
         presenter = new DetailPresenter(this, this);
 
@@ -140,19 +143,19 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     }
 
     private void setupImage() {
-//        ImageUtils imageUtils = ImageUtils.init(this);
-//        imageUtils.setFileName(
-//                movies != null ?
-//                        String.format("%s_%s",
-//                                movies.getPosterPath().split("/")[1].split(".jpg")[0],
-//                                movies.getTitle()) :
-//                        String.format("%s_%s",
-//                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0],
-//                                tvShows.getName()));
+        ImageUtils imageUtils = ImageUtils.init(this);
+        imageUtils.setFileName(
+                String.format("%s_%s",
+                        movies != null ?
+                                movies.getPosterPath().split("/")[1].split(".jpg")[0] :
+                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0],
+                        movies != null ?
+                                movies.getTitle() :
+                                tvShows.getName()));
 
         Glide.with(this)
-//                .load(imageUtils.load())
-                .load(
+                .load(imageUtils.load() != null ?
+                        imageUtils.load() :
                         String.format("%s%soriginal%s"
                                 , BuildConfig.BASE_URL_IMG
                                 , BuildConfig.BASE_PATH_IMG
@@ -161,12 +164,22 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                                         tvShows.getPosterPath()
                         )
                 )
+//                .load(
+//                        String.format("%s%soriginal%s"
+//                                , BuildConfig.BASE_URL_IMG
+//                                , BuildConfig.BASE_PATH_IMG
+//                                , movies != null ?
+//                                        movies.getPosterPath() :
+//                                        tvShows.getPosterPath()
+//                        )
+//                )
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e
                             , Object model
                             , Target<Drawable> target
                             , boolean isFirstResource) {
+                        hideLoading();
                         return false;
                     }
 
@@ -175,11 +188,14 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                             , Object model
                             , Target<Drawable> target, DataSource dataSource
                             , boolean isFirstResource) {
+
+                        hideLoading();
                         DetailActivity.this.supportStartPostponedEnterTransition();
+
                         return false;
                     }
                 })
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imgDetailMovie);
     }
