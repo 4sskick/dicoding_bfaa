@@ -159,8 +159,7 @@
                     android:background="@drawable/bg_ic_circular"
                     android:fontFamily="@font/line_awesome"
                     android:gravity="center"
-                    android:text="@string/la_cube"
-                    android:textColor="@color/colorPrimary" />
+                    android:text="@string/la_cube" />
 
             </LinearLayout>
 

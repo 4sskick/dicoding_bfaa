@@ -123,6 +123,10 @@ public class GenericStateView extends ConstraintLayout {
         sProgress.start();
     }
 
+    public boolean isLoadingState() {
+        return sProgress.getVisibility() == VISIBLE;
+    }
+
     public void showEmptyState(int icon, String title, String subTitle, String footer, String button,
                                GenericStateListener mListener) {
         this.icon = icon;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,8 +72,10 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         super.onSaveInstanceState(outState);
         Log.e(TAG, "onSaveInstanceState: " + Locale.getDefault().getDisplayLanguage());
 
-        outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(movies));
-        outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
+        if (!isShownLoading()) {
+            outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(movies));
+            outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
+        }
     }
 
     @Override

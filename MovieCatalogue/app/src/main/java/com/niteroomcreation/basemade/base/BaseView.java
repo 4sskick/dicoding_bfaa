@@ -116,6 +116,8 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
 
     @Override
     public boolean isShownLoading() {
+        if (layoutGenericPurpose != null)
+            return layoutGenericPurpose.isLoadingState();
         return false;
     }
 

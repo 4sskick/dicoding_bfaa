@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -46,11 +47,15 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 //    @BindView(R.id.txt_detail_year)
 //    TextView txtDetailYear;
 
+    @BindView(R.id.txt_detail_save_fav)
+    AppCompatTextView txtSaveFav;
+
     @BindView(R.id.layout_bottom_detail_content)
     FrameLayout layoutBottomContent;
     @BindView(R.id.tag_genre_layout)
     TagPickerView layoutTagGenre;
 
+    private boolean isSaveChosen;
     private boolean isVisible;
 
     private Movies movies;
@@ -147,22 +152,21 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
         Glide.with(this)
 //                .load(imageUtils.load())
-                .load(movies != null ?
+                .load(
                         String.format("%s%soriginal%s"
                                 , BuildConfig.BASE_URL_IMG
                                 , BuildConfig.BASE_PATH_IMG
-                                , movies.getPosterPath()
-                        ) :
-                        String.format("%s%soriginal%s"
-                                , BuildConfig.BASE_URL_IMG
-                                , BuildConfig.BASE_PATH_IMG
-                                , tvShows.getPosterPath()
+                                , movies != null ?
+                                        movies.getPosterPath() :
+                                        tvShows.getPosterPath()
                         )
                 )
                 .listener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                                                Target<Drawable> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e
+                            , Object model
+                            , Target<Drawable> target
+                            , boolean isFirstResource) {
                         return false;
                     }
 
@@ -217,21 +221,23 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                 break;
 
             case R.id.txt_detail_save_fav:
-                showMessage("SAVED!");
+                toggleColor();
+
                 break;
         }
     }
 
+    private void toggleColor() {
+
+        txtSaveFav.setTextColor(isSaveChosen ?
+                getResources().getColor(R.color.textColorSecondary) :
+                getResources().getColor(R.color.colorPrimary));
+
+        isSaveChosen = !isSaveChosen;
+        showMessage(isSaveChosen ? "SAVED" : "UNSAVED");
+    }
+
     private void visibleFrame(View contentView) {
-//        layoutBottomContent.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-////        TranslateAnimation animate = new TranslateAnimation(0
-////                , 0
-////                , layoutBottomContent.getHeight()
-////                , -layoutBottomContent.getHeight()
-////        );
-////        animate.setDuration(500);
-////        animate.setFillAfter(true);
-////        layoutBottomContent.startAnimation(animate);
-//        isVisible = !isVisible;
+
     }
 }
