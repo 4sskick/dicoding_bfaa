@@ -166,10 +166,8 @@ dependencies {
     //network request
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
-
-    //font custom
-    implementation "uk.co.chrisjenx:calligraphy:$calligraphyVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

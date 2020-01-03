@@ -14,4 +14,20 @@
     <declare-styleable name="CradleBall">
         <attr name="cradle_ball_color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="TagPickerView">
+        <attr name="tp_itemRadius" format="dimension" />
+        <attr name="tp_itemBackgroundNormal" format="color" />
+        <attr name="tp_itemBackgroundPressed" format="color" />
+        <attr name="tp_itemBackgroundPressedCorrect" format="color" />
+        <attr name="tp_addIcon" format="reference" />
+        <attr name="tp_cancelIcon" format="reference" />
+        <attr name="tp_randomColor" format="boolean" />
+        <attr name="tp_itemMargin" format="dimension" />
+        <attr name="tp_itemTextColor" format="color" />
+        <attr name="tp_textPaddingLeft" format="dimension" />
+        <attr name="tp_textPaddingRight" format="dimension" />
+        <attr name="tp_textPaddingTop" format="dimension" />
+        <attr name="tp_textPaddingBottom" format="dimension" />
+    </declare-styleable>
 </resources>

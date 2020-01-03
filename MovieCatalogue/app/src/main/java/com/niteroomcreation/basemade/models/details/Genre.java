@@ -1,10 +1,10 @@
-package com.niteroomcreation.basemade.models.details.movie;
+package com.niteroomcreation.basemade.models.details;
 
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class GenresItem {
+public class Genre {
 
     @SerializedName("name")
     private String name;
@@ -31,7 +31,7 @@ public class GenresItem {
     @Override
     public String toString() {
         return
-                "GenresItem{" +
+                "Genre{" +
                         "name = '" + name + '\'' +
                         ",id = '" + id + '\'' +
                         "}";

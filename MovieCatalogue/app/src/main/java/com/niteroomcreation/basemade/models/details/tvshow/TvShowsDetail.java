@@ -3,6 +3,8 @@ package com.niteroomcreation.basemade.models.details.tvshow;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
+import com.niteroomcreation.basemade.models.details.Genre;
+import com.niteroomcreation.basemade.models.details.ProductionCompany;
 
 public class TvShowsDetail {
 
@@ -22,7 +24,7 @@ public class TvShowsDetail {
     private String backdropPath;
 
     @SerializedName("genres")
-    private List<GenresItem> genres;
+    private List<Genre> genres;
 
     @SerializedName("popularity")
     private double popularity;
@@ -43,7 +45,7 @@ public class TvShowsDetail {
     private String overview;
 
     @SerializedName("seasons")
-    private List<SeasonsItem> seasons;
+    private List<Season> seasons;
 
     @SerializedName("languages")
     private List<String> languages;
@@ -61,7 +63,7 @@ public class TvShowsDetail {
     private List<String> originCountry;
 
     @SerializedName("production_companies")
-    private List<ProductionCompaniesItem> productionCompanies;
+    private List<ProductionCompany> productionCompanies;
 
     @SerializedName("original_name")
     private String originalName;
@@ -130,11 +132,11 @@ public class TvShowsDetail {
         return backdropPath;
     }
 
-    public void setGenres(List<GenresItem> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 
-    public List<GenresItem> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
@@ -186,11 +188,11 @@ public class TvShowsDetail {
         return overview;
     }
 
-    public void setSeasons(List<SeasonsItem> seasons) {
+    public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
     }
 
-    public List<SeasonsItem> getSeasons() {
+    public List<Season> getSeasons() {
         return seasons;
     }
 
@@ -234,11 +236,11 @@ public class TvShowsDetail {
         return originCountry;
     }
 
-    public void setProductionCompanies(List<ProductionCompaniesItem> productionCompanies) {
+    public void setProductionCompanies(List<ProductionCompany> productionCompanies) {
         this.productionCompanies = productionCompanies;
     }
 
-    public List<ProductionCompaniesItem> getProductionCompanies() {
+    public List<ProductionCompany> getProductionCompanies() {
         return productionCompanies;
     }
 

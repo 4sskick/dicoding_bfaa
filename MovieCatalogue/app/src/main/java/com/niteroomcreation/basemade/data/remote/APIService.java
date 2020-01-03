@@ -3,6 +3,8 @@ package com.niteroomcreation.basemade.data.remote;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.remote.http.NetworkInterceptor;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -14,17 +16,20 @@ public class APIService {
     private static RemoteRepo api;
 
     public static RemoteRepo createService() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor httpLogging = new HttpLoggingInterceptor();
         //set logging level to NONE
         //so there is no log information while request
         //see: https://futurestud.io/blog/retrofit-2-log-requests-and-responses
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new NetworkInterceptor())
-                .addInterceptor(httpLoggingInterceptor)
-                .build();
+        httpLogging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        getApi(okHttpClient);
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+
+        okHttpClient.addInterceptor(new NetworkInterceptor());
+        okHttpClient.addInterceptor(httpLogging);
+        okHttpClient.connectTimeout(30, TimeUnit.SECONDS);
+        okHttpClient.readTimeout(30, TimeUnit.SECONDS);
+
+        getApi(okHttpClient.build());
 
         return api;
     }

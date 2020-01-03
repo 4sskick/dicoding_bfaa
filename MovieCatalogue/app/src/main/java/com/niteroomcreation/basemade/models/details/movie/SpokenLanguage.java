@@ -4,21 +4,13 @@ package com.niteroomcreation.basemade.models.details.movie;
 import com.google.gson.annotations.SerializedName;
 
 
-public class ProductionCountriesItem{
-
-	@SerializedName("iso_3166_1")
-	private String iso31661;
+public class SpokenLanguage {
 
 	@SerializedName("name")
 	private String name;
 
-	public void setIso31661(String iso31661){
-		this.iso31661 = iso31661;
-	}
-
-	public String getIso31661(){
-		return iso31661;
-	}
+	@SerializedName("iso_639_1")
+	private String iso6391;
 
 	public void setName(String name){
 		this.name = name;
@@ -28,12 +20,20 @@ public class ProductionCountriesItem{
 		return name;
 	}
 
+	public void setIso6391(String iso6391){
+		this.iso6391 = iso6391;
+	}
+
+	public String getIso6391(){
+		return iso6391;
+	}
+
 	@Override
  	public String toString(){
 		return 
-			"ProductionCountriesItem{" + 
-			"iso_3166_1 = '" + iso31661 + '\'' + 
-			",name = '" + name + '\'' + 
+			"SpokenLanguage{" +
+			"name = '" + name + '\'' + 
+			",iso_639_1 = '" + iso6391 + '\'' + 
 			"}";
 		}
 }

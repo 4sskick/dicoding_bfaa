@@ -1,10 +1,10 @@
-package com.niteroomcreation.basemade.models.details.movie;
+package com.niteroomcreation.basemade.models.details;
 
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class ProductionCompaniesItem{
+public class ProductionCompany {
 
 	@SerializedName("logo_path")
 	private String logoPath;
@@ -53,7 +53,7 @@ public class ProductionCompaniesItem{
 	@Override
  	public String toString(){
 		return 
-			"ProductionCompaniesItem{" + 
+			"ProductionCompany{" +
 			"logo_path = '" + logoPath + '\'' + 
 			",name = '" + name + '\'' + 
 			",id = '" + id + '\'' + 

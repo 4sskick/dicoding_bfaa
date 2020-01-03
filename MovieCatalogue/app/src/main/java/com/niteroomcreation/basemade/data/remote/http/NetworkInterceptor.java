@@ -15,8 +15,6 @@ public class NetworkInterceptor implements Interceptor {
                 .method(request.method(), request.body())
                 .build();
 
-        Response response = chain.proceed(request);
-
-        return response;
+        return chain.proceed(request);
     }
 }

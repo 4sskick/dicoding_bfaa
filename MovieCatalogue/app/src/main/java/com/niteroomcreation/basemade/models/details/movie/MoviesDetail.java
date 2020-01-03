@@ -3,6 +3,8 @@ package com.niteroomcreation.basemade.models.details.movie;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
+import com.niteroomcreation.basemade.models.details.Genre;
+import com.niteroomcreation.basemade.models.details.ProductionCompany;
 
 
 public class MoviesDetail {
@@ -26,13 +28,13 @@ public class MoviesDetail {
     private int revenue;
 
     @SerializedName("genres")
-    private List<GenresItem> genres;
+    private List<Genre> genres;
 
     @SerializedName("popularity")
     private double popularity;
 
     @SerializedName("production_countries")
-    private List<ProductionCountriesItem> productionCountries;
+    private List<ProductionCountry> productionCountries;
 
     @SerializedName("id")
     private long id;
@@ -56,10 +58,10 @@ public class MoviesDetail {
     private String posterPath;
 
     @SerializedName("spoken_languages")
-    private List<SpokenLanguagesItem> spokenLanguages;
+    private List<SpokenLanguage> spokenLanguages;
 
     @SerializedName("production_companies")
-    private List<ProductionCompaniesItem> productionCompanies;
+    private List<ProductionCompany> productionCompanies;
 
     @SerializedName("release_date")
     private String releaseDate;
@@ -130,11 +132,11 @@ public class MoviesDetail {
         return revenue;
     }
 
-    public void setGenres(List<GenresItem> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 
-    public List<GenresItem> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
@@ -146,11 +148,11 @@ public class MoviesDetail {
         return popularity;
     }
 
-    public void setProductionCountries(List<ProductionCountriesItem> productionCountries) {
+    public void setProductionCountries(List<ProductionCountry> productionCountries) {
         this.productionCountries = productionCountries;
     }
 
-    public List<ProductionCountriesItem> getProductionCountries() {
+    public List<ProductionCountry> getProductionCountries() {
         return productionCountries;
     }
 
@@ -210,19 +212,19 @@ public class MoviesDetail {
         return posterPath;
     }
 
-    public void setSpokenLanguages(List<SpokenLanguagesItem> spokenLanguages) {
+    public void setSpokenLanguages(List<SpokenLanguage> spokenLanguages) {
         this.spokenLanguages = spokenLanguages;
     }
 
-    public List<SpokenLanguagesItem> getSpokenLanguages() {
+    public List<SpokenLanguage> getSpokenLanguages() {
         return spokenLanguages;
     }
 
-    public void setProductionCompanies(List<ProductionCompaniesItem> productionCompanies) {
+    public void setProductionCompanies(List<ProductionCompany> productionCompanies) {
         this.productionCompanies = productionCompanies;
     }
 
-    public List<ProductionCompaniesItem> getProductionCompanies() {
+    public List<ProductionCompany> getProductionCompanies() {
         return productionCompanies;
     }
 

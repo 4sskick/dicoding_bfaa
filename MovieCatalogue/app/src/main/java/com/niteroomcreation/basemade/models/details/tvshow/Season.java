@@ -4,7 +4,7 @@ package com.niteroomcreation.basemade.models.details.tvshow;
 import com.google.gson.annotations.SerializedName;
 
 
-public class SeasonsItem {
+public class Season {
 
     @SerializedName("air_date")
     private String airDate;
@@ -86,7 +86,7 @@ public class SeasonsItem {
     @Override
     public String toString() {
         return
-                "SeasonsItem{" +
+                "Season{" +
                         "air_date = '" + airDate + '\'' +
                         ",overview = '" + overview + '\'' +
                         ",episode_count = '" + episodeCount + '\'' +

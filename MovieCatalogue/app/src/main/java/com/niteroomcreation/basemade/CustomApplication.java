@@ -3,8 +3,6 @@ package com.niteroomcreation.basemade;
 
 import android.app.Application;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-
 /**
  * Created by Septian Adi Wijaya on 30/09/19
  */

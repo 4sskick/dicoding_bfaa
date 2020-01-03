@@ -83,9 +83,8 @@
         <item name="android:focusable">true</item>
     </style>
 
-    <!--font external-->
+    <!--fonts external-->
     <style name="BaseFontLineAwesome" >
-        <item name="fontPath">fonts/line-awesome.ttf</item>
         <item name="android:textSize">@dimen/font_size_xlarge</item>
     </style>
 

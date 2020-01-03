@@ -8,10 +8,15 @@ import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
+import com.niteroomcreation.basemade.models.details.Genre;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
 import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Septian Adi Wijaya on 04/11/19
@@ -32,6 +37,16 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                     @Override
                     public void onSuccess(MoviesDetail model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
+
+                        List<String> genres = new ArrayList<>();
+                        for (Object obj : model.getGenres()) {
+                            if (obj instanceof String) {
+                                genres.add(Objects.toString(obj, null));
+                            } else
+                                genres.add(String.valueOf(((Genre) obj).getName()));
+                        }
+
+                        mView.setupGenre(genres);
                     }
 
                     @Override
@@ -55,6 +70,16 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                     @Override
                     public void onSuccess(TvShowsDetail model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
+
+                        List<String> genres = new ArrayList<>();
+                        for (Object obj : model.getGenres()) {
+                            if (obj instanceof String) {
+                                genres.add(Objects.toString(obj, null));
+                            } else
+                                genres.add(String.valueOf(((Genre) obj).getName()));
+                        }
+
+                        mView.setupGenre(genres);
                     }
 
                     @Override

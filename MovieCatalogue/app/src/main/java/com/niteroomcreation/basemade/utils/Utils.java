@@ -49,4 +49,9 @@ public class Utils {
     public static String getUniCodeLanguageDisplay() {
         return Locale.getDefault().getDisplayCountry().equalsIgnoreCase("English") ? "en-EN" : "id-ID";
     }
+
+    public static int dpToPx(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
+    }
 }

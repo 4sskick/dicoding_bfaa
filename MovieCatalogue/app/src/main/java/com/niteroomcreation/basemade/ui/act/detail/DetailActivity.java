@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -15,11 +15,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.models.Movies;
 import com.niteroomcreation.basemade.data.models.TvShows;
-import com.niteroomcreation.basemade.utils.ImageUtils;
+import com.niteroomcreation.basemade.view.TagPickerView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,6 +48,8 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
     @BindView(R.id.layout_bottom_detail_content)
     FrameLayout layoutBottomContent;
+    @BindView(R.id.tag_genre_layout)
+    TagPickerView layoutTagGenre;
 
     private boolean isVisible;
 
@@ -100,18 +105,60 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         } else
             throw new RuntimeException("Model isn't carried by parcelable arguments!");
 
-        ImageUtils imageUtils = ImageUtils.init(this);
-        imageUtils.setFileName(
-                movies != null ?
-                        String.format("%s_%s",
-                                movies.getPosterPath().split("/")[1].split(".jpg")[0],
-                                movies.getTitle()) :
-                        String.format("%s_%s",
-                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0],
-                                tvShows.getName()));
+        if (movies != null)
+            presenter.getMovieDetail(String.valueOf(movies.getId()));
+
+        if (tvShows != null)
+            presenter.getTvShowDetail(String.valueOf(tvShows.getId()));
+
+        setupImage();
+        setupContent();
+    }
+
+    public void setupGenre(List<String> genres) {
+        Log.e(TAG, "setupGenre: " + genres.toString());
+        layoutTagGenre.setItems(genres);
+    }
+
+    @Override
+    public void setupContent() {
+        txtDetailName.setText(movies != null ? movies.getTitle() : tvShows.getName());
+        txtDetailDesc.setText(getOverview(movies, tvShows));
+//        txtDetailPercentage.setText(String.format("%s"
+//                , String.valueOf(movies != null ? movies.getVoteAverage() :
+//                        tvShows.getVoteAverage())));
+//        txtDetailYear.setText(String.format("( %s )"
+//                , String.valueOf(movies != null ?
+//                        movies.getReleaseDate().split("-")[0] :
+//                        tvShows.getFirstAirDate().split("-")[0])));
+
+    }
+
+    private void setupImage() {
+//        ImageUtils imageUtils = ImageUtils.init(this);
+//        imageUtils.setFileName(
+//                movies != null ?
+//                        String.format("%s_%s",
+//                                movies.getPosterPath().split("/")[1].split(".jpg")[0],
+//                                movies.getTitle()) :
+//                        String.format("%s_%s",
+//                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0],
+//                                tvShows.getName()));
 
         Glide.with(this)
-                .load(imageUtils.load())
+//                .load(imageUtils.load())
+                .load(movies != null ?
+                        String.format("%s%soriginal%s"
+                                , BuildConfig.BASE_URL_IMG
+                                , BuildConfig.BASE_PATH_IMG
+                                , movies.getPosterPath()
+                        ) :
+                        String.format("%s%soriginal%s"
+                                , BuildConfig.BASE_URL_IMG
+                                , BuildConfig.BASE_PATH_IMG
+                                , tvShows.getPosterPath()
+                        )
+                )
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model,
@@ -131,25 +178,6 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imgDetailMovie);
-
-        txtDetailName.setText(movies != null ? movies.getTitle() : tvShows.getName());
-        txtDetailDesc.setText(getOverview(movies, tvShows));
-//        txtDetailPercentage.setText(String.format("%s"
-//                , String.valueOf(movies != null ? movies.getVoteAverage() :
-//                        tvShows.getVoteAverage())));
-//        txtDetailYear.setText(String.format("( %s )"
-//                , String.valueOf(movies != null ?
-//                        movies.getReleaseDate().split("-")[0] :
-//                        tvShows.getFirstAirDate().split("-")[0])));
-
-
-        //trial request detail
-        if (movies != null)
-            presenter.getMovieDetail(String.valueOf(movies.getId()));
-
-        if (tvShows != null)
-            presenter.getTvShowDetail(String.valueOf(tvShows.getId()));
-
     }
 
     private String getOverview(Movies m, TvShows t) {
