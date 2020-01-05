@@ -28,7 +28,7 @@ public class Repository implements RemoteRepo {
 
     public static Repository getInstance(Context context) {
         if (ref == null) {
-            ref = new Repository(APIService.createService());
+            ref = new Repository(APIService.createService(context));
         }
 
         return ref;

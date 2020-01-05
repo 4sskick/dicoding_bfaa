@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,11 +23,11 @@ import butterknife.Optional;
  */
 public class GenericStateView extends ConstraintLayout {
 
+    private static final String TAG = GenericStateView.class.getSimpleName();
+
     View vContent;
     @BindView(R.id.s_tv_footer)
     TextView sTvFooter;
-    @BindView(R.id.wrap_view)
-    ConstraintLayout wrapView;
     @BindView(R.id.s_wrap_state)
     ConstraintLayout sWrapState;
     @BindView(R.id.s_progress)
@@ -127,8 +128,13 @@ public class GenericStateView extends ConstraintLayout {
         return sProgress.getVisibility() == VISIBLE;
     }
 
-    public void showEmptyState(int icon, String title, String subTitle, String footer, String button,
-                               GenericStateListener mListener) {
+    public void showEmptyState(int icon
+            , String title
+            , String subTitle
+            , String footer
+            , String button
+            , GenericStateListener mListener) {
+
         this.icon = icon;
         this.title = title;
         this.subTitle = subTitle;
@@ -139,7 +145,10 @@ public class GenericStateView extends ConstraintLayout {
         if (!templateContent) {
             //setData();
             //should set the data based on user set
+            Log.e(TAG, "showEmptyState: not template content");
         } else {
+            Log.e(TAG, "showEmptyState: is a template content");
+
             setTemplateData();
         }
 

@@ -4,17 +4,20 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterTvShow;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
 import com.niteroomcreation.basemade.data.models.TvShows;
 import com.niteroomcreation.basemade.models.TvShowModel;
+import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.utils.Constants;
 import com.niteroomcreation.basemade.utils.Utils;
@@ -35,6 +38,8 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
 
     @BindView(R.id.list_tv_show)
     RecyclerView listTvShow;
+    @BindView(R.id.fl_tvShow)
+    FrameLayout flTvShow;
 
     private TvShowPresenter presenter;
     private AdapterTvShow adapter;
@@ -54,7 +59,8 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     protected void initComponents() {
         presenter = new TvShowPresenter(this, getContext());
 
-        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, List<Pair<View, String>>>() {
+        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, List<Pair<View,
+                String>>>() {
 
             @Override
             public void onItemViewClicked(TvShows item, List<Pair<View, String>> view) {
@@ -82,13 +88,15 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
         if (savedInstanceState != null) {
 
             if (!Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(savedInstanceState.getString(Constants.EXTRA_LANG_MODEL))) {
-                presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+                presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
+                        "english") ? "en-EN" : "id-ID");
             } else {
                 tvShows = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
                 setData(tvShows);
             }
         } else {
-            presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+            presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
+                    "english") ? "en-EN" : "id-ID");
         }
     }
 
@@ -120,5 +128,13 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
         presenter.onUnsubscribe();
         presenter = null;
         super.onDestroyView();
+    }
+
+    @Override
+    public void showOverrideEmptyState() {
+        hideLoading();
+        mActivity.moveToFragment(flTvShow.getId()
+                , EmptyFragment.newInstance()
+                , EmptyFragment.class.getSimpleName());
     }
 }

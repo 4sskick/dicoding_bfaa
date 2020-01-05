@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.niteroomcreation.basemade.BuildConfig;
 
 import java.util.List;
 
@@ -155,6 +156,13 @@ public class Movies implements Parcelable {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getFullPosterPath(boolean isHalf) {
+        return String.format(isHalf ? "%s%sw500%s" : "%s%sw780%s"
+                , BuildConfig.BASE_URL_IMG
+                , BuildConfig.BASE_PATH_IMG
+                , posterPath);
     }
 
     public void setBackdropPath(String backdropPath) {

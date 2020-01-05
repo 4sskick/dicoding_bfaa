@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
+import com.niteroomcreation.basemade.R;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -16,7 +22,13 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragmentView extends Fragment implements IBaseView {
 
-    private BaseView mActivity;
+    private static final String TAG = BaseFragmentView.class.getSimpleName();
+
+    @Nullable
+    @BindView(R.id.layout_content)
+    FrameLayout layoutContentFragment;
+
+    public BaseView mActivity;
 
     private static String fragmentTitle;
 
@@ -33,7 +45,9 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
         if (contentLayout() != ((BaseView) getActivity()).EMPTY_LAYOUT)
             view = getActivity().getLayoutInflater().inflate(contentLayout(), container, false);
         else
-            throw new IllegalStateException("setDialogView() can't be EMPTY " + this.getClass().getSimpleName());
+            throw new IllegalStateException("setDialogView() can't be EMPTY " + this.getClass()
+            .getSimpleName());
+
         ButterKnife.bind(this, view);
         return view;
     }
@@ -42,6 +56,7 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivity = (BaseView) getActivity();
+
         initComponents();
 
     }

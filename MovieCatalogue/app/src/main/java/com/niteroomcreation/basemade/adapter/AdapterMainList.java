@@ -48,7 +48,8 @@ public class AdapterMainList extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.i_movie, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.i_movie, parent,
+                    false);
         }
 
         MainListViewHolder vh = new MainListViewHolder(view);
@@ -76,7 +77,8 @@ public class AdapterMainList extends BaseAdapter {
             txtDesc.setText(movie.getDesc());
 
             Glide.with(imgMovie.getContext())
-                    .load(movie.getPoster())
+//                    .load(movie.getPoster())
+                    .load(movie.getFullPosterPath())
                     .apply(new RequestOptions().override(55, 55))
                     .into(imgMovie);
         }

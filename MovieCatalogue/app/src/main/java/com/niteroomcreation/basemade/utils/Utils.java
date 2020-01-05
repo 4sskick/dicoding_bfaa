@@ -5,6 +5,8 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -24,7 +26,8 @@ import java.util.Locale;
  */
 public class Utils {
 
-    public static void compressImage(Context context, Drawable resId, SimpleTarget<Bitmap> listener) {
+    public static void compressImage(Context context, Drawable resId,
+                                     SimpleTarget<Bitmap> listener) {
         Glide.with(context)
                 .asBitmap()
                 .load(resId)
@@ -34,7 +37,8 @@ public class Utils {
                 .into(listener);
     }
 
-    public static void compressImage(Context context, Drawable resId, RequestListener<Bitmap> listener) {
+    public static void compressImage(Context context, Drawable resId,
+                                     RequestListener<Bitmap> listener) {
         Glide.with(context)
                 .asBitmap()
                 .load(resId)
@@ -47,11 +51,19 @@ public class Utils {
     }
 
     public static String getUniCodeLanguageDisplay() {
-        return Locale.getDefault().getDisplayCountry().equalsIgnoreCase("English") ? "en-EN" : "id-ID";
+        return Locale.getDefault().getDisplayCountry().equalsIgnoreCase("English") ? "en-EN" :
+                "id-ID";
     }
 
     public static int dpToPx(Context context, int dp) {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager manager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo connection = manager.getActiveNetworkInfo();
+        return connection != null;
     }
 }

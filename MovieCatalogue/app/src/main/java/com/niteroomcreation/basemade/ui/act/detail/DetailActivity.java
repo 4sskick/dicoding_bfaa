@@ -145,34 +145,20 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     private void setupImage() {
         ImageUtils imageUtils = ImageUtils.init(this);
         imageUtils.setFileName(
-                String.format("%s_%s",
-                        movies != null ?
+                String.format("%s_%s"
+                        , movies != null ?
                                 movies.getPosterPath().split("/")[1].split(".jpg")[0] :
-                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0],
-                        movies != null ?
+                                tvShows.getPosterPath().split("/")[1].split(".jpg")[0]
+                        , movies != null ?
                                 movies.getTitle() :
                                 tvShows.getName()));
 
         Glide.with(this)
                 .load(imageUtils.load() != null ?
-                        imageUtils.load() :
-                        String.format("%s%soriginal%s"
-                                , BuildConfig.BASE_URL_IMG
-                                , BuildConfig.BASE_PATH_IMG
-                                , movies != null ?
-                                        movies.getPosterPath() :
-                                        tvShows.getPosterPath()
-                        )
+                        imageUtils.load() : movies != null ?
+                        movies.getFullPosterPath(false) :
+                        tvShows.getFullPosterPath(false)
                 )
-//                .load(
-//                        String.format("%s%soriginal%s"
-//                                , BuildConfig.BASE_URL_IMG
-//                                , BuildConfig.BASE_PATH_IMG
-//                                , movies != null ?
-//                                        movies.getPosterPath() :
-//                                        tvShows.getPosterPath()
-//                        )
-//                )
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e

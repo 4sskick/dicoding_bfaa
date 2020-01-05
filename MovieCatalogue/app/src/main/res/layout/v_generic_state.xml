@@ -1,57 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<merge>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/s_wrap_parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/windowBackgroundPrimary"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="@dimen/padding_standard"
-        android:visibility="visible"
-        tools:visibility="visible">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/s_wrap_state"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/wrap_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/s_tv_footer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Empty template state"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/font_size_small"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Untuk saat ini saya belum memiliki bisnis untuk didaftarkan" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.constraint.ConstraintLayout>
-
-        <com.niteroomcreation.basemade.view.loader.NewtonCradleLoading
-            android:id="@+id/s_progress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-    </android.support.constraint.ConstraintLayout>
+    <include layout="@layout/f_empty" />
 </merge>

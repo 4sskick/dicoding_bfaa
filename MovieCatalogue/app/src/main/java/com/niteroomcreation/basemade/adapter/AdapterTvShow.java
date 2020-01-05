@@ -86,16 +86,15 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                 txtDesc.setText(model.getOverview());
 
                 ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());
-                imageUtils.setFileName(String.format("%s_%s", model.getPosterPath().split("/")[1].split(".jpg")[0], model.getName()));
+                imageUtils.setFileName(String.format("%s_%s"
+                        , model.getPosterPath().split("/")[1].split(".jpg")[0]
+                        , model.getName()));
 
                 Glide.with(imgMovie.getContext())
                         .load(
-                                imageUtils.load()!=null?
-                                        imageUtils.load():
-                                        String.format("%s%soriginal%s"
-                                                , BuildConfig.BASE_URL_IMG
-                                                , BuildConfig.BASE_PATH_IMG
-                                                , model.getPosterPath())
+                                imageUtils.load() != null ?
+                                        imageUtils.load() :
+                                        model.getFullPosterPath(true)
                         )
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))

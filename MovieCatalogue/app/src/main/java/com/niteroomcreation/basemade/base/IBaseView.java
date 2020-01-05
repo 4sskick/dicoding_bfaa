@@ -24,4 +24,10 @@ public interface IBaseView {
 
     default void showTitleToolbar(boolean show, String title) {
     }
+
+    //used in case you wanna show the empty state inside class fragment
+    //by replacing the current fragment with another layout class
+    default void showOverrideEmptyState() {
+
+    }
 }

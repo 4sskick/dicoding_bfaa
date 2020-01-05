@@ -54,8 +54,11 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
 
                     @Override
                     public void onFinish(boolean isFailure) {
-                        if (isFailure)
-                            onFailure(0, "Something not right", null);
+                        if (isFailure) {
+                            mView.showOverrideEmptyState();
+                            return;
+                        }
+
                         mView.hideLoading();
                     }
                 });
@@ -72,10 +75,7 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
 
                     try {
                         mThread.generateByteArrayImage(
-                                String.format("%s%sw500%s"
-                                        , BuildConfig.BASE_URL_IMG
-                                        , BuildConfig.BASE_PATH_IMG
-                                        , model.getPosterPath())
+                                model.getFullPosterPath(true)
                                 , String.format("%s_%s"
                                         , model.getPosterPath().split("/")[1].split(".jpg")[0]
                                         , model.getName()

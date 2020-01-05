@@ -3,6 +3,8 @@ package com.niteroomcreation.basemade.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.niteroomcreation.basemade.BuildConfig;
+
 public class MoviesModel implements Parcelable {
 
     /**
@@ -95,6 +97,13 @@ public class MoviesModel implements Parcelable {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getFullPosterPath() {
+        return String.format("%s%sw780%s"
+                , BuildConfig.BASE_URL_IMG
+                , BuildConfig.BASE_PATH_IMG
+                , posterPath);
     }
 
     public void setPosterPath(String posterPath) {

@@ -57,6 +57,7 @@ public abstract class NetworkCallback<T> extends DisposableSubscriber<Response<T
         if (modelRespond.isSuccessful()) {//for respond code 2xx - 3xx
             onSuccess(modelRespond.body());
         } else {//for respond code 4xx -5xx
+            isFailure = true;
             try {
                 //todo 10/07/19: consider to add crashlytics report for 5xx code http error
 

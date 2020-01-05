@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +42,9 @@ public class ImageUtils {
     }
 
     public ImageUtils setFileName(String fileName) {
-        this.fileName = String.format("%s%s%s", prefixFileName, fileName.replaceAll("\\s+", "_"), suffixFileName);
+        this.fileName = String.format("%s%s%s", prefixFileName
+                , fileName.replaceAll("\\s+", "_")
+                , suffixFileName);
         return this;
     }
 
@@ -124,17 +127,20 @@ public class ImageUtils {
             fis = new FileInputStream(createFile());
             return BitmapFactory.decodeStream(fis);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "load: touching in here");
+//            e.printStackTrace();
+
+            return null;
         } finally {
             try {
                 if (fis != null) {
                     fis.close();
                 }
             } catch (IOException e) {
+                Log.e(TAG, "load: finally touching in here");
                 e.printStackTrace();
             }
         }
-        return null;
     }
 
     private File getAlbumStorageDir(String albumName) {

@@ -20,6 +20,7 @@
 
         <activity
             android:name=".ui.act.splash.SplashActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.act.main.MainActivity" />
-        <activity android:name=".ui.act.detail.DetailActivity" />
+        <activity
+            android:name=".ui.act.main.MainActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.act.detail.DetailActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>

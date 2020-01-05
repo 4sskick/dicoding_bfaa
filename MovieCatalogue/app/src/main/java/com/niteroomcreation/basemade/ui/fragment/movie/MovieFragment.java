@@ -10,11 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterMovies;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
 import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.utils.Constants;
 import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -34,6 +36,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
     @BindView(R.id.list_movie)
     RecyclerView listMovie;
+    @BindView(R.id.fl_tvShow)
+    FrameLayout flTvShow;
 
     private AdapterMovies adapter;
 
@@ -121,6 +125,14 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         presenter.onUnsubscribe();
         presenter = null;
         super.onDestroyView();
+    }
+
+    @Override
+    public void showOverrideEmptyState() {
+        hideLoading();
+        mActivity.moveToFragment(flTvShow.getId()
+                , EmptyFragment.newInstance()
+                , EmptyFragment.class.getSimpleName());
     }
 
     public interface MoviesListener {
