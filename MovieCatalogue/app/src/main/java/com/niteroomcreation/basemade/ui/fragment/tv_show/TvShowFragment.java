@@ -106,6 +106,8 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     public void setData(List<TvShows> data) {
         tvShows = data;
         adapter.setData(tvShows);
+        if (adapter.getItemCount() > 0)
+            flTvShow.setVisibility(View.GONE);
     }
 
 
@@ -136,7 +138,15 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     public void showOverrideEmptyState() {
         hideLoading();
         mActivity.moveToFragment(flTvShow.getId()
-                , EmptyFragment.newInstance()
+                , EmptyFragment.newInstance(getString(R.string.str_empty)
+                        , new EmptyFragment.EmptyListener() {
+                            @Override
+                            public void onEmptyClickedView() {
+                                Log.e(TAG, "onEmptyClickedView: ");
+                                presenter.getTvShows(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
+                                        "english") ? "en-EN" : "id-ID");
+                            }
+                        })
                 , EmptyFragment.class.getSimpleName());
     }
 }

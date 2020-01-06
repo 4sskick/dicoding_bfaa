@@ -50,6 +50,7 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
                                 message, jsonObject != null ? jsonObject.toString() : "{}"));
 
                         mView.showMessage(String.format("code %s, %s", code, message));
+                        mView.hideLoading();
                     }
 
                     @Override

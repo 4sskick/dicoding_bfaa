@@ -172,12 +172,16 @@ public class GenericStateView extends ConstraintLayout {
         if (getContent() != null) getContent().setVisibility(VISIBLE);
     }
 
-    @OnClick({R.id.s_wrap_parent})
+    @OnClick({R.id.s_wrap_parent, R.id.s_wrap_footer})
     void onClickedView(View view) {
         if (mListener == null) return;
         switch (view.getId()) {
             case R.id.s_wrap_parent:
                 mListener.onActionClicked();
+                break;
+
+            case R.id.s_wrap_footer:
+                mListener.onFooterClicked();
                 break;
         }
     }

@@ -49,6 +49,7 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
                                 message, jsonObject != null ? jsonObject.toString() : "{}"));
 
                         mView.showMessage(String.format("code %s, %s", code, message));
+                        mView.hideLoading();
                     }
 
                     @Override

@@ -36,8 +36,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
     @BindView(R.id.list_movie)
     RecyclerView listMovie;
-    @BindView(R.id.fl_tvShow)
-    FrameLayout flTvShow;
+    @BindView(R.id.fl_movie)
+    FrameLayout flMovie;
 
     private AdapterMovies adapter;
 
@@ -102,6 +102,9 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     public void setData(List<Movies> data) {
         movies = data;
         adapter.setData(movies);
+
+        if (adapter.getItemCount() > 0)
+            flMovie.setVisibility(View.GONE);
     }
 
     @Override
@@ -130,8 +133,15 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     @Override
     public void showOverrideEmptyState() {
         hideLoading();
-        mActivity.moveToFragment(flTvShow.getId()
-                , EmptyFragment.newInstance()
+        mActivity.moveToFragment(flMovie.getId()
+                , EmptyFragment.newInstance(getString(R.string.str_empty)
+                        , new EmptyFragment.EmptyListener() {
+                            @Override
+                            public void onEmptyClickedView() {
+                                Log.e(TAG, "onEmptyClickedView: ");
+                                presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+                            }
+                        })
                 , EmptyFragment.class.getSimpleName());
     }
 

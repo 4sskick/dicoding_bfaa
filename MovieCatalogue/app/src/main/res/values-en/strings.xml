@@ -144,4 +144,5 @@
     <string name="nav_bot_tv_shows">Tv Shows</string>
     <string name="str_overview">Overview</string>
     <string name="str_trans_not_found">Overview not found</string>
+    <string name="str_empty">Error occurred, please check your internet connection\n\nTap to refresh</string>
 </resources>
