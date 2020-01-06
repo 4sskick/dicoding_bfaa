@@ -72,6 +72,9 @@ public class MainActivity extends BaseView implements MainContract.View,
                             lastActiveFragmentTag = TvShowFragment.class.getSimpleName();
 
                             break;
+
+                        case R.id.nav_saved_fav:
+                            break;
                     }
 
                     return true;
@@ -136,9 +139,5 @@ public class MainActivity extends BaseView implements MainContract.View,
 
         } else
             throw new RuntimeException("item object doesn't found");
-    }
-
-    public static void emptyLoh(){
-
     }
 }

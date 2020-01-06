@@ -1,6 +1,6 @@
 **SUBSMISSION**
 
-Anda sudah mempelajari beberapa hal tentang **Background Service**, salah satunya adalah bagaimana cara mendapatkan data dari internet menggunakan `AsyncTaskLoader`. Untuk lanjut mempelajari modul berikutnya, kirimkan proyek aplikasi dengan tema Anda perlu **Movie Catalogue (API)**. Jika pada submission sebelumnya Anda hanya memanfaatkan data lokal untuk ditampilkan, kali ini data yang akan ditampilkan adalah data dari API, yaitu The [Movie DB](https://www.themoviedb.org/).
+Anda sudah mempelajari bagaimana konsep penyimpanan lokal pada aplikasi Android. Untuk mempelajari modul selanjutnya, Anda perlu mengirimkan proyek aplikasi dengan tema `Movie Catalogue (Local Storage)`. Movie Catalogue (Local Storage) adalah sebuah aplikasi yang merupakan lanjutan dari submission sebelumnya. Pada proyek ini Anda perlu menerapkan *`SQLite`* sebagai media penyimpanan lokal. 
 
 
 ---
@@ -19,33 +19,40 @@ Fitur yang harus ada pada aplikasi:
     - Menampilkan poster dan informasi film pada halaman detail film.
     - Menggunakan `ConstraintLayout` untuk menyusun layout.
     - Menampilkan indikator loading ketika data sedang dimuat.
-3. **Localization**
+3. **Favorite Film**
+    - Dapat menyimpan film ke database favorite.
+    - Dapat menghapus film dari database favorite.
+    - Terdapat halaman untuk menampilkan daftar **Favorite Movies**.
+    - Terdapat halaman untuk menampilkan daftar **Favorite Tv Show**.
+4. **Localization**
     - Aplikasi harus mendukung bahasa Indonesia dan bahasa Inggris.
-4. **Configuration Changes**
+5. **Configuration Changes**
     - Aplikasi harus bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari `potrait` ke `landscape atau sebaliknya`.
     
 Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
 
-![alt text](https://dicodingacademy.blob.core.windows.net/academies/20190304105622bf155a6cc53796c48877ad20d603e099.png)
+![alt text](https://dicodingacademy.blob.core.windows.net/academies/201902201413394ea16afd9cf7ddc21ea4e00ac6b87fc6.png)
 
 Kesempatan untuk submission Anda diterima, akan lebih besar jika:
 
 - Menggunakan library pihak ketiga seperti `Retrofit, Fast Android Networking, dsb`.
+- Menggunakan library penyimpanan lokal pihak ketiga seperti `Room, Realm, dsb`.
 - Menerapkan design pattern seperti `MVP, MVVM, Arch Component, dsb`.
 - Aplikasi bisa memberikan pesan eror jika data tidak berhasil ditampilkan.
 - Menuliskan kode dengan bersih.
 
 Submission Anda akan ditolak jika:
 
-- Tidak menggunakan `RecyclerView` untuk menampilkan daftar film.
-- List yang ditampilkan kurang dari **10 item**.
+- Aplikasi `tidak bisa menambahkan film` ke database favorite.
+- Aplikasi `tidak bisa menghapus film` dari database favorite.
+- Tidak terdapat halaman yang menampilkan daftar film favorite (**Movies dan TvShow**).
 - Tidak menggunakan `Fragment` untuk menampung halaman `Movies` dan `Tv Show`.
+- Tidak menggunakan `RecyclerView` untuk menampilkan daftar film.
 - Tidak menggunakan `TabLayout, BottomNavigationView`, atau yang lainnya sebagai navigasi antara `Movies` dan `Tv Show`.
 - Tidak menggunakan `ConstraintLayout` untuk menyusun layout pada halaman detail film.
 - Tidak terdapat indikator loading.
 - Aplikasi tidak mendukung **bahasa Indonesia dan bahasa Inggris**.
 - Aplikasi tidak bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari potrait ke landscape atau sebaliknya.
-- Menangani perubahan konfigurasi menggunakan tag `android:configChanges` pada berkas `AndroidManifest.xml`
 - Poster tidak berhasil ditampilkan.
 - Informasi yang ditampilkan pada daftar ataupun detail film, tidak relevan.
 - Proyek tidak bisa di-build.

@@ -12,5 +12,10 @@
         android:icon="@drawable/ic_tv_show"
         android:title="@string/nav_bot_tv_shows"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nav_saved_fav"
+        android:icon="@drawable/ic_fav_saved"
+        android:title="@string/nav_bot_saved_fav"
+        app:showAsAction="ifRoom" />
 
 </menu>
