@@ -77,8 +77,10 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
         super.onSaveInstanceState(outState);
         Log.e(TAG, "onSaveInstanceState: ");
 
-        outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(tvShows));
-        outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
+        if (!isShownLoading()) {
+            outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(tvShows));
+            outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
+        }
     }
 
     @Override
