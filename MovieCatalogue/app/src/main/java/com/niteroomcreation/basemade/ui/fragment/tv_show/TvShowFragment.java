@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +14,10 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterTvShow;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
-import com.niteroomcreation.basemade.data.models.TvShows;
-import com.niteroomcreation.basemade.models.TvShowModel;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.utils.Constants;
-import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.ArrayList;
@@ -43,7 +40,7 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
 
     private TvShowPresenter presenter;
     private AdapterTvShow adapter;
-    private List<TvShows> tvShows;
+    private List<TvEntity> tvShows;
     private MovieFragment.MoviesListener listener;
 
     public static TvShowFragment newInstance() {
@@ -59,11 +56,11 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     protected void initComponents() {
         presenter = new TvShowPresenter(this, getContext());
 
-        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvShows, List<Pair<View,
+        adapter = new AdapterTvShow(tvShows, new GenericItemListener<TvEntity, List<Pair<View,
                 String>>>() {
 
             @Override
-            public void onItemViewClicked(TvShows item, List<Pair<View, String>> view) {
+            public void onItemViewClicked(TvEntity item, List<Pair<View, String>> view) {
                 listener.onItemSelectedDetail(item, view);
             }
         });
@@ -103,7 +100,7 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
     }
 
     @Override
-    public void setData(List<TvShows> data) {
+    public void setData(List<TvEntity> data) {
         tvShows = data;
         adapter.setData(tvShows);
         if (adapter.getItemCount() > 0)

@@ -16,11 +16,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
-import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.TagPickerView;
 
@@ -59,8 +58,8 @@ public class DetailActivity extends BaseView implements DetailContract.View {
     private boolean isSaveChosen;
     private boolean isVisible;
 
-    private Movies movies;
-    private TvShows tvShows;
+    private MovieEntity movies;
+    private TvEntity tvShows;
     private DetailPresenter presenter;
 
     @Override
@@ -85,11 +84,11 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            if (savedInstanceState.getParcelable(EXTRA_MODEL) instanceof Movies) {
+            if (savedInstanceState.getParcelable(EXTRA_MODEL) instanceof MovieEntity) {
                 movies = savedInstanceState.getParcelable(EXTRA_MODEL);
             }
 
-            if (savedInstanceState.getParcelable(EXTRA_MODEL) instanceof TvShows) {
+            if (savedInstanceState.getParcelable(EXTRA_MODEL) instanceof TvEntity) {
                 tvShows = savedInstanceState.getParcelable(EXTRA_MODEL);
             }
         }
@@ -104,9 +103,9 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         presenter = new DetailPresenter(this, this);
 
         if (getIntent() != null && getIntent().getExtras() != null) {
-            if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof Movies) {
+            if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof MovieEntity) {
                 movies = getIntent().getExtras().getParcelable(EXTRA_MODEL);
-            } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvShows) {
+            } else if (getIntent().getExtras().getParcelable(EXTRA_MODEL) instanceof TvEntity) {
                 tvShows = getIntent().getExtras().getParcelable(EXTRA_MODEL);
             } else
                 throw new RuntimeException("Model isn't carried by parcelable arguments!");
@@ -186,7 +185,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                 .into(imgDetailMovie);
     }
 
-    private String getOverview(Movies m, TvShows t) {
+    private String getOverview(MovieEntity m, TvEntity t) {
         if (m != null) {
             if (m.getOverview().isEmpty()) {
                 return getResources().getString(R.string.str_trans_not_found);

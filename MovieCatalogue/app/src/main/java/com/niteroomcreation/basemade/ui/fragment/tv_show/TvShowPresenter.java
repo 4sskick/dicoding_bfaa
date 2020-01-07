@@ -8,7 +8,7 @@ import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
-import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
@@ -35,9 +35,9 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
         mView.showLoading();
 
         addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
-                , new NetworkCallback<BaseResponse<TvShows>>() {
+                , new NetworkCallback<BaseResponse<TvEntity>>() {
                     @Override
-                    public void onSuccess(BaseResponse<TvShows> model) {
+                    public void onSuccess(BaseResponse<TvEntity> model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
 
                         imgIntoLocal(model.getResults());
@@ -65,9 +65,9 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
                 });
     }
 
-    private void imgIntoLocal(List<TvShows> data) {
+    private void imgIntoLocal(List<TvEntity> data) {
         for (int i = 0; i < data.size(); i++) {
-            TvShows model = data.get(i);
+            TvEntity model = data.get(i);
             mThread = new ImageHandlerThread(mContext);
 
             new Thread(new Runnable() {

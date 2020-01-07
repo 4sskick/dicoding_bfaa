@@ -2,8 +2,7 @@ package com.niteroomcreation.basemade.ui.fragment.movie;
 
 import com.niteroomcreation.basemade.base.IBasePresenter;
 import com.niteroomcreation.basemade.base.IBaseView;
-import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.models.MoviesModel;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class MovieContract {
     interface View extends IBaseView {
-        void setData(List<Movies> data);
+        void setData(List<MovieEntity> data);
     }
 
     interface Presenter extends IBasePresenter<MovieContract.View> {

@@ -2,23 +2,20 @@ package com.niteroomcreation.basemade.ui.act.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
-import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
 import com.niteroomcreation.basemade.utils.NavigationUtils;
@@ -121,14 +118,14 @@ public class MainActivity extends BaseView implements MainContract.View,
         //accept: run store image
         //reject: do nothing & re-asking permission
 
-        if (item instanceof Movies) {
+        if (item instanceof MovieEntity) {
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this
                     , view.get(0)
                     , view.get(1));
             NavigationUtils.directToDetailScreen(this, item, options);
 
-        } else if (item instanceof TvShows) {
+        } else if (item instanceof TvEntity) {
             Log.e(TAG, "onItemSelectedDetail: here tv show");
 
             ActivityOptionsCompat options =

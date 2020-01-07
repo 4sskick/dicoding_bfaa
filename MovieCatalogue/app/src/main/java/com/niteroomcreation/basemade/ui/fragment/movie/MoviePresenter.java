@@ -8,7 +8,7 @@ import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
-import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
@@ -35,9 +35,9 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
         mView.showLoading();
 
         addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
-                , new NetworkCallback<BaseResponse<Movies>>() {
+                , new NetworkCallback<BaseResponse<MovieEntity>>() {
                     @Override
-                    public void onSuccess(BaseResponse<Movies> model) {
+                    public void onSuccess(BaseResponse<MovieEntity> model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
                         imgIntoLocal(model.getResults());
                     }
@@ -63,10 +63,10 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
                 });
     }
 
-    private void imgIntoLocal(List<Movies> data) {
+    private void imgIntoLocal(List<MovieEntity> data) {
 
         for (int i = 0; i < data.size(); i++) {
-            Movies model = data.get(i);
+            MovieEntity model = data.get(i);
             mThread = new ImageHandlerThread(mContext);
 
             new Thread(new Runnable() {

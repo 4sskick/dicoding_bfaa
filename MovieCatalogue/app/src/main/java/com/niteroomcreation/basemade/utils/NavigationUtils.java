@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 
-import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 
 /**
@@ -20,8 +20,8 @@ public class NavigationUtils {
             , ActivityOptionsCompat options) {
 
         Intent intent = new Intent(act, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_MODEL, obj instanceof Movies ?
-                (Movies) obj : obj instanceof TvShows ? (TvShows) obj : null);
+        intent.putExtra(DetailActivity.EXTRA_MODEL, obj instanceof MovieEntity ?
+                (MovieEntity) obj : obj instanceof TvEntity ? (TvEntity) obj : null);
         ActivityCompat.startActivity(act, intent, options.toBundle());
     }
 }

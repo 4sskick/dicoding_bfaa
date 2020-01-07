@@ -12,9 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -28,11 +27,11 @@ import butterknife.OnClick;
 
 public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHolder> {
 
-    private List<TvShows> tvShows;
-    private GenericItemListener<TvShows, List<Pair<View, String>>> listener;
+    private List<TvEntity> tvShows;
+    private GenericItemListener<TvEntity, List<Pair<View, String>>> listener;
 
-    public AdapterTvShow(List<TvShows> tvShows,
-                         GenericItemListener<TvShows, List<Pair<View, String>>> listener) {
+    public AdapterTvShow(List<TvEntity> tvShows,
+                         GenericItemListener<TvEntity, List<Pair<View, String>>> listener) {
         this.tvShows = tvShows;
         this.listener = listener;
     }
@@ -55,11 +54,11 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         return tvShows != null ? tvShows.size() : 0;
     }
 
-    private TvShows getItem(int pos) {
+    private TvEntity getItem(int pos) {
         return tvShows != null ? tvShows.get(pos) : null;
     }
 
-    public void setData(List<TvShows> data) {
+    public void setData(List<TvEntity> data) {
         this.tvShows = data;
         notifyDataSetChanged();
     }
@@ -79,7 +78,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         }
 
         void binds() {
-            TvShows model = getItem(getAdapterPosition());
+            TvEntity model = getItem(getAdapterPosition());
 
             if (model != null) {
                 txtName.setText(model.getName());
@@ -96,7 +95,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                                         imageUtils.load() :
                                         model.getFullPosterPath(true)
                         )
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
                         .transition(DrawableTransitionOptions.withCrossFade())

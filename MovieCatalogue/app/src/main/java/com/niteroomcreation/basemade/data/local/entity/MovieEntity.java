@@ -1,5 +1,6 @@
-package com.niteroomcreation.basemade.data.models;
+package com.niteroomcreation.basemade.data.local.entity;
 
+import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,7 +9,8 @@ import com.niteroomcreation.basemade.BuildConfig;
 
 import java.util.List;
 
-public class Movies implements Parcelable {
+@Entity(primaryKeys = ("id"))
+public class MovieEntity implements Parcelable {
 
     @SerializedName("overview")
     private String overview;
@@ -52,55 +54,7 @@ public class Movies implements Parcelable {
     @SerializedName("vote_count")
     private int voteCount;
 
-    protected Movies(Parcel in) {
-        overview = in.readString();
-        originalLanguage = in.readString();
-        originalTitle = in.readString();
-        video = in.readByte() != 0;
-        title = in.readString();
-        posterPath = in.readString();
-        backdropPath = in.readString();
-        releaseDate = in.readString();
-        popularity = in.readDouble();
-        voteAverage = in.readDouble();
-        id = in.readLong();
-        adult = in.readByte() != 0;
-        voteCount = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(overview);
-        dest.writeString(originalLanguage);
-        dest.writeString(originalTitle);
-        dest.writeByte((byte) (video ? 1 : 0));
-        dest.writeString(title);
-        dest.writeString(posterPath);
-        dest.writeString(backdropPath);
-        dest.writeString(releaseDate);
-        dest.writeDouble(popularity);
-        dest.writeDouble(voteAverage);
-        dest.writeLong(id);
-        dest.writeByte((byte) (adult ? 1 : 0));
-        dest.writeInt(voteCount);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Movies> CREATOR = new Creator<Movies>() {
-        @Override
-        public Movies createFromParcel(Parcel in) {
-            return new Movies(in);
-        }
-
-        @Override
-        public Movies[] newArray(int size) {
-            return new Movies[size];
-        }
-    };
+    private String languageType;
 
     public void setOverview(String overview) {
         this.overview = overview;
@@ -221,24 +175,84 @@ public class Movies implements Parcelable {
         return voteCount;
     }
 
+    public String getLanguageType() {
+        return languageType;
+    }
+
+    public void setLanguageType(String languageType) {
+        this.languageType = languageType;
+    }
+
+    protected MovieEntity(Parcel in) {
+        this.overview = in.readString();
+        this.originalLanguage = in.readString();
+        this.originalTitle = in.readString();
+        this.video = in.readByte() != 0;
+        this.title = in.readString();
+        this.posterPath = in.readString();
+        this.backdropPath = in.readString();
+        this.releaseDate = in.readString();
+        this.popularity = in.readDouble();
+        this.voteAverage = in.readDouble();
+        this.id = in.readLong();
+        this.adult = in.readByte() != 0;
+        this.voteCount = in.readInt();
+        this.languageType = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.overview);
+        dest.writeString(this.originalLanguage);
+        dest.writeString(this.originalTitle);
+        dest.writeByte((byte) (this.video ? 1 : 0));
+        dest.writeString(this.title);
+        dest.writeString(this.posterPath);
+        dest.writeString(this.backdropPath);
+        dest.writeString(this.releaseDate);
+        dest.writeDouble(this.popularity);
+        dest.writeDouble(this.voteAverage);
+        dest.writeLong(this.id);
+        dest.writeByte((byte) (this.adult ? 1 : 0));
+        dest.writeInt(this.voteCount);
+        dest.writeString(this.languageType);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<MovieEntity> CREATOR = new Creator<MovieEntity>() {
+        @Override
+        public MovieEntity createFromParcel(Parcel in) {
+            return new MovieEntity(in);
+        }
+
+        @Override
+        public MovieEntity[] newArray(int size) {
+            return new MovieEntity[size];
+        }
+    };
+
     @Override
     public String toString() {
-        return
-                "Movies{" +
-                        "overview = '" + overview + '\'' +
-                        ",original_language = '" + originalLanguage + '\'' +
-                        ",original_title = '" + originalTitle + '\'' +
-                        ",video = '" + video + '\'' +
-                        ",title = '" + title + '\'' +
-                        ",genre_ids = '" + genreIds + '\'' +
-                        ",poster_path = '" + posterPath + '\'' +
-                        ",backdrop_path = '" + backdropPath + '\'' +
-                        ",release_date = '" + releaseDate + '\'' +
-                        ",popularity = '" + popularity + '\'' +
-                        ",vote_average = '" + voteAverage + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",adult = '" + adult + '\'' +
-                        ",vote_count = '" + voteCount + '\'' +
-                        "}";
+        return "MovieEntity{" +
+                "overview='" + overview + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", originalTitle='" + originalTitle + '\'' +
+                ", video=" + video +
+                ", title='" + title + '\'' +
+                ", genreIds=" + genreIds +
+                ", posterPath='" + posterPath + '\'' +
+                ", backdropPath='" + backdropPath + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", popularity=" + popularity +
+                ", voteAverage=" + voteAverage +
+                ", id=" + id +
+                ", adult=" + adult +
+                ", voteCount=" + voteCount +
+                ", languageType='" + languageType + '\'' +
+                '}';
     }
 }

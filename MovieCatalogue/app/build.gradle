@@ -131,6 +131,7 @@ def circleImageViewVersion = '3.0.0'
 def glideVersion = '4.9.0'
 def easyPermissionVersion = '2.0.1'
 def retrofitVersion = '2.5.0'
+def roomDBVersion = '1.1.1'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -170,6 +171,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+
+    //DB room
+    implementation "android.arch.persistence.room:runtime:$roomDBVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomDBVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

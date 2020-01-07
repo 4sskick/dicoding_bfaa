@@ -2,8 +2,8 @@ package com.niteroomcreation.basemade.data.remote;
 
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
-import com.niteroomcreation.basemade.data.models.Movies;
-import com.niteroomcreation.basemade.data.models.TvShows;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
 import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
 
@@ -16,11 +16,11 @@ import retrofit2.http.Query;
 public interface RemoteRepo {
 
     @GET(BuildConfig.BASE_PATH + "movie")
-    Flowable<Response<BaseResponse<Movies>>> getMovies(@Query("api_key") String apiKey
+    Flowable<Response<BaseResponse<MovieEntity>>> getMovies(@Query("api_key") String apiKey
             , @Query("language") String lang);
 
     @GET(BuildConfig.BASE_PATH + "tv")
-    Flowable<Response<BaseResponse<TvShows>>> getTvShows(@Query("api_key") String apiKey
+    Flowable<Response<BaseResponse<TvEntity>>> getTvShows(@Query("api_key") String apiKey
             , @Query("language") String lang);
 
     @GET("3/tv/{tvId}")

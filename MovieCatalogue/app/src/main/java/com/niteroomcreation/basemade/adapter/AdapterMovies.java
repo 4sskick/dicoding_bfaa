@@ -12,9 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -30,11 +29,11 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
 
     private static final String TAG = AdapterMovies.class.getSimpleName();
 
-    private List<Movies> movies;
-    private GenericItemListener<Movies, List<Pair<View, String>>> listener;
+    private List<MovieEntity> movies;
+    private GenericItemListener<MovieEntity, List<Pair<View, String>>> listener;
 
-    public AdapterMovies(List<Movies> movies
-            , GenericItemListener<Movies, List<Pair<View, String>>> listener) {
+    public AdapterMovies(List<MovieEntity> movies
+            , GenericItemListener<MovieEntity, List<Pair<View, String>>> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -57,11 +56,11 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         return movies != null ? movies.size() : 0;
     }
 
-    private Movies getItem(int pos) {
+    private MovieEntity getItem(int pos) {
         return movies != null ? movies.get(pos) : null;
     }
 
-    public void setData(List<Movies> data) {
+    public void setData(List<MovieEntity> data) {
         this.movies = data;
         notifyDataSetChanged();
     }
@@ -81,7 +80,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
         }
 
         void binds() {
-            final Movies model = getItem(getAdapterPosition());
+            final MovieEntity model = getItem(getAdapterPosition());
 
             // TODO: 24/12/19 see https://stackoverflow.com/a/48454860 for loader image
 
@@ -100,7 +99,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                                         imageUtils.load() :
                                         model.getFullPosterPath(true)
                         )
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
                         .transition(DrawableTransitionOptions.withCrossFade())

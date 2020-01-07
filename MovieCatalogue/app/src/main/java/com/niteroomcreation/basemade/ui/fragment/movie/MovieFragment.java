@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +14,9 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterMovies;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
-import com.niteroomcreation.basemade.data.models.Movies;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.utils.Constants;
-import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.ArrayList;
@@ -42,7 +40,7 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     private AdapterMovies adapter;
 
     private MoviesListener listener;
-    private List<Movies> movies;
+    private List<MovieEntity> movies;
     private MoviePresenter presenter;
 
     public static MovieFragment newInstance() {
@@ -58,10 +56,10 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     protected void initComponents() {
         presenter = new MoviePresenter(this, getContext());
 
-        adapter = new AdapterMovies(movies, new GenericItemListener<Movies, List<Pair<View, String>>>() {
+        adapter = new AdapterMovies(movies, new GenericItemListener<MovieEntity, List<Pair<View, String>>>() {
 
             @Override
-            public void onItemViewClicked(Movies item, List<Pair<View, String>> view) {
+            public void onItemViewClicked(MovieEntity item, List<Pair<View, String>> view) {
                 listener.onItemSelectedDetail(item, view);
 
             }
@@ -99,7 +97,7 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     }
 
     @Override
-    public void setData(List<Movies> data) {
+    public void setData(List<MovieEntity> data) {
         movies = data;
         adapter.setData(movies);
 

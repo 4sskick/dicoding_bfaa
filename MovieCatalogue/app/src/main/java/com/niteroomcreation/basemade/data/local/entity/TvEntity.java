@@ -1,4 +1,4 @@
-package com.niteroomcreation.basemade.data.models;
+package com.niteroomcreation.basemade.data.local.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import com.niteroomcreation.basemade.BuildConfig;
 
 import java.util.List;
 
-public class TvShows implements Parcelable {
+public class TvEntity implements Parcelable {
 
     @SerializedName("first_air_date")
     private String firstAirDate;
@@ -49,7 +49,7 @@ public class TvShows implements Parcelable {
     @SerializedName("vote_count")
     private int voteCount;
 
-    protected TvShows(Parcel in) {
+    protected TvEntity(Parcel in) {
         firstAirDate = in.readString();
         overview = in.readString();
         originalLanguage = in.readString();
@@ -85,15 +85,15 @@ public class TvShows implements Parcelable {
         return 0;
     }
 
-    public static final Creator<TvShows> CREATOR = new Creator<TvShows>() {
+    public static final Creator<TvEntity> CREATOR = new Creator<TvEntity>() {
         @Override
-        public TvShows createFromParcel(Parcel in) {
-            return new TvShows(in);
+        public TvEntity createFromParcel(Parcel in) {
+            return new TvEntity(in);
         }
 
         @Override
-        public TvShows[] newArray(int size) {
-            return new TvShows[size];
+        public TvEntity[] newArray(int size) {
+            return new TvEntity[size];
         }
     };
 
@@ -211,7 +211,7 @@ public class TvShows implements Parcelable {
     @Override
     public String toString() {
         return
-                "TvShows{" +
+                "TvEntity{" +
                         "first_air_date = '" + firstAirDate + '\'' +
                         ",overview = '" + overview + '\'' +
                         ",original_language = '" + originalLanguage + '\'' +

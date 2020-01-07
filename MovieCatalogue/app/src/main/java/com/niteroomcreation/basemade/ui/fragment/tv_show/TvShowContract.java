@@ -2,8 +2,7 @@ package com.niteroomcreation.basemade.ui.fragment.tv_show;
 
 import com.niteroomcreation.basemade.base.IBasePresenter;
 import com.niteroomcreation.basemade.base.IBaseView;
-import com.niteroomcreation.basemade.data.models.TvShows;
-import com.niteroomcreation.basemade.models.TvShowModel;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class TvShowContract {
     interface View extends IBaseView {
-        void setData(List<TvShows> data);
+        void setData(List<TvEntity> data);
     }
 
     interface Presenter extends IBasePresenter<TvShowContract.View> {
