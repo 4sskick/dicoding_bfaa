@@ -10,6 +10,9 @@ import com.niteroomcreation.basemade.data.remote.APIService;
 import com.niteroomcreation.basemade.data.remote.RemoteRepo;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
 import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
+import com.niteroomcreation.basemade.utils.Utils;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.Response;
@@ -22,43 +25,56 @@ import retrofit2.Response;
  * presenter requesting data
  * see: https://github.com/GulajavaMinistudio/news-reader-clean.git
  */
-public class Repository implements RemoteRepo {
+public class Repository implements EntertainmentDataSource {
 
     private static Repository ref;
 
     private final RemoteRepo remoteRepo;
     private final LocalRepo localRepo;
 
+    private Context context;
+
     public static Repository getInstance(Context context) {
-        if (ref == null) {
-            ref = new Repository(APIService.createService(context), LocalRepo.getInstance(context));
+        if (ref == null || context == null) {
+            ref = new Repository(context
+                    , APIService.createService(context)
+                    , LocalRepo.getInstance(context));
         }
 
         return ref;
     }
 
-    private Repository(RemoteRepo remoteRepo, LocalRepo localRepo) {
+    public LocalRepo getLocalRepo() {
+        return localRepo;
+    }
+
+    private Repository(Context context, RemoteRepo remoteRepo, LocalRepo localRepo) {
+        this.context = context;
         this.remoteRepo = remoteRepo;
         this.localRepo = localRepo;
     }
 
     @Override
-    public Flowable<Response<BaseResponse<MovieEntity>>> getMovies(String apiKey, String lang) {
-        return remoteRepo.getMovies(apiKey, lang);
+    public Flowable</*Response<*//*BaseResponse*/List<MovieEntity>>/*>*/ getMovies(String apiKey, String lang) {
+        return Utils.isNetworkAvailable(context) ?
+                remoteRepo.getMovies(apiKey, lang) : localRepo.getMovies(apiKey, lang);
     }
 
     @Override
-    public Flowable<Response<BaseResponse<TvEntity>>> getTvShows(String apiKey, String lang) {
-        return remoteRepo.getTvShows(apiKey, lang);
+    public Flowable</*Response<*//*BaseResponse*/List<TvEntity>>/*>*/ getTvShows(String apiKey, String lang) {
+        return Utils.isNetworkAvailable(context) ?
+                remoteRepo.getTvShows(apiKey, lang) : localRepo.getTvShows(apiKey, lang);
     }
 
     @Override
-    public Flowable<Response<TvShowsDetail>> getTvShowsDetail(String tvId, String apiKey) {
-        return remoteRepo.getTvShowsDetail(tvId, apiKey);
+    public Flowable</*Response<*/TvShowsDetail>/*>*/ getTvShowsDetail(String tvId, String apiKey) {
+        return Utils.isNetworkAvailable(context) ?
+                remoteRepo.getTvShowsDetail(tvId, apiKey) : localRepo.getTvShowsDetail(tvId, apiKey);
     }
 
     @Override
-    public Flowable<Response<MoviesDetail>> getMoviesDetail(String movieId, String apiKey) {
-        return remoteRepo.getMoviesDetail(movieId, apiKey);
+    public Flowable</*Response<*/MoviesDetail>/*>*/ getMoviesDetail(String movieId, String apiKey) {
+        return Utils.isNetworkAvailable(context) ?
+                remoteRepo.getMoviesDetail(movieId, apiKey) : localRepo.getMoviesDetail(movieId, apiKey);
     }
 }

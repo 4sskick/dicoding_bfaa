@@ -4,6 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
 
@@ -12,49 +13,75 @@ import java.util.List;
 @Entity(primaryKeys = ("id"))
 public class MovieEntity implements Parcelable {
 
+    @SerializedName("id")
+    @Expose
+    private Long id;
+
+    @Expose
+    private Long page;
+
     @SerializedName("overview")
+    @Expose
     private String overview;
 
     @SerializedName("original_language")
+    @Expose
     private String originalLanguage;
 
     @SerializedName("original_title")
+    @Expose
     private String originalTitle;
 
     @SerializedName("video")
+    @Expose
     private boolean video;
 
     @SerializedName("title")
+    @Expose
     private String title;
 
     @SerializedName("genre_ids")
+    @Expose
     private List<Integer> genreIds;
 
     @SerializedName("poster_path")
+    @Expose
     private String posterPath;
 
     @SerializedName("backdrop_path")
+    @Expose
     private String backdropPath;
 
     @SerializedName("release_date")
+    @Expose
     private String releaseDate;
 
     @SerializedName("popularity")
+    @Expose
     private double popularity;
 
     @SerializedName("vote_average")
+    @Expose
     private double voteAverage;
 
-    @SerializedName("id")
-    private long id;
-
     @SerializedName("adult")
+    @Expose
     private boolean adult;
 
     @SerializedName("vote_count")
+    @Expose
     private int voteCount;
 
+    @Expose
     private String languageType;
+
+    public Long getPage() {
+        return page;
+    }
+
+    public void setPage(Long page) {
+        this.page = page;
+    }
 
     public void setOverview(String overview) {
         this.overview = overview;
@@ -151,11 +178,11 @@ public class MovieEntity implements Parcelable {
         return voteAverage;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

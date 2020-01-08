@@ -3,6 +3,7 @@ package com.niteroomcreation.basemade.data.local.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
@@ -24,4 +25,10 @@ public interface MovieDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     int updateMovie(MovieEntity movie);
+
+    @Query("select * from `MovieEntity` where page = :page")
+    List<MovieEntity> getMoviesByPage(Long page);
+
+    @Query("select * from `MovieEntity` where id = :id")
+    MovieEntity getMovieById(Long id);
 }

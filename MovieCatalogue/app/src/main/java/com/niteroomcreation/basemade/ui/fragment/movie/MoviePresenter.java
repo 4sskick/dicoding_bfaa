@@ -7,6 +7,7 @@ import android.util.Log;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
+import com.niteroomcreation.basemade.data.local.LocalRepo;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
@@ -16,6 +17,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import io.reactivex.Flowable;
 
 /**
  * Created by Septian Adi Wijaya on 01/10/19
@@ -35,11 +38,11 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
         mView.showLoading();
 
         addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
-                , new NetworkCallback<BaseResponse<MovieEntity>>() {
+                , new NetworkCallback</*BaseResponse*/List<MovieEntity>>() {
                     @Override
-                    public void onSuccess(BaseResponse<MovieEntity> model) {
+                    public void onSuccess(/*BaseResponse*/List<MovieEntity> model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
-                        imgIntoLocal(model.getResults());
+                        imgIntoLocal(model/*.getResults()*/);
                     }
 
                     @Override
@@ -63,7 +66,13 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
                 });
     }
 
+    private void addSubscribe(Flowable<List<MovieEntity>> movies, NetworkCallback<List<MovieEntity>> listNetworkCallback) {
+
+    }
+
     private void imgIntoLocal(List<MovieEntity> data) {
+
+        LocalRepo.getInstance(mContext).getMovies(null, null);
 
         for (int i = 0; i < data.size(); i++) {
             MovieEntity model = data.get(i);
