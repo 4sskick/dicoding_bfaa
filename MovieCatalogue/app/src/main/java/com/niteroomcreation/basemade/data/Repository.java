@@ -55,7 +55,7 @@ public class Repository implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable</*Response<*//*BaseResponse*/List<MovieEntity>>/*>*/ getMovies(String apiKey, String lang) {
+    public Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang) {
         return Utils.isNetworkAvailable(context) ?
                 remoteRepo.getMovies(apiKey, lang) : localRepo.getMovies(apiKey, lang);
     }

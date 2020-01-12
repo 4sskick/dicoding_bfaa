@@ -21,7 +21,8 @@ public interface RemoteRepo {
 //    Flowable<Response<BaseResponse<MovieEntity>>> getMovies(@Query("api_key") String apiKey
 //            , @Query("language") String e")
 
-    Flowable</*Response<*/List<MovieEntity>>/*>*/ getMovies(@Query("api_key") String apiKey
+    Flowable<BaseResponse<MovieEntity>> getMovies(@Query("api_key") String apiKey
+//    Flowable</*Response<*/List<MovieEntity>>/*>*/ getMovies(@Query("api_key") String apiKey
             , @Query("language") String lang);
 
     @GET(BuildConfig.BASE_PATH + "tv")

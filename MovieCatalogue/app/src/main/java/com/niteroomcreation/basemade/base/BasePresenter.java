@@ -2,6 +2,8 @@ package com.niteroomcreation.basemade.base;
 
 import android.content.Context;
 
+import com.niteroomcreation.basemade.data.local.LocalDatabase;
+
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -50,5 +52,9 @@ public class BasePresenter<ViewT> implements IBasePresenter<ViewT> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(disposableSubscriber));
+    }
+
+    protected LocalDatabase getLocalData() {
+        return LocalDatabase.getInstance(this.mContext);
     }
 }

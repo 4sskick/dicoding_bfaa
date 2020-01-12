@@ -3,6 +3,8 @@ package com.niteroomcreation.basemade.data.remote;
 import android.content.Context;
 import android.util.Log;
 
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.remote.http.NetworkInterceptor;
 
@@ -34,6 +36,7 @@ public class APIService {
         okHttpClient.cache(buildCache(mContext));
         okHttpClient.addInterceptor(new NetworkInterceptor(mContext));
         okHttpClient.addInterceptor(httpLogging);
+        okHttpClient.addNetworkInterceptor(new StethoInterceptor());
         okHttpClient.connectTimeout(30, TimeUnit.SECONDS);
         okHttpClient.readTimeout(30, TimeUnit.SECONDS);
 

@@ -132,6 +132,7 @@ def glideVersion = '4.9.0'
 def easyPermissionVersion = '2.0.1'
 def retrofitVersion = '2.5.0'
 def roomDBVersion = '1.1.1'
+def stethoVersion = '1.5.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -170,11 +171,18 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+    //network monitoring
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     //DB room
     implementation "android.arch.persistence.room:runtime:$roomDBVersion"
+    implementation "android.arch.persistence.room:rxjava2:$roomDBVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$roomDBVersion"
+
+    //DB monitor
+    implementation "com.facebook.stetho:stetho:$stethoVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

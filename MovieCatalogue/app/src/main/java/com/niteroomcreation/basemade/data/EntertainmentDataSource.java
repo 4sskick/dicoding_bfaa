@@ -16,8 +16,9 @@ import retrofit2.Response;
  */
 public interface EntertainmentDataSource {
 
-    //    Flowable<Response<BaseResponse<MovieEntity>>> getMovies(String apiKey, String lang);
-    Flowable</*Response<*/List<MovieEntity>>/*>*/ getMovies(String apiKey, String lang);
+//        Flowable<Response<BaseResponse<MovieEntity>>> getMovies(String apiKey, String lang);
+        Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang);
+//    Flowable</*Response<*/List<MovieEntity>>/*>*/ getMovies(String apiKey, String lang);
 
     //    Flowable<Response<BaseResponse<TvEntity>>> getTvShows(String apiKey
     Flowable</*Response<*/List<TvEntity>>/*>*/ getTvShows(String apiKey

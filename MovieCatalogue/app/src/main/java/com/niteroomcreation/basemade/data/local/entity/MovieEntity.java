@@ -1,17 +1,25 @@
 package com.niteroomcreation.basemade.data.local.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
+import com.niteroomcreation.basemade.data.local.converter.GenreListTypeConverter;
 
 import java.util.List;
 
 @Entity(primaryKeys = ("id"))
 public class MovieEntity implements Parcelable {
+
+    public MovieEntity() {
+
+    }
 
     @SerializedName("id")
     @Expose
@@ -25,7 +33,7 @@ public class MovieEntity implements Parcelable {
     private String overview;
 
     @SerializedName("original_language")
-    @Expose
+    @Ignore
     private String originalLanguage;
 
     @SerializedName("original_title")
@@ -41,7 +49,9 @@ public class MovieEntity implements Parcelable {
     private String title;
 
     @SerializedName("genre_ids")
-    @Expose
+//    @TypeConverters(GenreListTypeConverter.class)
+//    @Expose
+    @Ignore
     private List<Integer> genreIds;
 
     @SerializedName("poster_path")
@@ -74,6 +84,9 @@ public class MovieEntity implements Parcelable {
 
     @Expose
     private String languageType;
+
+    @Expose
+    private boolean isFavorite;
 
     public Long getPage() {
         return page;
@@ -210,6 +223,14 @@ public class MovieEntity implements Parcelable {
         this.languageType = languageType;
     }
 
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
     protected MovieEntity(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
@@ -225,6 +246,7 @@ public class MovieEntity implements Parcelable {
         this.adult = in.readByte() != 0;
         this.voteCount = in.readInt();
         this.languageType = in.readString();
+        this.isFavorite = in.readByte() != 0;
     }
 
     @Override
@@ -243,6 +265,7 @@ public class MovieEntity implements Parcelable {
         dest.writeByte((byte) (this.adult ? 1 : 0));
         dest.writeInt(this.voteCount);
         dest.writeString(this.languageType);
+        dest.writeByte((byte) (this.isFavorite ? 1 : 0));
     }
 
     @Override
@@ -265,7 +288,9 @@ public class MovieEntity implements Parcelable {
     @Override
     public String toString() {
         return "MovieEntity{" +
-                "overview='" + overview + '\'' +
+                "id=" + id +
+                ", page=" + page +
+                ", overview='" + overview + '\'' +
                 ", originalLanguage='" + originalLanguage + '\'' +
                 ", originalTitle='" + originalTitle + '\'' +
                 ", video=" + video +
@@ -276,10 +301,10 @@ public class MovieEntity implements Parcelable {
                 ", releaseDate='" + releaseDate + '\'' +
                 ", popularity=" + popularity +
                 ", voteAverage=" + voteAverage +
-                ", id=" + id +
                 ", adult=" + adult +
                 ", voteCount=" + voteCount +
                 ", languageType='" + languageType + '\'' +
+                ", isFavorite=" + isFavorite +
                 '}';
     }
 }

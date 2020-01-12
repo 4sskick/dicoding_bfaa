@@ -7,7 +7,7 @@ import java.util.List;
 public class BaseResponse<T> {
 
     @SerializedName("page")
-    private int page;
+    private long page;
 
     @SerializedName("total_pages")
     private int totalPages;
@@ -18,11 +18,11 @@ public class BaseResponse<T> {
     @SerializedName("total_results")
     private int totalResults;
 
-    public void setPage(int page) {
+    public void setPage(long page) {
         this.page = page;
     }
 
-    public int getPage() {
+    public long getPage() {
         return page;
     }
 

@@ -1,5 +1,7 @@
 package com.niteroomcreation.basemade.data.local.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,7 +10,11 @@ import com.niteroomcreation.basemade.BuildConfig;
 
 import java.util.List;
 
+@Entity(primaryKeys = ("id"))
 public class TvEntity implements Parcelable {
+
+    public TvEntity() {
+    }
 
     @SerializedName("first_air_date")
     private String firstAirDate;
@@ -20,12 +26,14 @@ public class TvEntity implements Parcelable {
     private String originalLanguage;
 
     @SerializedName("genre_ids")
+    @Ignore
     private List<Integer> genreIds;
 
     @SerializedName("poster_path")
     private String posterPath;
 
     @SerializedName("origin_country")
+    @Ignore
     private List<String> originCountry;
 
     @SerializedName("backdrop_path")

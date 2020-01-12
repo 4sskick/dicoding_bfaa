@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.subscribers.DisposableSubscriber;
+
 /**
  * Created by Septian Adi Wijaya on 04/11/19
  */
@@ -32,66 +34,69 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
     @Override
     public void getMovieDetail(String movieId) {
         Log.e(TAG, "getMovieDetail: " + movieId);
-        addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId, BuildConfig.API_KEY)
-                , new NetworkCallback<MoviesDetail>() {
-                    @Override
-                    public void onSuccess(MoviesDetail model) {
-                        Log.e(TAG, "onSuccess: " + model.toString());
+//        addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId, BuildConfig
+//        .API_KEY)
+//                , new NetworkCallback<MoviesDetail>() {
+//                    @Override
+//                    public void onSuccess(MoviesDetail model) {
+//                        Log.e(TAG, "onSuccess: " + model.toString());
+//
+//                        List<String> genres = new ArrayList<>();
+//                        for (Object obj : model.getGenres()) {
+//                            if (obj instanceof String) {
+//                                genres.add(Objects.toString(obj, null));
+//                            } else
+//                                genres.add(String.valueOf(((Genre) obj).getName()));
+//                        }
+//
+//                        mView.setupGenre(genres);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int code, String message
+//                            , @Nullable JSONObject jsonObject) {
+//                        Log.e(TAG, String.format("onFailure: %s\n%s", code, message));
+//                    }
+//
+//                    @Override
+//                    public void onFinish(boolean isFailure) {
+//                        Log.e(TAG, "onFinish: " + isFailure);
+//                    }
+//                });
 
-                        List<String> genres = new ArrayList<>();
-                        for (Object obj : model.getGenres()) {
-                            if (obj instanceof String) {
-                                genres.add(Objects.toString(obj, null));
-                            } else
-                                genres.add(String.valueOf(((Genre) obj).getName()));
-                        }
-
-                        mView.setupGenre(genres);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String message
-                            , @Nullable JSONObject jsonObject) {
-                        Log.e(TAG, String.format("onFailure: %s\n%s", code, message));
-                    }
-
-                    @Override
-                    public void onFinish(boolean isFailure) {
-                        Log.e(TAG, "onFinish: " + isFailure);
-                    }
-                });
     }
 
     @Override
     public void getTvShowDetail(String tvId) {
         Log.e(TAG, "getTvShowDetail: " + tvId);
-        addSubscribe(Repository.getInstance(mContext).getTvShowsDetail(tvId, BuildConfig.API_KEY)
-                , new NetworkCallback<TvShowsDetail>() {
-                    @Override
-                    public void onSuccess(TvShowsDetail model) {
-                        Log.e(TAG, "onSuccess: " + model.toString());
+//        addSubscribe(Repository.getInstance(mContext).getTvShowsDetail(tvId, BuildConfig.API_KEY)
+//                , new NetworkCallback<TvShowsDetail>() {
+//                    @Override
+//                    public void onSuccess(TvShowsDetail model) {
+//                        Log.e(TAG, "onSuccess: " + model.toString());
+//
+//                        List<String> genres = new ArrayList<>();
+//                        for (Object obj : model.getGenres()) {
+//                            if (obj instanceof String) {
+//                                genres.add(Objects.toString(obj, null));
+//                            } else
+//                                genres.add(String.valueOf(((Genre) obj).getName()));
+//                        }
+//
+//                        mView.setupGenre(genres);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int code, String message
+//                            , @Nullable JSONObject jsonObject) {
+//                        Log.e(TAG, String.format("onFailure: %s\n%s", code, message));
+//                    }
+//
+//                    @Override
+//                    public void onFinish(boolean isFailure) {
+//                        Log.e(TAG, "onFinish: " + isFailure);
+//                    }
+//                });
 
-                        List<String> genres = new ArrayList<>();
-                        for (Object obj : model.getGenres()) {
-                            if (obj instanceof String) {
-                                genres.add(Objects.toString(obj, null));
-                            } else
-                                genres.add(String.valueOf(((Genre) obj).getName()));
-                        }
-
-                        mView.setupGenre(genres);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String message
-                            , @Nullable JSONObject jsonObject) {
-                        Log.e(TAG, String.format("onFailure: %s\n%s", code, message));
-                    }
-
-                    @Override
-                    public void onFinish(boolean isFailure) {
-                        Log.e(TAG, "onFinish: " + isFailure);
-                    }
-                });
     }
 }

@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.models.BaseResponse;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface MovieDao {
     int updateMovie(MovieEntity movie);
 
     @Query("select * from `MovieEntity` where page = :page")
-    List<MovieEntity> getMoviesByPage(Long page);
+    MovieEntity getMoviesByPage(Long page);
 
     @Query("select * from `MovieEntity` where id = :id")
     MovieEntity getMovieById(Long id);
