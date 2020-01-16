@@ -103,6 +103,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
         if (adapter.getItemCount() > 0)
             flMovie.setVisibility(View.GONE);
+        else
+            showOverrideEmptyState();
     }
 
     @Override

@@ -32,4 +32,10 @@ public interface MovieDao {
 
     @Query("select * from `MovieEntity` where id = :id")
     MovieEntity getMovieById(Long id);
+
+    @Query("select * from `MovieEntity` where id = :id and languageType = :lang")
+    MovieEntity getMovieByIdLang(Long id, String lang);
+
+    @Query("select * from `MovieEntity` where languageType = :lang")
+    List<MovieEntity> getMoviesByLang(String lang);
 }

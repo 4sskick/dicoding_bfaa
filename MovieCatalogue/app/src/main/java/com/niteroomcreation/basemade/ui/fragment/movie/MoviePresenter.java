@@ -90,7 +90,10 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
                             }
 
                             getLocalData().movieDao().insertMovies(movies);
+                            imgIntoLocal(model.getResults());
                         }
+
+                        mView.setData(model.getResults());
 
                     }
 
@@ -109,44 +112,6 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
                     }
                 });
-
-
-//        addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang),
-//                new DisposableSubscriber<BaseResponse<MovieEntity>>() {
-//                    @Override
-//                    public void onNext(BaseResponse<MovieEntity> movieEntities) {
-//                        Log.e(TAG, "onNext: " + movieEntities.toString());
-//
-//                        if (Utils.isNetworkAvailable(mContext)) {
-//                            List<MovieEntity> movies = new ArrayList<>();
-//                            for (MovieEntity movie : movieEntities.getResults()) {
-//                                MovieEntity storedMovies =
-//                                        getLocalData().movieDao().getMovieById(movie.getId());
-//                                if (storedMovies == null) movie.setLanguageType(lang);
-//
-//                                movie.setPage(movieEntities.getPage());
-//                                movie.setLanguageType(lang);
-//                                movie.setIsFavorite(false);
-//
-//                                movies.add(movie);
-//                            }
-//
-//                            getLocalData().movieDao().insertMovies(movies);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable t) {
-//                        Log.e(TAG, "onError: " + t);
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        Log.e(TAG, "onComplete: ");
-//
-//                        mView.hideLoading();
-//                    }
-//                });
     }
 
     private void imgIntoLocal(List<MovieEntity> data) {
@@ -177,6 +142,5 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
         }
 
-        mView.setData(data);
     }
 }

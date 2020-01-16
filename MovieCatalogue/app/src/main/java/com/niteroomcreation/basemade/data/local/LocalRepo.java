@@ -10,16 +10,16 @@ import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
 import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import retrofit2.Response;
 
 /**
  * Created by Septian Adi Wijaya on 07/01/20
  */
 public class LocalRepo implements EntertainmentDataSource {
+
+    private static final String TAG = LocalRepo.class.getSimpleName();
 
     private static LocalRepo instance;
     private LocalDatabase mRoomDb;
@@ -43,11 +43,7 @@ public class LocalRepo implements EntertainmentDataSource {
     public Flowable<BaseResponse<MovieEntity>> getMovies(@Nullable String apiKey, @Nullable String lang) {
 
         BaseResponse<MovieEntity> a = new BaseResponse<>();
-
-        List<MovieEntity> ar = new ArrayList<>();
-        ar.add(mRoomDb.movieDao().getMoviesByPage(1L));
-
-        a.setResults(ar);
+        a.setResults(getmRoomDb().movieDao().getMoviesByLang(lang));
 
         return Flowable.just(a);
     }
