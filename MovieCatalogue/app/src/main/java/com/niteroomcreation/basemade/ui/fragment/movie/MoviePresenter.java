@@ -40,35 +40,6 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
     public void getMovies(String lang) {
         mView.showLoading();
 
-//        addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
-//                , new NetworkCallback</*BaseResponse*/List<MovieEntity>>() {
-//                    @Override
-//                    public void onSuccess(/*BaseResponse*/List<MovieEntity> model) {
-//                        Log.e(TAG, "onSuccess: " + model.toString());
-//                        imgIntoLocal(model/*.getResults()*/);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int code, String message,
-//                                          @Nullable JSONObject jsonObject) {
-//                        Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
-//                                message, jsonObject != null ? jsonObject.toString() : "{}"));
-//
-//                        mView.showMessage(String.format("code %s, %s", code, message));
-//                        mView.hideLoading();
-//                    }
-//
-//                    @Override
-//                    public void onFinish(boolean isFailure) {
-//                        if (isFailure) {
-//                            mView.showOverrideEmptyState();
-//                            return;
-//                        }
-//                        mView.hideLoading();
-//                    }
-//                });
-
-
         addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
                 , new NetworkCallback<BaseResponse<MovieEntity>>() {
                     @Override
@@ -102,6 +73,8 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
                             , String message
                             , @Nullable JSONObject jsonObject) {
                         Log.e(TAG, "onFailure: " + message + " code " + code);
+
+                        mView.showOverrideEmptyState();
                     }
 
                     @Override
@@ -115,9 +88,6 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
     }
 
     private void imgIntoLocal(List<MovieEntity> data) {
-
-        LocalRepo.getInstance(mContext).getMovies(null, null);
-
         for (int i = 0; i < data.size(); i++) {
             MovieEntity model = data.get(i);
             mThread = new ImageHandlerThread(mContext);

@@ -105,6 +105,8 @@ public class TvShowFragment extends BaseFragmentView implements TvShowContract.V
         adapter.setData(tvShows);
         if (adapter.getItemCount() > 0)
             flTvShow.setVisibility(View.GONE);
+        else
+            showOverrideEmptyState();
     }
 
 

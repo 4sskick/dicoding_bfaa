@@ -154,7 +154,7 @@ public class MovieEntity implements Parcelable {
     }
 
     public String getFullPosterPath(boolean isHalf) {
-        return String.format(isHalf ? "%s%sw500%s" : "%s%sw780%s"
+        return String.format(isHalf ? "%s%sw500%s" : /*"%s%sw780%s"*/"%s%sw500%s"
                 , BuildConfig.BASE_URL_IMG
                 , BuildConfig.BASE_PATH_IMG
                 , posterPath);

@@ -13,6 +13,7 @@ import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import retrofit2.Response;
 
 /**
  * Created by Septian Adi Wijaya on 07/01/20
@@ -40,7 +41,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getMovies(@Nullable String apiKey, @Nullable String lang) {
+    public Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang) {
 
         BaseResponse<MovieEntity> a = new BaseResponse<>();
         a.setResults(getmRoomDb().movieDao().getMoviesByLang(lang));
@@ -49,17 +50,21 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable</*Response<*//*BaseResponse*/List<TvEntity>>/*>*/ getTvShows(@Nullable String apiKey, @Nullable String lang) {
+    public Flowable<BaseResponse<TvEntity>> getTvShows(String apiKey, String lang) {
+
+        BaseResponse<TvEntity> a = new BaseResponse<>();
+        a.setResults(getmRoomDb().tvDao().getTvsByLang(lang));
+
+        return Flowable.just(a);
+    }
+
+    @Override
+    public Flowable<TvShowsDetail> getTvShowsDetail(String tvId, String apiKey) {
         return null;
     }
 
     @Override
-    public Flowable</*Response<*/TvShowsDetail>/*>*/ getTvShowsDetail(@Nullable String apiKey, @Nullable String lang) {
-        return null;
-    }
-
-    @Override
-    public Flowable</*Response<*/MoviesDetail>/*>*/ getMoviesDetail(@Nullable String apiKey, @Nullable String lang) {
+    public Flowable<MoviesDetail> getMoviesDetail(String movieId, String apiKey) {
         return null;
     }
 }

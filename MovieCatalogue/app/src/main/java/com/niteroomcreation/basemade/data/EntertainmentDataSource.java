@@ -16,17 +16,14 @@ import retrofit2.Response;
  */
 public interface EntertainmentDataSource {
 
-//        Flowable<Response<BaseResponse<MovieEntity>>> getMovies(String apiKey, String lang);
-        Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang);
-//    Flowable</*Response<*/List<MovieEntity>>/*>*/ getMovies(String apiKey, String lang);
+    Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang);
 
-    //    Flowable<Response<BaseResponse<TvEntity>>> getTvShows(String apiKey
-    Flowable</*Response<*/List<TvEntity>>/*>*/ getTvShows(String apiKey
+    Flowable<BaseResponse<TvEntity>> getTvShows(String apiKey
             , String lang);
 
-    Flowable</*Response<*/TvShowsDetail>/*>*/ getTvShowsDetail(String tvId
+    Flowable<TvShowsDetail> getTvShowsDetail(String tvId
             , String apiKey);
 
-    Flowable</*Response<*/MoviesDetail>/*>*/ getMoviesDetail(String movieId
+    Flowable<MoviesDetail> getMoviesDetail(String movieId
             , String apiKey);
 }

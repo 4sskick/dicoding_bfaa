@@ -18,25 +18,18 @@ import retrofit2.http.Query;
 public interface RemoteRepo {
 
     @GET(BuildConfig.BASE_PATH + "movie")
-//    Flowable<Response<BaseResponse<MovieEntity>>> getMovies(@Query("api_key") String apiKey
-//            , @Query("language") String e")
-
     Flowable<BaseResponse<MovieEntity>> getMovies(@Query("api_key") String apiKey
-//    Flowable</*Response<*/List<MovieEntity>>/*>*/ getMovies(@Query("api_key") String apiKey
             , @Query("language") String lang);
 
     @GET(BuildConfig.BASE_PATH + "tv")
-//    Flowable<Response<BaseResponse<TvEntity>>> getTvShows(@Query("api_key") String apiKey
-//            , @Query("language") String lang);
-
-    Flowable</*Response<*/List<TvEntity>>/*>*/ getTvShows(@Query("api_key") String apiKey
+    Flowable<BaseResponse<TvEntity>> getTvShows(@Query("api_key") String apiKey
             , @Query("language") String lang);
 
     @GET("3/tv/{tvId}")
-    Flowable</*Response<*/TvShowsDetail>/*>*/ getTvShowsDetail(@Path("tvId") String tvId
+    Flowable<TvShowsDetail>getTvShowsDetail(@Path("tvId") String tvId
             , @Query("api_key") String apiKey);
 
     @GET("3/movie/{movieId}")
-    Flowable</*Response<*/MoviesDetail>/*>*/ getMoviesDetail(@Path("movieId") String movieId
+    Flowable<MoviesDetail>getMoviesDetail(@Path("movieId") String movieId
             , @Query("api_key") String apiKey);
 }

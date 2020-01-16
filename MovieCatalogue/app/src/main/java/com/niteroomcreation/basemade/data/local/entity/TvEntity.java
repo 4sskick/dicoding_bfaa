@@ -5,6 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
 
@@ -57,19 +58,30 @@ public class TvEntity implements Parcelable {
     @SerializedName("vote_count")
     private int voteCount;
 
+    @Expose
+    private String languageType;
+
+    @Expose
+    private boolean isFavorite;
+
+    @Expose
+    private Long page;
+
     protected TvEntity(Parcel in) {
-        firstAirDate = in.readString();
-        overview = in.readString();
-        originalLanguage = in.readString();
-        posterPath = in.readString();
-        originCountry = in.createStringArrayList();
-        backdropPath = in.readString();
-        originalName = in.readString();
-        popularity = in.readDouble();
-        voteAverage = in.readDouble();
-        name = in.readString();
-        id = in.readLong();
-        voteCount = in.readInt();
+        this.firstAirDate = in.readString();
+        this.overview = in.readString();
+        this.originalLanguage = in.readString();
+        this.posterPath = in.readString();
+        this.originCountry = in.createStringArrayList();
+        this.backdropPath = in.readString();
+        this.originalName = in.readString();
+        this.popularity = in.readDouble();
+        this.voteAverage = in.readDouble();
+        this.name = in.readString();
+        this.id = in.readLong();
+        this.voteCount = in.readInt();
+        this.languageType = in.readString();
+        this.isFavorite = in.readByte() != 0;
     }
 
     @Override
@@ -86,6 +98,8 @@ public class TvEntity implements Parcelable {
         dest.writeString(name);
         dest.writeLong(id);
         dest.writeInt(voteCount);
+        dest.writeString(this.languageType);
+        dest.writeByte((byte) (this.isFavorite ? 1 : 0));
     }
 
     @Override
@@ -104,6 +118,14 @@ public class TvEntity implements Parcelable {
             return new TvEntity[size];
         }
     };
+
+    public Long getPage() {
+        return page;
+    }
+
+    public void setPage(Long page) {
+        this.page = page;
+    }
 
     public void setFirstAirDate(String firstAirDate) {
         this.firstAirDate = firstAirDate;
@@ -146,7 +168,7 @@ public class TvEntity implements Parcelable {
     }
 
     public String getFullPosterPath(boolean isHalf) {
-        return String.format(isHalf ? "%s%sw500%s" : "%s%sw780%s"
+        return String.format(isHalf ? "%s%sw500%s" : /*"%s%sw780%s"*/"%s%sw500%s"
                 , BuildConfig.BASE_URL_IMG
                 , BuildConfig.BASE_PATH_IMG
                 , posterPath);
@@ -216,23 +238,40 @@ public class TvEntity implements Parcelable {
         return voteCount;
     }
 
+    public String getLanguageType() {
+        return languageType;
+    }
+
+    public void setLanguageType(String languageType) {
+        this.languageType = languageType;
+    }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
     @Override
     public String toString() {
-        return
-                "TvEntity{" +
-                        "first_air_date = '" + firstAirDate + '\'' +
-                        ",overview = '" + overview + '\'' +
-                        ",original_language = '" + originalLanguage + '\'' +
-                        ",genre_ids = '" + genreIds + '\'' +
-                        ",poster_path = '" + posterPath + '\'' +
-                        ",origin_country = '" + originCountry + '\'' +
-                        ",backdrop_path = '" + backdropPath + '\'' +
-                        ",original_name = '" + originalName + '\'' +
-                        ",popularity = '" + popularity + '\'' +
-                        ",vote_average = '" + voteAverage + '\'' +
-                        ",name = '" + name + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",vote_count = '" + voteCount + '\'' +
-                        "}";
+        return "TvEntity{" +
+                "firstAirDate='" + firstAirDate + '\'' +
+                ", overview='" + overview + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", genreIds=" + genreIds +
+                ", posterPath='" + posterPath + '\'' +
+                ", originCountry=" + originCountry +
+                ", backdropPath='" + backdropPath + '\'' +
+                ", originalName='" + originalName + '\'' +
+                ", popularity=" + popularity +
+                ", voteAverage=" + voteAverage +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                ", voteCount=" + voteCount +
+                ", languageType='" + languageType + '\'' +
+                ", isFavorite=" + isFavorite +
+                '}';
     }
 }

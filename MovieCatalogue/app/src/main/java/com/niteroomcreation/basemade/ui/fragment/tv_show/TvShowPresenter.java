@@ -10,10 +10,12 @@ import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
+import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -34,35 +36,53 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
     public void getTvShows(String lang) {
         mView.showLoading();
 
-//        addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
-//                , new NetworkCallback<BaseResponse<TvEntity>>() {
-//                    @Override
-//                    public void onSuccess(BaseResponse<TvEntity> model) {
-//                        Log.e(TAG, "onSuccess: " + model.toString());
-//
-//                        imgIntoLocal(model.getResults());
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int code, String message,
-//                                          @Nullable JSONObject jsonObject) {
-//                        Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
-//                                message, jsonObject != null ? jsonObject.toString() : "{}"));
-//
-//                        mView.showMessage(String.format("code %s, %s", code, message));
-//                        mView.hideLoading();
-//                    }
-//
-//                    @Override
-//                    public void onFinish(boolean isFailure) {
-//                        if (isFailure) {
-//                            mView.showOverrideEmptyState();
-//                            return;
-//                        }
-//
-//                        mView.hideLoading();
-//                    }
-//                });
+        addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
+                , new NetworkCallback<BaseResponse<TvEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<TvEntity> model) {
+                        Log.e(TAG, "onSuccess: " + model.toString());
+
+                        if (Utils.isNetworkAvailable(mContext)) {
+                            List<TvEntity> tvs = new ArrayList<>();
+                            for (TvEntity tv : model.getResults()) {
+                                TvEntity stored = getLocalData().tvDao().getTvById(tv.getId());
+                                if (stored == null) tv.setLanguageType(lang);
+
+                                tv.setPage(model.getPage());
+                                tv.setLanguageType(lang);
+                                tv.setIsFavorite(false);
+
+                                tvs.add(tv);
+                            }
+
+                            getLocalData().tvDao().insertTvs(tvs);
+                            imgIntoLocal(model.getResults());
+                        }
+
+                        mView.setData(model.getResults());
+
+                    }
+
+                    @Override
+                    public void onFailure(int code, String message,
+                                          @Nullable JSONObject jsonObject) {
+                        Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
+                                message, jsonObject != null ? jsonObject.toString() : "{}"));
+
+                        mView.showOverrideEmptyState();
+                    }
+
+                    @Override
+                    public void onFinish(boolean isFailure) {
+                        if (isFailure) {
+                            mView.showOverrideEmptyState();
+                            return;
+                        }
+
+                        mView.hideLoading();
+                    }
+                });
+
     }
 
     private void imgIntoLocal(List<TvEntity> data) {
@@ -92,6 +112,5 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
 
         }
 
-        mView.setData(data);
     }
 }
