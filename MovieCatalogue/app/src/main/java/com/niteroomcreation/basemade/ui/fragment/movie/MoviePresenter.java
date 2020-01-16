@@ -68,20 +68,21 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 //                    }
 //                });
 
-        addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang),
-                new DisposableSubscriber<BaseResponse<MovieEntity>>() {
+
+        addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
+                , new NetworkCallback<BaseResponse<MovieEntity>>() {
                     @Override
-                    public void onNext(BaseResponse<MovieEntity> movieEntities) {
-                        Log.e(TAG, "onNext: " + movieEntities.toString());
+                    public void onSuccess(BaseResponse<MovieEntity> model) {
+                        Log.e(TAG, "onSuccess: " + model.toString());
 
                         if (Utils.isNetworkAvailable(mContext)) {
                             List<MovieEntity> movies = new ArrayList<>();
-                            for (MovieEntity movie : movieEntities.getResults()) {
+                            for (MovieEntity movie : model.getResults()) {
                                 MovieEntity storedMovies =
                                         getLocalData().movieDao().getMovieById(movie.getId());
                                 if (storedMovies == null) movie.setLanguageType(lang);
 
-                                movie.setPage(movieEntities.getPage());
+                                movie.setPage(model.getPage());
                                 movie.setLanguageType(lang);
                                 movie.setIsFavorite(false);
 
@@ -90,20 +91,62 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
                             getLocalData().movieDao().insertMovies(movies);
                         }
+
                     }
 
                     @Override
-                    public void onError(Throwable t) {
-                        Log.e(TAG, "onError: " + t);
+                    public void onFailure(int code
+                            , String message
+                            , @Nullable JSONObject jsonObject) {
+                        Log.e(TAG, "onFailure: " + message + " code " + code);
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onFinish(boolean isFailure) {
                         Log.e(TAG, "onComplete: ");
 
                         mView.hideLoading();
+
                     }
                 });
+
+
+//        addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang),
+//                new DisposableSubscriber<BaseResponse<MovieEntity>>() {
+//                    @Override
+//                    public void onNext(BaseResponse<MovieEntity> movieEntities) {
+//                        Log.e(TAG, "onNext: " + movieEntities.toString());
+//
+//                        if (Utils.isNetworkAvailable(mContext)) {
+//                            List<MovieEntity> movies = new ArrayList<>();
+//                            for (MovieEntity movie : movieEntities.getResults()) {
+//                                MovieEntity storedMovies =
+//                                        getLocalData().movieDao().getMovieById(movie.getId());
+//                                if (storedMovies == null) movie.setLanguageType(lang);
+//
+//                                movie.setPage(movieEntities.getPage());
+//                                movie.setLanguageType(lang);
+//                                movie.setIsFavorite(false);
+//
+//                                movies.add(movie);
+//                            }
+//
+//                            getLocalData().movieDao().insertMovies(movies);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable t) {
+//                        Log.e(TAG, "onError: " + t);
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.e(TAG, "onComplete: ");
+//
+//                        mView.hideLoading();
+//                    }
+//                });
     }
 
     private void imgIntoLocal(List<MovieEntity> data) {

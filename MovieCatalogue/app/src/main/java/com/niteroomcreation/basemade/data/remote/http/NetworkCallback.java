@@ -16,7 +16,7 @@ import retrofit2.Response;
  * Created by Septian Adi Wijaya on 14/12/2019.
  * please be sure to add credential if you use people's code
  */
-public abstract class NetworkCallback<T> extends DisposableSubscriber<Response<T>> {
+public abstract class NetworkCallback<T> extends DisposableSubscriber<T> {
 
     private static final String TAG = NetworkCallback.class.getSimpleName();
 
@@ -53,22 +53,24 @@ public abstract class NetworkCallback<T> extends DisposableSubscriber<Response<T
     }
 
     @Override
-    public void onNext(Response<T> modelRespond) {
-        if (modelRespond.isSuccessful()) {//for respond code 2xx - 3xx
-            onSuccess(modelRespond.body());
-        } else {//for respond code 4xx -5xx
-            isFailure = true;
-            try {
-                //todo 10/07/19: consider to add crashlytics report for 5xx code http error
+    public void onNext(T modelRespond) {
+//        if (modelRespond.isSuccessful()) {//for respond code 2xx - 3xx
+//            onSuccess(modelRespond.body());
+//        } else {//for respond code 4xx -5xx
+//            isFailure = true;
+//            try {
+//                //todo 10/07/19: consider to add crashlytics report for 5xx code http error
+//
+//                String result = modelRespond.errorBody() != null ?
+//                        modelRespond.errorBody().string() : null;
+//                onFailure(modelRespond.code(), extractMessageError(result), new JSONObject(result));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                onFailure(modelRespond.code(), "ERROR SERVER", null);
+//            }
+//        }
 
-                String result = modelRespond.errorBody() != null ?
-                        modelRespond.errorBody().string() : null;
-                onFailure(modelRespond.code(), extractMessageError(result), new JSONObject(result));
-            } catch (Exception e) {
-                e.printStackTrace();
-                onFailure(modelRespond.code(), "ERROR SERVER", null);
-            }
-        }
+        onSuccess(modelRespond);
     }
 
     @Override

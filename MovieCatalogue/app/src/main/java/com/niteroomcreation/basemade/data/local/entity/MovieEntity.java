@@ -34,6 +34,7 @@ public class MovieEntity implements Parcelable {
 
     @SerializedName("original_language")
     @Ignore
+    @Expose
     private String originalLanguage;
 
     @SerializedName("original_title")
