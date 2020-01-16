@@ -11,6 +11,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.local.converter.GenreListTypeConverter;
+import com.niteroomcreation.basemade.models.details.Genre;
+import com.niteroomcreation.basemade.models.details.tvshow.CreatedByItem;
+import com.niteroomcreation.basemade.models.details.tvshow.LastEpisodeToAir;
+import com.niteroomcreation.basemade.models.details.tvshow.Season;
 
 import java.util.List;
 
@@ -50,8 +54,6 @@ public class MovieEntity implements Parcelable {
     private String title;
 
     @SerializedName("genre_ids")
-//    @TypeConverters(GenreListTypeConverter.class)
-//    @Expose
     @Ignore
     private List<Integer> genreIds;
 
@@ -88,6 +90,52 @@ public class MovieEntity implements Parcelable {
 
     @Expose
     private boolean isFavorite;
+
+    /**
+     * an extra from detail data requested in by ID
+     */
+    @SerializedName("number_of_episodes")
+    @Expose
+    private int numberOfEpisodes;
+
+    //need a type converters
+    @SerializedName("genres")
+    @Expose
+    private List<Genre> genres;
+
+    @SerializedName("number_of_seasons")
+    @Expose
+    private int numberOfSeasons;
+
+    @SerializedName("first_air_date")
+    @Expose
+    private String firstAirDate;
+
+    //need a type converters
+    @SerializedName("seasons")
+    @Expose
+    private List<Season> seasons;
+
+    //need a type converters
+    @SerializedName("created_by")
+    @Expose
+    private List<CreatedByItem> createdBy;
+
+    @SerializedName("last_episode_to_air")
+    @Expose
+    private LastEpisodeToAir lastEpisodeToAir;
+
+    @SerializedName("last_air_date")
+    @Expose
+    private String lastAirDate;
+
+    @SerializedName("homepage")
+    @Expose
+    private String homepage;
+
+    @SerializedName("status")
+    @Expose
+    private String status;
 
     public Long getPage() {
         return page;
