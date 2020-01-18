@@ -1,6 +1,8 @@
 package com.niteroomcreation.basemade.adapter;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.utils.ImageUtils;
@@ -90,6 +94,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                         , model.getName()));
 
                 Glide.with(imgMovie.getContext())
+                        .asBitmap()
                         .load(
                                 imageUtils.load() != null ?
                                         imageUtils.load() :
@@ -98,8 +103,13 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(imgMovie);
+                        .into(new SimpleTarget<Bitmap>(200, 100) {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                                        @Nullable Transition<? super Bitmap> transition) {
+                                imgMovie.setImageBitmap(resource);
+                            }
+                        });
             }
         }
 

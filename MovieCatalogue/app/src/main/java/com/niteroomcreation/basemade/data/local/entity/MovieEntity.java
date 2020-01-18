@@ -2,7 +2,6 @@ package com.niteroomcreation.basemade.data.local.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,9 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.local.converter.GenreListTypeConverter;
 import com.niteroomcreation.basemade.models.details.Genre;
-import com.niteroomcreation.basemade.models.details.tvshow.CreatedByItem;
 import com.niteroomcreation.basemade.models.details.tvshow.LastEpisodeToAir;
-import com.niteroomcreation.basemade.models.details.tvshow.Season;
 
 import java.util.List;
 
@@ -101,6 +98,7 @@ public class MovieEntity implements Parcelable {
     //need a type converters
     @SerializedName("genres")
     @Expose
+    @TypeConverters(GenreListTypeConverter.class)
     private List<Genre> genres;
 
     @SerializedName("number_of_seasons")
@@ -112,18 +110,18 @@ public class MovieEntity implements Parcelable {
     private String firstAirDate;
 
     //need a type converters
-    @SerializedName("seasons")
-    @Expose
-    private List<Season> seasons;
+//    @SerializedName("seasons")
+//    @Expose
+//    private List<Season> seasons;
 
     //need a type converters
-    @SerializedName("created_by")
-    @Expose
-    private List<CreatedByItem> createdBy;
+//    @SerializedName("created_by")
+//    @Expose
+//    private List<CreatedByItem> createdBy;
 
-    @SerializedName("last_episode_to_air")
-    @Expose
-    private LastEpisodeToAir lastEpisodeToAir;
+//    @SerializedName("last_episode_to_air")
+//    @Expose
+//    private LastEpisodeToAir lastEpisodeToAir;
 
     @SerializedName("last_air_date")
     @Expose
@@ -280,6 +278,65 @@ public class MovieEntity implements Parcelable {
         this.isFavorite = isFavorite;
     }
 
+    /**
+     * an extra from detail data requested in by ID
+     */
+    public int getNumberOfEpisodes() {
+        return numberOfEpisodes;
+    }
+
+    public void setNumberOfEpisodes(int numberOfEpisodes) {
+        this.numberOfEpisodes = numberOfEpisodes;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public int getNumberOfSeasons() {
+        return numberOfSeasons;
+    }
+
+    public void setNumberOfSeasons(int numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public String getFirstAirDate() {
+        return firstAirDate;
+    }
+
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
+    }
+
+    public String getLastAirDate() {
+        return lastAirDate;
+    }
+
+    public void setLastAirDate(String lastAirDate) {
+        this.lastAirDate = lastAirDate;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     protected MovieEntity(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
@@ -354,6 +411,13 @@ public class MovieEntity implements Parcelable {
                 ", voteCount=" + voteCount +
                 ", languageType='" + languageType + '\'' +
                 ", isFavorite=" + isFavorite +
+                ", numberOfEpisodes=" + numberOfEpisodes +
+                ", genres=" + genres +
+                ", numberOfSeasons=" + numberOfSeasons +
+                ", firstAirDate='" + firstAirDate + '\'' +
+                ", lastAirDate='" + lastAirDate + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
