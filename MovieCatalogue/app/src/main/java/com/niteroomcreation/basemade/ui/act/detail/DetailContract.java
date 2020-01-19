@@ -14,11 +14,17 @@ public class DetailContract {
         void setupGenre(List<String> genres);
 
         void setupContent();
+
+        void setupSavedFav(boolean isSavedFav);
     }
 
     interface Presenter extends IBasePresenter<View> {
         void getMovieDetail(String movieId);
 
         void getTvShowDetail(String tvId);
+
+        void saveMovieFav(long movieId, boolean isSaved);
+
+        void saveTvFav(long tvId, boolean isSaved);
     }
 }

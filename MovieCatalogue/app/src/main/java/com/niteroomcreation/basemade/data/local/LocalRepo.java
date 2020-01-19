@@ -60,11 +60,40 @@ public class LocalRepo implements EntertainmentDataSource {
 
     @Override
     public Flowable<TvShowsDetail> getTvShowsDetail(String tvId, String apiKey) {
-        return null;
+
+        TvEntity tvEntity = getmRoomDb().tvDao().getTvById(Long.parseLong(tvId));
+        MoviesDetail result = new MoviesDetail();
+        if (tvEntity != null) {
+            result.setGenres(tvEntity.getGenres());
+            result.setBackdropPath(tvEntity.getBackdropPath());
+            result.setId(tvEntity.getId());
+            result.setOverview(tvEntity.getOverview());
+            result.setOriginalTitle(tvEntity.getOriginalName());
+            result.setPosterPath(tvEntity.getPosterPath());
+            result.setReleaseDate(tvEntity.getFirstAirDate());
+            result.setFavorite(tvEntity.getIsFavorite());
+        }
+
+        return Flowable.just(result);
     }
 
     @Override
     public Flowable<MoviesDetail> getMoviesDetail(String movieId, String apiKey) {
-        return null;
+
+        MovieEntity movieEntity = getmRoomDb().movieDao().getMovieById(Long.parseLong(movieId));
+        MoviesDetail result = new MoviesDetail();
+        if (movieEntity != null) {
+            result.setGenres(movieEntity.getGenres());
+            result.setAdult(movieEntity.isAdult());
+            result.setBackdropPath(movieEntity.getBackdropPath());
+            result.setId(movieEntity.getId());
+            result.setOverview(movieEntity.getOverview());
+            result.setOriginalTitle(movieEntity.getOriginalTitle());
+            result.setPosterPath(movieEntity.getPosterPath());
+            result.setReleaseDate(movieEntity.getReleaseDate());
+            result.setFavorite(movieEntity.getIsFavorite());
+        }
+
+        return Flowable.just(result);
     }
 }

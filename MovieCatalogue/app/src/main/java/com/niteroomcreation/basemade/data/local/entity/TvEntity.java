@@ -2,12 +2,15 @@ package com.niteroomcreation.basemade.data.local.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
+import com.niteroomcreation.basemade.data.local.converter.GenreListTypeConverter;
+import com.niteroomcreation.basemade.models.details.Genre;
 
 import java.util.List;
 
@@ -16,56 +19,6 @@ public class TvEntity implements Parcelable {
 
     public TvEntity() {
     }
-
-    @SerializedName("first_air_date")
-    private String firstAirDate;
-
-    @SerializedName("overview")
-    private String overview;
-
-    @SerializedName("original_language")
-    private String originalLanguage;
-
-    @SerializedName("genre_ids")
-    @Ignore
-    private List<Integer> genreIds;
-
-    @SerializedName("poster_path")
-    private String posterPath;
-
-    @SerializedName("origin_country")
-    @Ignore
-    private List<String> originCountry;
-
-    @SerializedName("backdrop_path")
-    private String backdropPath;
-
-    @SerializedName("original_name")
-    private String originalName;
-
-    @SerializedName("popularity")
-    private double popularity;
-
-    @SerializedName("vote_average")
-    private double voteAverage;
-
-    @SerializedName("name")
-    private String name;
-
-    @SerializedName("id")
-    private long id;
-
-    @SerializedName("vote_count")
-    private int voteCount;
-
-    @Expose
-    private String languageType;
-
-    @Expose
-    private boolean isFavorite;
-
-    @Expose
-    private Long page;
 
     protected TvEntity(Parcel in) {
         this.firstAirDate = in.readString();
@@ -118,6 +71,155 @@ public class TvEntity implements Parcelable {
             return new TvEntity[size];
         }
     };
+
+    @SerializedName("first_air_date")
+    private String firstAirDate;
+
+    @SerializedName("overview")
+    private String overview;
+
+    @SerializedName("original_language")
+    private String originalLanguage;
+
+    @SerializedName("genre_ids")
+    @Ignore
+    private List<Integer> genreIds;
+
+    @SerializedName("poster_path")
+    private String posterPath;
+
+    @SerializedName("origin_country")
+    @Ignore
+    private List<String> originCountry;
+
+    @SerializedName("backdrop_path")
+    private String backdropPath;
+
+    @SerializedName("original_name")
+    private String originalName;
+
+    @SerializedName("popularity")
+    private double popularity;
+
+    @SerializedName("vote_average")
+    private double voteAverage;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("id")
+    private long id;
+
+    @SerializedName("vote_count")
+    private int voteCount;
+
+    @Expose
+    private String languageType;
+
+    @Expose
+    private boolean isFavorite;
+
+    @Expose
+    private Long page;
+
+    /**
+     * an extra from detail data requested in by ID
+     */
+    @SerializedName("number_of_episodes")
+    @Expose
+    private int numberOfEpisodes;
+
+    //need a type converters
+    @SerializedName("genres")
+    @Expose
+    @TypeConverters(GenreListTypeConverter.class)
+    private List<Genre> genres;
+
+    @SerializedName("number_of_seasons")
+    @Expose
+    private int numberOfSeasons;
+
+    //need a type converters
+//    @SerializedName("seasons")
+//    @Expose
+//    private List<Season> seasons;
+
+    //need a type converters
+//    @SerializedName("created_by")
+//    @Expose
+//    private List<CreatedByItem> createdBy;
+
+//    @SerializedName("last_episode_to_air")
+//    @Expose
+//    private LastEpisodeToAir lastEpisodeToAir;
+
+    @SerializedName("last_air_date")
+    @Expose
+    private String lastAirDate;
+
+    @SerializedName("homepage")
+    @Expose
+    private String homepage;
+
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public int getNumberOfEpisodes() {
+        return numberOfEpisodes;
+    }
+
+    public void setNumberOfEpisodes(int numberOfEpisodes) {
+        this.numberOfEpisodes = numberOfEpisodes;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public int getNumberOfSeasons() {
+        return numberOfSeasons;
+    }
+
+    public void setNumberOfSeasons(int numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public String getLastAirDate() {
+        return lastAirDate;
+    }
+
+    public void setLastAirDate(String lastAirDate) {
+        this.lastAirDate = lastAirDate;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getPage() {
         return page;
@@ -272,6 +374,13 @@ public class TvEntity implements Parcelable {
                 ", voteCount=" + voteCount +
                 ", languageType='" + languageType + '\'' +
                 ", isFavorite=" + isFavorite +
+                ", page=" + page +
+                ", numberOfEpisodes=" + numberOfEpisodes +
+                ", genres=" + genres +
+                ", numberOfSeasons=" + numberOfSeasons +
+                ", lastAirDate='" + lastAirDate + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

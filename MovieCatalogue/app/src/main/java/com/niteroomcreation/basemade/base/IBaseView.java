@@ -13,7 +13,7 @@ public interface IBaseView {
 
     void showMessage(String message);
 
-    void showErrorMessage(int messageRes, int messageResAction);
+    void showErrorMessage(String messageRes, int messageResAction);
 
     void showEmptyState();
 

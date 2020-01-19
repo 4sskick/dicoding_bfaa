@@ -116,14 +116,26 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         } else
             throw new RuntimeException("Model isn't carried by parcelable arguments!");
 
-        if (movies != null)
+        if (movies != null) {
             presenter.getMovieDetail(String.valueOf(movies.getId()));
+        }
 
-        if (tvShows != null)
+        if (tvShows != null) {
             presenter.getTvShowDetail(String.valueOf(tvShows.getId()));
+        }
 
         setupImage();
         setupContent();
+
+    }
+
+    public void setupSavedFav(boolean isSavedFav) {
+        Log.e(TAG, "setupSavedFav: " + isSavedFav + "\n" + isSaveChosen);
+
+        isSaveChosen = isSavedFav;
+        txtSaveFav.setTextColor(isSaveChosen ?
+                getResources().getColor(R.color.colorPrimary) :
+                getResources().getColor(R.color.textColorSecondary));
     }
 
     public void setupGenre(List<String> genres) {
@@ -163,28 +175,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                         movies.getFullPosterPath(false) :
                         tvShows.getFullPosterPath(false)
                 )
-                .listener(/*new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e
-                            , Object model
-                            , Target<Drawable> target
-                            , boolean isFirstResource) {
-                        hideLoading();
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource
-                            , Object model
-                            , Target<Drawable> target, DataSource dataSource
-                            , boolean isFirstResource) {
-
-                        hideLoading();
-                        DetailActivity.this.supportStartPostponedEnterTransition();
-
-                        return false;
-                    }
-                }*/
+                .listener(
 
                         new RequestListener<Bitmap>() {
                             @Override
@@ -273,6 +264,14 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
         isSaveChosen = !isSaveChosen;
         showMessage(isSaveChosen ? "SAVED" : "UNSAVED");
+
+        if (movies != null) {
+            presenter.saveMovieFav(movies.getId(), isSaveChosen);
+        }
+
+        if (tvShows != null) {
+            presenter.saveTvFav(tvShows.getId(), isSaveChosen);
+        }
     }
 
     private void visibleFrame(View contentView) {

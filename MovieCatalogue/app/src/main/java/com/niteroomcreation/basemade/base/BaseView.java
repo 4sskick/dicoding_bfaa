@@ -135,8 +135,8 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     }
 
     @Override
-    public void showErrorMessage(int messageRes, int messageResAction) {
-
+    public void showErrorMessage(String messageRes, int messageResAction) {
+        showMessage(messageRes);
     }
 
     @Override

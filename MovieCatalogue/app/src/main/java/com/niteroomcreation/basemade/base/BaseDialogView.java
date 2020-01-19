@@ -188,7 +188,7 @@ public abstract class BaseDialogView extends DialogFragment implements IBaseDial
     }
 
     @Override
-    public void showErrorMessage(int messageRes, int messageResAction) {
+    public void showErrorMessage(String messageRes, int messageResAction) {
         if (mActivity != null)
             mActivity.showErrorMessage(messageRes, messageResAction);
     }

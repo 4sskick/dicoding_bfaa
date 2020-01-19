@@ -117,7 +117,7 @@ public abstract class BaseFragmentView extends Fragment implements IBaseView {
     }
 
     @Override
-    public void showErrorMessage(int messageRes, int messageResAction) {
+    public void showErrorMessage(String messageRes, int messageResAction) {
         mActivity.showErrorMessage(messageRes, messageResAction);
     }
 

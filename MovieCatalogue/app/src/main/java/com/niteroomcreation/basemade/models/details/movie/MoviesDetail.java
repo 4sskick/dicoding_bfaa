@@ -84,6 +84,16 @@ public class MoviesDetail {
     @SerializedName("status")
     private String status;
 
+    private boolean isFavorite;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     public void setOriginalLanguage(String originalLanguage) {
         this.originalLanguage = originalLanguage;
     }
@@ -286,33 +296,34 @@ public class MoviesDetail {
 
     @Override
     public String toString() {
-        return
-                "MoviesDetail{" +
-                        "original_language = '" + originalLanguage + '\'' +
-                        ",imdb_id = '" + imdbId + '\'' +
-                        ",video = '" + video + '\'' +
-                        ",title = '" + title + '\'' +
-                        ",backdrop_path = '" + backdropPath + '\'' +
-                        ",revenue = '" + revenue + '\'' +
-                        ",genres = '" + genres + '\'' +
-                        ",popularity = '" + popularity + '\'' +
-                        ",production_countries = '" + productionCountries + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",vote_count = '" + voteCount + '\'' +
-                        ",budget = '" + budget + '\'' +
-                        ",overview = '" + overview + '\'' +
-                        ",original_title = '" + originalTitle + '\'' +
-                        ",runtime = '" + runtime + '\'' +
-                        ",poster_path = '" + posterPath + '\'' +
-                        ",spoken_languages = '" + spokenLanguages + '\'' +
-                        ",production_companies = '" + productionCompanies + '\'' +
-                        ",release_date = '" + releaseDate + '\'' +
-                        ",vote_average = '" + voteAverage + '\'' +
-                        ",belongs_to_collection = '" + belongsToCollection + '\'' +
-                        ",tagline = '" + tagline + '\'' +
-                        ",adult = '" + adult + '\'' +
-                        ",homepage = '" + homepage + '\'' +
-                        ",status = '" + status + '\'' +
-                        "}";
+        return "MoviesDetail{" +
+                "originalLanguage='" + originalLanguage + '\'' +
+                ", imdbId='" + imdbId + '\'' +
+                ", video=" + video +
+                ", title='" + title + '\'' +
+                ", backdropPath='" + backdropPath + '\'' +
+                ", revenue=" + revenue +
+                ", genres=" + genres +
+                ", popularity=" + popularity +
+                ", productionCountries=" + productionCountries +
+                ", id=" + id +
+                ", voteCount=" + voteCount +
+                ", budget=" + budget +
+                ", overview='" + overview + '\'' +
+                ", originalTitle='" + originalTitle + '\'' +
+                ", runtime=" + runtime +
+                ", posterPath='" + posterPath + '\'' +
+                ", spokenLanguages=" + spokenLanguages +
+                ", productionCompanies=" + productionCompanies +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", voteAverage=" + voteAverage +
+                ", belongsToCollection=" + belongsToCollection +
+                ", tagline='" + tagline + '\'' +
+                ", adult=" + adult +
+                ", homepage='" + homepage + '\'' +
+                ", status='" + status + '\'' +
+                ", isFavorite=" + isFavorite +
+                '}';
     }
+
 }
