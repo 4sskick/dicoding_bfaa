@@ -37,13 +37,13 @@ public class ImageUtils {
         return reff;
     }
 
-    public ImageUtils(Context context) {
+    private ImageUtils(Context context) {
         this.context = context;
     }
 
-    public ImageUtils setFileName(String fileName) {
+    public synchronized ImageUtils setFileName(String fileName) {
         this.fileName = String.format("%s%s%s", prefixFileName
-                , fileName.replaceAll("\\s+", "_")
+                , fileName.replaceAll("\\s+", "_").replaceAll("'", "")
                 , suffixFileName);
         return this;
     }
@@ -78,7 +78,7 @@ public class ImageUtils {
         return new File(directory, fileName);
     }
 
-    private String getPathFile() {
+    private synchronized String getPathFile() {
         return createFile().toString();
     }
 
@@ -92,13 +92,13 @@ public class ImageUtils {
         if (b != null) {
 
             if (load() != null)
-                listener.success("success loaded");
+                listener.success("success loaded", load());
             else
                 try {
                     fos = new FileOutputStream(createFile());
                     if (b.compress(Bitmap.CompressFormat.PNG, 80, fos)) {
                         if (listener != null)
-                            listener.success(getPathFile());
+                            listener.success(getPathFile(), b);
                     } else {
                         if (listener != null)
                             listener.failed("compress not success");
@@ -137,9 +137,9 @@ public class ImageUtils {
                     fis.close();
                 }
             } catch (IOException e) {
-                Log.e(TAG, "load: finally touching in here");
                 e.printStackTrace();
             }
+            Log.e(TAG, "load: finally touching in here");
         }
     }
 
@@ -160,8 +160,12 @@ public class ImageUtils {
     }
 
     public interface ImageUtilsListener {
-        void success(String fileAbsolutePath);
+        default void success(String fileAbsolutePath) {
+        }
 
         void failed(String errMsg);
+
+        default void success(String fileAbsolutePath, Bitmap bpm) {
+        }
     }
 }

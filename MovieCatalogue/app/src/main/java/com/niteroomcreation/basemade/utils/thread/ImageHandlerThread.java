@@ -41,11 +41,6 @@ public class ImageHandlerThread extends HandlerThread {
         mPictureUploadThread.queueMakeBitmap(data, fileName);
     }
 
-
-    public Bitmap loadQueue(String fileName) {
-        return null;
-    }
-
     public void generateByteArrayImage(String url, String fileName) throws ExecutionException,
             InterruptedException {
         Glide.with(mContext)
@@ -65,11 +60,31 @@ public class ImageHandlerThread extends HandlerThread {
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         resource.compress(Bitmap.CompressFormat.PNG, 80, stream);
 
-                        if (ImageUtils.init(mContext).load() == null)
-                            beginQueue(stream.toByteArray(), fileName);
-                        else
-                            Log.e(TAG, String.format("onResourceReady: file %s already in folder"
-                                    , fileName));
+//                        if (ImageUtils.init(mContext).load() == null)
+//                            beginQueue(stream.toByteArray(), fileName);
+                            ImageUtils.init(mContext)
+                                    .setFileName(fileName)
+                                    .save(resource,
+                                            new ImageUtils.ImageUtilsListener() {
+
+                                                @Override
+                                                public void success(String fileAbsolutePath,
+                                                                    Bitmap bpm) {
+
+                                                    Log.e(TAG, "success: " + fileAbsolutePath +
+                                                            " " + bpm != null ? "not null" :
+                                                            "null");
+                                                }
+
+                                                @Override
+                                                public void failed(String errMsg) {
+                                                    Log.e(TAG, "failed: " + errMsg);
+                                                }
+                                            });
+
+//                        else
+//                            Log.e(TAG, String.format("onResourceReady: file %s already in folder"
+//                                    , fileName));
 
                         return false;
                     }

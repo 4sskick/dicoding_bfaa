@@ -11,6 +11,7 @@ import com.niteroomcreation.basemade.data.local.LocalRepo;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
+import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
@@ -102,6 +103,7 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
                                         , model.getPosterPath().split("/")[1].split(".jpg")[0]
                                         , model.getTitle())
                         );
+
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {

@@ -1,7 +1,9 @@
 package com.niteroomcreation.basemade.ui.act.detail;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -15,7 +17,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
@@ -153,12 +157,13 @@ public class DetailActivity extends BaseView implements DetailContract.View {
                                 tvShows.getName()));
 
         Glide.with(this)
+                .asBitmap()
                 .load(imageUtils.load() != null ?
                         imageUtils.load() : movies != null ?
                         movies.getFullPosterPath(false) :
                         tvShows.getFullPosterPath(false)
                 )
-                .listener(new RequestListener<Drawable>() {
+                .listener(/*new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e
                             , Object model
@@ -179,10 +184,42 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
                         return false;
                     }
-                })
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                }*/
+
+                        new RequestListener<Bitmap>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e
+                                    , Object model
+                                    , Target<Bitmap> target
+                                    , boolean isFirstResource) {
+
+                                hideLoading();
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource
+                                    , Object model
+                                    , Target<Bitmap> target
+                                    , DataSource dataSource
+                                    , boolean isFirstResource) {
+
+                                hideLoading();
+                                DetailActivity.this.supportStartPostponedEnterTransition();
+
+                                return false;
+                            }
+                        })
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .placeholder(R.drawable.ic_placeholder)
-                .into(imgDetailMovie);
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource
+                            , @Nullable Transition<? super Bitmap> transition) {
+
+                        imgDetailMovie.setImageBitmap(resource);
+                    }
+                });
     }
 
     private String getOverview(MovieEntity m, TvEntity t) {
