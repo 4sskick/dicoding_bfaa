@@ -39,8 +39,9 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
     public void getMovieDetail(String movieId) {
         Log.e(TAG, "getMovieDetail: " + movieId);
 
-        if (Utils.isNetworkAvailable(mContext)) {
+        MovieEntity entity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
 
+        if (entity.getGenres() == null) {
             addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId, BuildConfig
                             .API_KEY)
                     , new NetworkCallback<MoviesDetail>() {
@@ -48,7 +49,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                         public void onSuccess(MoviesDetail model) {
                             Log.e(TAG, "onSuccess: " + model.toString());
 
-                            onSuccMovieDetail(model, movieId);
+                            onSuccMovieDetail(model, movieId, true);
                         }
 
                         @Override
@@ -63,6 +64,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                         }
                     });
         } else {
+
             MovieEntity movieEntity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
             MoviesDetail result = new MoviesDetail();
             if (movieEntity != null) {
@@ -77,32 +79,32 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                 result.setFavorite(movieEntity.getIsFavorite());
             }
 
-            onSuccMovieDetail(result, movieId);
+            onSuccMovieDetail(result, movieId, false);
         }
     }
 
-    private void onSuccMovieDetail(MoviesDetail model, String movieId) {
+    private void onSuccMovieDetail(MoviesDetail model, String movieId, boolean isNetwork) {
+
+        if (isNetwork) {
+
+            //get entity by ID
+            MovieEntity entity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
+            entity.setGenres(model.getGenres());
+
+            getLocalData().movieDao().updateMovie(entity);
+        }
+
         List<String> genres = new ArrayList<>();
         if (model.getGenres() != null)
             for (Object obj : model.getGenres()) {
                 if (obj instanceof String) {
                     genres.add(Objects.toString(obj, null));
-                } else
+                } else {
                     genres.add(String.valueOf(((Genre) obj).getName()));
+                }
             }
 
-        if (Utils.isNetworkAvailable(mContext)) {
-
-            //get entity by ID
-            MovieEntity entity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
-            if (entity != null) {
-                entity.setGenres(model.getGenres());
-
-                getLocalData().movieDao().updateMovie(entity);
-            }
-        }
-
-//                        mView.setupSavedFav(model.isFavorite());
+        mView.setupSavedFav(model.isFavorite());
         mView.setupGenre(genres);
     }
 
