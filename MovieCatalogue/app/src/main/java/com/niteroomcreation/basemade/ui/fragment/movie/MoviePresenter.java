@@ -84,6 +84,7 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
             List<MovieEntity> movies = new ArrayList<>();
             for (MovieEntity movie : model.getResults()) {
+
                 movie.setPage(model.getPage());
                 movie.setLanguageType(lang);
                 movie.setIsFavorite(false);
@@ -92,9 +93,8 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
             }
 
             getLocalData().movieDao().insertMovies(movies);
+            imgIntoLocal(model.getResults());
         }
-
-        imgIntoLocal(model.getResults());
 
         mView.setData(model.getResults());
         mView.hideLoading();

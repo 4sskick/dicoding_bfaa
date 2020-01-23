@@ -36,53 +36,63 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
     public void getTvShows(String lang) {
         mView.showLoading();
 
-        addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
-                , new NetworkCallback<BaseResponse<TvEntity>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<TvEntity> model) {
-                        Log.e(TAG, "onSuccess: " + model.toString());
+        if (getLocalData().tvDao().getTvsByLang(lang).size() == 0) {
+            addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
+                    , new NetworkCallback<BaseResponse<TvEntity>>() {
+                        @Override
+                        public void onSuccess(BaseResponse<TvEntity> model) {
+                            Log.e(TAG, "onSuccess: " + model.toString());
 
-                        if (Utils.isNetworkAvailable(mContext)) {
-                            List<TvEntity> tvs = new ArrayList<>();
-                            for (TvEntity tv : model.getResults()) {
-                                TvEntity stored = getLocalData().tvDao().getTvById(tv.getId());
-                                if (stored == null) tv.setLanguageType(lang);
+                            onSuccTvs(model, lang, true);
+                        }
 
-                                tv.setPage(model.getPage());
-                                tv.setLanguageType(lang);
-                                tv.setIsFavorite(false);
+                        @Override
+                        public void onFailure(int code, String message,
+                                              @Nullable JSONObject jsonObject) {
+                            Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
+                                    message, jsonObject != null ? jsonObject.toString() : "{}"));
 
-                                tvs.add(tv);
+                            mView.showOverrideEmptyState();
+                        }
+
+                        @Override
+                        public void onFinish(boolean isFailure) {
+                            if (isFailure) {
+                                mView.showOverrideEmptyState();
+                                return;
                             }
 
-                            getLocalData().tvDao().insertTvs(tvs);
-                            imgIntoLocal(model.getResults());
+                            mView.hideLoading();
                         }
+                    });
+        } else {
+            BaseResponse<TvEntity> a = new BaseResponse<>();
+            a.setResults(getLocalData().tvDao().getTvsByLang(lang));
 
-                        mView.setData(model.getResults());
+            onSuccTvs(a, lang, false);
+        }
+    }
 
-                    }
+    private void onSuccTvs(BaseResponse<TvEntity> model, String lang, boolean isNetwork) {
 
-                    @Override
-                    public void onFailure(int code, String message,
-                                          @Nullable JSONObject jsonObject) {
-                        Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
-                                message, jsonObject != null ? jsonObject.toString() : "{}"));
+        if (isNetwork) {
 
-                        mView.showOverrideEmptyState();
-                    }
+            List<TvEntity> tvs = new ArrayList<>();
+            for (TvEntity tv : model.getResults()) {
 
-                    @Override
-                    public void onFinish(boolean isFailure) {
-                        if (isFailure) {
-                            mView.showOverrideEmptyState();
-                            return;
-                        }
+                tv.setPage(model.getPage());
+                tv.setLanguageType(lang);
+                tv.setIsFavorite(false);
 
-                        mView.hideLoading();
-                    }
-                });
+                tvs.add(tv);
+            }
 
+            getLocalData().tvDao().insertTvs(tvs);
+            imgIntoLocal(model.getResults());
+        }
+
+        mView.setData(model.getResults());
+        mView.hideLoading();
     }
 
     private void imgIntoLocal(List<TvEntity> data) {
