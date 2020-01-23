@@ -21,7 +21,7 @@ public interface EntertainmentDataSource {
     Flowable<BaseResponse<TvEntity>> getTvShows(String apiKey
             , String lang);
 
-    Flowable<TvShowsDetail> getTvShowsDetail(String tvId
+    Flowable<MoviesDetail> getTvShowsDetail(String tvId
             , String apiKey);
 
     Flowable<MoviesDetail> getMoviesDetail(String movieId

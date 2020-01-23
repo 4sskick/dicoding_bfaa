@@ -26,7 +26,7 @@ public interface RemoteRepo {
             , @Query("language") String lang);
 
     @GET("3/tv/{tvId}")
-    Flowable<TvShowsDetail>getTvShowsDetail(@Path("tvId") String tvId
+    Flowable<MoviesDetail>getTvShowsDetail(@Path("tvId") String tvId
             , @Query("api_key") String apiKey);
 
     @GET("3/movie/{movieId}")

@@ -92,13 +92,13 @@ public class TvShowsDetail {
     @SerializedName("status")
     private String status;
 
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
+//    public void setOriginalLanguage(String originalLanguage) {
+//        this.originalLanguage = originalLanguage;
+//    }
+//
+//    public String getOriginalLanguage() {
+//        return originalLanguage;
+//    }
 
     public void setNumberOfEpisodes(int numberOfEpisodes) {
         this.numberOfEpisodes = numberOfEpisodes;
@@ -108,29 +108,29 @@ public class TvShowsDetail {
         return numberOfEpisodes;
     }
 
-    public void setNetworks(List<NetworksItem> networks) {
-        this.networks = networks;
-    }
-
-    public List<NetworksItem> getNetworks() {
-        return networks;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
-    public String getBackdropPath() {
-        return backdropPath;
-    }
+//    public void setNetworks(List<NetworksItem> networks) {
+//        this.networks = networks;
+//    }
+//
+//    public List<NetworksItem> getNetworks() {
+//        return networks;
+//    }
+//
+//    public void setType(String type) {
+//        this.type = type;
+//    }
+//
+//    public String getType() {
+//        return type;
+//    }
+//
+//    public void setBackdropPath(String backdropPath) {
+//        this.backdropPath = backdropPath;
+//    }
+//
+//    public String getBackdropPath() {
+//        return backdropPath;
+//    }
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
@@ -140,13 +140,13 @@ public class TvShowsDetail {
         return genres;
     }
 
-    public void setPopularity(double popularity) {
-        this.popularity = popularity;
-    }
-
-    public double getPopularity() {
-        return popularity;
-    }
+//    public void setPopularity(double popularity) {
+//        this.popularity = popularity;
+//    }
+//
+//    public double getPopularity() {
+//        return popularity;
+//    }
 
     public void setId(long id) {
         this.id = id;
@@ -164,13 +164,13 @@ public class TvShowsDetail {
         return numberOfSeasons;
     }
 
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public int getVoteCount() {
-        return voteCount;
-    }
+//    public void setVoteCount(int voteCount) {
+//        this.voteCount = voteCount;
+//    }
+//
+//    public int getVoteCount() {
+//        return voteCount;
+//    }
 
     public void setFirstAirDate(String firstAirDate) {
         this.firstAirDate = firstAirDate;
@@ -180,13 +180,13 @@ public class TvShowsDetail {
         return firstAirDate;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
+//    public void setOverview(String overview) {
+//        this.overview = overview;
+//    }
+//
+//    public String getOverview() {
+//        return overview;
+//    }
 
     public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
@@ -196,13 +196,13 @@ public class TvShowsDetail {
         return seasons;
     }
 
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
-    }
-
-    public List<String> getLanguages() {
-        return languages;
-    }
+//    public void setLanguages(List<String> languages) {
+//        this.languages = languages;
+//    }
+//
+//    public List<String> getLanguages() {
+//        return languages;
+//    }
 
     public void setCreatedBy(List<CreatedByItem> createdBy) {
         this.createdBy = createdBy;
@@ -220,77 +220,77 @@ public class TvShowsDetail {
         return lastEpisodeToAir;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setOriginCountry(List<String> originCountry) {
-        this.originCountry = originCountry;
-    }
-
-    public List<String> getOriginCountry() {
-        return originCountry;
-    }
-
-    public void setProductionCompanies(List<ProductionCompany> productionCompanies) {
-        this.productionCompanies = productionCompanies;
-    }
-
-    public List<ProductionCompany> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
-    }
-
-    public String getOriginalName() {
-        return originalName;
-    }
-
-    public void setVoteAverage(double voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
-    public double getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setEpisodeRunTime(List<Integer> episodeRunTime) {
-        this.episodeRunTime = episodeRunTime;
-    }
-
-    public List<Integer> getEpisodeRunTime() {
-        return episodeRunTime;
-    }
-
-    public void setNextEpisodeToAir(Object nextEpisodeToAir) {
-        this.nextEpisodeToAir = nextEpisodeToAir;
-    }
-
-    public Object getNextEpisodeToAir() {
-        return nextEpisodeToAir;
-    }
-
-    public void setInProduction(boolean inProduction) {
-        this.inProduction = inProduction;
-    }
-
-    public boolean isInProduction() {
-        return inProduction;
-    }
+//    public void setPosterPath(String posterPath) {
+//        this.posterPath = posterPath;
+//    }
+//
+//    public String getPosterPath() {
+//        return posterPath;
+//    }
+//
+//    public void setOriginCountry(List<String> originCountry) {
+//        this.originCountry = originCountry;
+//    }
+//
+//    public List<String> getOriginCountry() {
+//        return originCountry;
+//    }
+//
+//    public void setProductionCompanies(List<ProductionCompany> productionCompanies) {
+//        this.productionCompanies = productionCompanies;
+//    }
+//
+//    public List<ProductionCompany> getProductionCompanies() {
+//        return productionCompanies;
+//    }
+//
+//    public void setOriginalName(String originalName) {
+//        this.originalName = originalName;
+//    }
+//
+//    public String getOriginalName() {
+//        return originalName;
+//    }
+//
+//    public void setVoteAverage(double voteAverage) {
+//        this.voteAverage = voteAverage;
+//    }
+//
+//    public double getVoteAverage() {
+//        return voteAverage;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setEpisodeRunTime(List<Integer> episodeRunTime) {
+//        this.episodeRunTime = episodeRunTime;
+//    }
+//
+//    public List<Integer> getEpisodeRunTime() {
+//        return episodeRunTime;
+//    }
+//
+//    public void setNextEpisodeToAir(Object nextEpisodeToAir) {
+//        this.nextEpisodeToAir = nextEpisodeToAir;
+//    }
+//
+//    public Object getNextEpisodeToAir() {
+//        return nextEpisodeToAir;
+//    }
+//
+//    public void setInProduction(boolean inProduction) {
+//        this.inProduction = inProduction;
+//    }
+//
+//    public boolean isInProduction() {
+//        return inProduction;
+//    }
 
     public void setLastAirDate(String lastAirDate) {
         this.lastAirDate = lastAirDate;
@@ -318,36 +318,18 @@ public class TvShowsDetail {
 
     @Override
     public String toString() {
-        return
-                "TvShowsDetail{" +
-                        "original_language = '" + originalLanguage + '\'' +
-                        ",number_of_episodes = '" + numberOfEpisodes + '\'' +
-                        ",networks = '" + networks + '\'' +
-                        ",type = '" + type + '\'' +
-                        ",backdrop_path = '" + backdropPath + '\'' +
-                        ",genres = '" + genres + '\'' +
-                        ",popularity = '" + popularity + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",number_of_seasons = '" + numberOfSeasons + '\'' +
-                        ",vote_count = '" + voteCount + '\'' +
-                        ",first_air_date = '" + firstAirDate + '\'' +
-                        ",overview = '" + overview + '\'' +
-                        ",seasons = '" + seasons + '\'' +
-                        ",languages = '" + languages + '\'' +
-                        ",created_by = '" + createdBy + '\'' +
-                        ",last_episode_to_air = '" + lastEpisodeToAir + '\'' +
-                        ",poster_path = '" + posterPath + '\'' +
-                        ",origin_country = '" + originCountry + '\'' +
-                        ",production_companies = '" + productionCompanies + '\'' +
-                        ",original_name = '" + originalName + '\'' +
-                        ",vote_average = '" + voteAverage + '\'' +
-                        ",name = '" + name + '\'' +
-                        ",episode_run_time = '" + episodeRunTime + '\'' +
-                        ",next_episode_to_air = '" + nextEpisodeToAir + '\'' +
-                        ",in_production = '" + inProduction + '\'' +
-                        ",last_air_date = '" + lastAirDate + '\'' +
-                        ",homepage = '" + homepage + '\'' +
-                        ",status = '" + status + '\'' +
-                        "}";
+        return "TvShowsDetail{" +
+                "id=" + id +
+                ", numberOfEpisodes=" + numberOfEpisodes +
+                ", genres=" + genres +
+                ", numberOfSeasons=" + numberOfSeasons +
+                ", firstAirDate='" + firstAirDate + '\'' +
+                ", seasons=" + seasons +
+                ", createdBy=" + createdBy +
+                ", lastEpisodeToAir=" + lastEpisodeToAir +
+                ", lastAirDate='" + lastAirDate + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

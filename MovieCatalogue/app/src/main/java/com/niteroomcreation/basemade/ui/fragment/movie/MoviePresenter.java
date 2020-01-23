@@ -41,51 +41,63 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
     public void getMovies(String lang) {
         mView.showLoading();
 
-        addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
-                , new NetworkCallback<BaseResponse<MovieEntity>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<MovieEntity> model) {
-                        Log.e(TAG, "onSuccess: " + model.toString());
+        if (getLocalData().movieDao().getMoviesByLang(lang).size() == 0) {
 
-                        if (Utils.isNetworkAvailable(mContext)) {
-                            List<MovieEntity> movies = new ArrayList<>();
-                            for (MovieEntity movie : model.getResults()) {
-                                MovieEntity storedMovies =
-                                        getLocalData().movieDao().getMovieById(movie.getId());
-                                if (storedMovies == null) movie.setLanguageType(lang);
+            addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
+                    , new NetworkCallback<BaseResponse<MovieEntity>>() {
+                        @Override
+                        public void onSuccess(BaseResponse<MovieEntity> model) {
+                            Log.e(TAG, "onSuccess: " + model.toString());
 
-                                movie.setPage(model.getPage());
-                                movie.setLanguageType(lang);
-                                movie.setIsFavorite(false);
+                            onSuccMovies(model, lang, true);
 
-                                movies.add(movie);
-                            }
-
-                            getLocalData().movieDao().insertMovies(movies);
-                            imgIntoLocal(model.getResults());
                         }
 
-                        mView.setData(model.getResults());
+                        @Override
+                        public void onFailure(int code
+                                , String message
+                                , @Nullable JSONObject jsonObject) {
+                            Log.e(TAG, "onFailure: " + message + " code " + code);
 
-                    }
+                            mView.showOverrideEmptyState();
+                        }
 
-                    @Override
-                    public void onFailure(int code
-                            , String message
-                            , @Nullable JSONObject jsonObject) {
-                        Log.e(TAG, "onFailure: " + message + " code " + code);
+                        @Override
+                        public void onFinish(boolean isFailure) {
+                            Log.e(TAG, "onComplete: ");
 
-                        mView.showOverrideEmptyState();
-                    }
+                            mView.hideLoading();
 
-                    @Override
-                    public void onFinish(boolean isFailure) {
-                        Log.e(TAG, "onComplete: ");
+                        }
+                    });
+        } else {
+            BaseResponse<MovieEntity> a = new BaseResponse<>();
+            a.setResults(getLocalData().movieDao().getMoviesByLang(lang));
 
-                        mView.hideLoading();
+            onSuccMovies(a, lang, false);
+        }
+    }
 
-                    }
-                });
+    private void onSuccMovies(BaseResponse<MovieEntity> model, String lang, boolean isNetwork) {
+
+        if (isNetwork) {
+
+            List<MovieEntity> movies = new ArrayList<>();
+            for (MovieEntity movie : model.getResults()) {
+                movie.setPage(model.getPage());
+                movie.setLanguageType(lang);
+                movie.setIsFavorite(false);
+
+                movies.add(movie);
+            }
+
+            getLocalData().movieDao().insertMovies(movies);
+        }
+
+        imgIntoLocal(model.getResults());
+
+        mView.setData(model.getResults());
+        mView.hideLoading();
     }
 
     private void imgIntoLocal(List<MovieEntity> data) {

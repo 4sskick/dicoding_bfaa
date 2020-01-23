@@ -165,14 +165,6 @@ public class TvEntity implements Parcelable {
     @Expose
     private String status;
 
-    public boolean isFavorite() {
-        return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
-
     public int getNumberOfEpisodes() {
         return numberOfEpisodes;
     }

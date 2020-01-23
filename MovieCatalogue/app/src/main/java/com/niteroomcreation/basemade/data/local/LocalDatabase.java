@@ -17,7 +17,7 @@ import com.niteroomcreation.basemade.data.local.entity.TvEntity;
  * Created by Septian Adi Wijaya on 07/01/20
  */
 
-@Database(entities = {MovieEntity.class, TvEntity.class}, version = 3, exportSchema = false)
+@Database(entities = {MovieEntity.class, TvEntity.class}, version = 4, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
 
     public abstract MovieDao movieDao();

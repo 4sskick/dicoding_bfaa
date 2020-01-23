@@ -14,6 +14,7 @@ import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
 import com.niteroomcreation.basemade.models.details.Genre;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
 import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
+import com.niteroomcreation.basemade.utils.Utils;
 
 import org.json.JSONObject;
 
@@ -37,38 +38,72 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
     @Override
     public void getMovieDetail(String movieId) {
         Log.e(TAG, "getMovieDetail: " + movieId);
-        addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId, BuildConfig
-                        .API_KEY)
-                , new NetworkCallback<MoviesDetail>() {
-                    @Override
-                    public void onSuccess(MoviesDetail model) {
-                        Log.e(TAG, "onSuccess: " + model.toString());
 
-                        List<String> genres = new ArrayList<>();
-                        if (model.getGenres() != null)
-                            for (Object obj : model.getGenres()) {
-                                if (obj instanceof String) {
-                                    genres.add(Objects.toString(obj, null));
-                                } else
-                                    genres.add(String.valueOf(((Genre) obj).getName()));
-                            }
+        if (Utils.isNetworkAvailable(mContext)) {
 
-                        mView.setupSavedFav(model.isFavorite());
-                        mView.setupGenre(genres);
-                    }
+            addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId, BuildConfig
+                            .API_KEY)
+                    , new NetworkCallback<MoviesDetail>() {
+                        @Override
+                        public void onSuccess(MoviesDetail model) {
+                            Log.e(TAG, "onSuccess: " + model.toString());
 
-                    @Override
-                    public void onFailure(int code, String message
-                            , @Nullable JSONObject jsonObject) {
-                        Log.e(TAG, String.format("onFailure: %s\n%s", code, message));
-                    }
+                            onSuccMovieDetail(model, movieId);
+                        }
 
-                    @Override
-                    public void onFinish(boolean isFailure) {
-                        Log.e(TAG, "onFinish: " + isFailure);
-                    }
-                });
+                        @Override
+                        public void onFailure(int code, String message
+                                , @Nullable JSONObject jsonObject) {
+                            Log.e(TAG, String.format("onFailure: %s\n%s", code, message));
+                        }
 
+                        @Override
+                        public void onFinish(boolean isFailure) {
+                            Log.e(TAG, "onFinish: " + isFailure);
+                        }
+                    });
+        } else {
+            MovieEntity movieEntity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
+            MoviesDetail result = new MoviesDetail();
+            if (movieEntity != null) {
+                result.setGenres(movieEntity.getGenres());
+                result.setAdult(movieEntity.isAdult());
+                result.setBackdropPath(movieEntity.getBackdropPath());
+                result.setId(movieEntity.getId());
+                result.setOverview(movieEntity.getOverview());
+                result.setOriginalTitle(movieEntity.getOriginalTitle());
+                result.setPosterPath(movieEntity.getPosterPath());
+                result.setReleaseDate(movieEntity.getReleaseDate());
+                result.setFavorite(movieEntity.getIsFavorite());
+            }
+
+            onSuccMovieDetail(result, movieId);
+        }
+    }
+
+    private void onSuccMovieDetail(MoviesDetail model, String movieId) {
+        List<String> genres = new ArrayList<>();
+        if (model.getGenres() != null)
+            for (Object obj : model.getGenres()) {
+                if (obj instanceof String) {
+                    genres.add(Objects.toString(obj, null));
+                } else
+                    genres.add(String.valueOf(((Genre) obj).getName()));
+            }
+
+        if (Utils.isNetworkAvailable(mContext)) {
+
+            //get entity by ID
+            MovieEntity entity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
+            if (entity != null) {
+                entity.setGenres(model.getGenres());
+
+                getLocalData().movieDao().updateMovie(entity);
+            }
+        }
+
+//                        mView.setupSavedFav(model.isFavorite());
+        mView.setupGenre(genres);
     }
 
     @Override
@@ -108,9 +143,9 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
     public void getTvShowDetail(String tvId) {
         Log.e(TAG, "getTvShowDetail: " + tvId);
         addSubscribe(Repository.getInstance(mContext).getTvShowsDetail(tvId, BuildConfig.API_KEY)
-                , new NetworkCallback<TvShowsDetail>() {
+                , new NetworkCallback<MoviesDetail>() {
                     @Override
-                    public void onSuccess(TvShowsDetail model) {
+                    public void onSuccess(MoviesDetail model) {
                         Log.e(TAG, "onSuccess: " + model.toString());
 
                         List<String> genres = new ArrayList<>();

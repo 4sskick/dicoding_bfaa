@@ -67,7 +67,7 @@ public class Repository implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<TvShowsDetail> getTvShowsDetail(String tvId, String apiKey) {
+    public Flowable<MoviesDetail> getTvShowsDetail(String tvId, String apiKey) {
         return Utils.isNetworkAvailable(context) ?
                 remoteRepo.getTvShowsDetail(tvId, apiKey) : localRepo.getTvShowsDetail(tvId, apiKey);
     }
