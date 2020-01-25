@@ -37,4 +37,7 @@ public interface TvDao {
 
     @Query("select * from `TvEntity` where languageType = :lang")
     List<TvEntity> getTvsByLang(String lang);
+
+    @Query("select * from `TvEntity` where isFavorite = 1")
+    List<TvEntity> getFavsTv();
 }

@@ -196,7 +196,7 @@ public class MovieEntity implements Parcelable {
     }
 
     public String getPosterPath() {
-        return posterPath;
+        return posterPath != null ? posterPath : String.format("/%s.jpg", title.replaceAll("\\s+", "_"));
     }
 
     public String getFullPosterPath(boolean isHalf) {

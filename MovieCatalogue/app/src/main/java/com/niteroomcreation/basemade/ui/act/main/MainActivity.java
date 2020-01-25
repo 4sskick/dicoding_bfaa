@@ -16,6 +16,7 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.ui.fragment.favourite.FavFragment;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
 import com.niteroomcreation.basemade.utils.NavigationUtils;
@@ -71,6 +72,11 @@ public class MainActivity extends BaseView implements MainContract.View,
                             break;
 
                         case R.id.nav_saved_fav:
+                            moveToFragment(flMainContent.getId(), FavFragment.newInstance(),
+                                    FavFragment.class.getSimpleName());
+
+                            lastActiveFragmentId = R.id.nav_saved_fav;
+                            lastActiveFragmentTag = FavFragment.class.getSimpleName();
                             break;
                     }
 
@@ -98,7 +104,6 @@ public class MainActivity extends BaseView implements MainContract.View,
     protected void initComponents(@Nullable Bundle savedInstanceState) {
 
         showTitleToolbar(false, null);
-
         presenter = new MainPresenter(this, this);
 
         navView.setOnNavigationItemSelectedListener(mOnNavSelectedListener);

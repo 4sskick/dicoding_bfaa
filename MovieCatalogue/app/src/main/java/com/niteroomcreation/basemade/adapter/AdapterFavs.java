@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -29,22 +28,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHolder> {
+/**
+ * Created by Septian Adi Wijaya on 25/01/2020.
+ * please be sure to add credential if you use people's code
+ * generic recycler view see: https://gist.github.com/Plumillon/f85c6be94e2fdaf339b9
+ */
+public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder> {
 
-    private List<TvEntity> tvShows;
-    private GenericItemListener<TvEntity, List<Pair<View, String>>> listener;
+    private static final String TAG = AdapterFavs.class.getSimpleName();
 
-    public AdapterTvShow(List<TvEntity> tvShows,
-                         GenericItemListener<TvEntity, List<Pair<View, String>>> listener) {
-        this.tvShows = tvShows;
+    private List<MovieEntity> movies;
+    private GenericItemListener<MovieEntity, List<Pair<View, String>>> listener;
+
+    public AdapterFavs(List<MovieEntity> movies
+            , GenericItemListener<MovieEntity, List<Pair<View, String>>> listener) {
+        this.movies = movies;
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.i_movie,
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.i_favs,
                 viewGroup, false);
+
         return new MainViewHolder(view);
     }
 
@@ -55,15 +62,15 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
 
     @Override
     public int getItemCount() {
-        return tvShows != null ? tvShows.size() : 0;
+        return movies != null ? movies.size() : 0;
     }
 
-    private TvEntity getItem(int pos) {
-        return tvShows != null ? tvShows.get(pos) : null;
+    private MovieEntity getItem(int pos) {
+        return movies != null ? movies.get(pos) : null;
     }
 
-    public void setData(List<TvEntity> data) {
-        this.tvShows = data;
+    public void setData(List<MovieEntity> data) {
+        this.movies = data;
         notifyDataSetChanged();
     }
 
@@ -76,24 +83,24 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         @BindView(R.id.img_item_photo)
         AppCompatImageView imgMovie;
 
-        public MainViewHolder(@NonNull View itemView) {
+        private MainViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         void binds() {
-            TvEntity model = getItem(getAdapterPosition());
+            final MovieEntity model = getItem(getAdapterPosition());
+
+            // TODO: 24/12/19 see https://stackoverflow.com/a/48454860 for loader image
 
             if (model != null) {
-                txtName.setText(model.getName());
+                txtName.setText(model.getTitle());
                 txtDesc.setText(model.getOverview());
 
                 ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());
-                if (model.getPosterPath() != null) {
-                    imageUtils.setFileName(String.format("%s_%s"
-                            , model.getPosterPath().split("/")[1].split(".jpg")[0]
-                            , model.getName()));
-                }
+                imageUtils.setFileName(String.format("%s_%s"
+                        , model.getPosterPath().split("/")[1].split(".jpg")[0]
+                        , model.getTitle()));
 
                 Glide.with(imgMovie.getContext())
                         .asBitmap()
@@ -105,7 +112,6 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
-                        .error(R.drawable.ic_placeholder)
                         .into(new SimpleTarget<Bitmap>(200, 100) {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource,
@@ -113,6 +119,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
                                 imgMovie.setImageBitmap(resource);
                             }
                         });
+
             }
         }
 
@@ -120,6 +127,7 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.MainViewHo
         void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.layout_item:
+
                     Pair<View, String> t1 = Pair.create(imgMovie, "anim_enter_item_img");
                     Pair<View, String> t2 = Pair.create(txtName, "anim_enter_item_name");
                     List<Pair<View, String>> a = new ArrayList<>();

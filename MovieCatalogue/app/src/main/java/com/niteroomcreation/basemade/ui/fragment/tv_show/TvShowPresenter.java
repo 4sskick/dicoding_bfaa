@@ -49,7 +49,8 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
                         @Override
                         public void onFailure(int code, String message,
                                               @Nullable JSONObject jsonObject) {
-                            Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s", code,
+                            Log.e(TAG, String.format("onFailure: code %s message %s jsonObj %s",
+                                    code,
                                     message, jsonObject != null ? jsonObject.toString() : "{}"));
 
                             mView.showOverrideEmptyState();
@@ -98,28 +99,31 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
     private void imgIntoLocal(List<TvEntity> data) {
         for (int i = 0; i < data.size(); i++) {
             TvEntity model = data.get(i);
-            mThread = new ImageHandlerThread(mContext);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            if (model.getPosterPath() != null) {
+                mThread = new ImageHandlerThread(mContext);
 
-                    try {
-                        mThread.generateByteArrayImage(
-                                model.getFullPosterPath(true)
-                                , String.format("%s_%s"
-                                        , model.getPosterPath().split("/")[1].split(".jpg")[0]
-                                        , model.getName()
-                                )
-                        );
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            mThread.generateByteArrayImage(
+                                    model.getFullPosterPath(true)
+                                    , String.format("%s_%s"
+                                            , model.getPosterPath().split("/")[1].split(".jpg")[0]
+                                            , model.getName()
+                                    )
+                            );
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }).start();
+                }).start();
 
+            }
         }
 
     }

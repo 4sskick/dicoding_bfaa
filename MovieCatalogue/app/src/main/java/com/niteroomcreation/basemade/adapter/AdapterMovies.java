@@ -93,9 +93,10 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                 txtDesc.setText(model.getOverview());
 
                 ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());
-                imageUtils.setFileName(String.format("%s_%s"
-                        , model.getPosterPath().split("/")[1].split(".jpg")[0]
-                        , model.getTitle()));
+                if (model.getPosterPath() != null)
+                    imageUtils.setFileName(String.format("%s_%s"
+                            , model.getPosterPath().split("/")[1].split(".jpg")[0]
+                            , model.getTitle()));
 
                 Glide.with(imgMovie.getContext())
                         .asBitmap()
@@ -107,6 +108,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MainViewHo
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(BlurTransformation.init(imgMovie.getContext()))
                         .placeholder(R.drawable.ic_placeholder)
+                        .error(R.drawable.ic_placeholder)
                         .into(new SimpleTarget<Bitmap>(200, 100) {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource,

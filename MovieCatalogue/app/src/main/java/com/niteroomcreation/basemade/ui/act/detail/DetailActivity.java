@@ -166,16 +166,6 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
                         new RequestListener<Bitmap>() {
                             @Override
-                            public boolean onLoadFailed(@Nullable GlideException e
-                                    , Object model
-                                    , Target<Bitmap> target
-                                    , boolean isFirstResource) {
-
-                                hideLoading();
-                                return false;
-                            }
-
-                            @Override
                             public boolean onResourceReady(Bitmap resource
                                     , Object model
                                     , Target<Bitmap> target
@@ -187,9 +177,22 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
                                 return false;
                             }
+
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e
+                                    , Object model
+                                    , Target<Bitmap> target
+                                    , boolean isFirstResource) {
+
+                                hideLoading();
+                                DetailActivity.this.supportStartPostponedEnterTransition();
+
+                                return false;
+                            }
                         })
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource

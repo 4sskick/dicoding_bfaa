@@ -38,4 +38,7 @@ public interface MovieDao {
 
     @Query("select * from `MovieEntity` where languageType = :lang")
     List<MovieEntity> getMoviesByLang(String lang);
+
+    @Query("select * from `MovieEntity` where isFavorite = 1")
+    List<MovieEntity> getFavMovies();
 }

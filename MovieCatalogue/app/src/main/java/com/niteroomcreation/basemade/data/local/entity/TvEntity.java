@@ -258,7 +258,7 @@ public class TvEntity implements Parcelable {
     }
 
     public String getPosterPath() {
-        return posterPath;
+        return posterPath != null ? posterPath : String.format("/%s.jpg", name.replaceAll("\\s+", "_"));
     }
 
     public String getFullPosterPath(boolean isHalf) {
