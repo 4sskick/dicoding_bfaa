@@ -17,10 +17,10 @@ android {
     flavorDimensions "default"
 
     //app versioning
-    def versionMajor = 3
+    def versionMajor = 4
     def versionMinor = 0
-    def versionPatch = 23
-    def versionBuild = 572
+    def versionPatch = 64
+    def versionBuild = 7054
 
     defaultConfig {
         applicationId "com.niteroomcreation.basemade"

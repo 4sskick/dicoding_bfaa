@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.image_utils.BlurTransformation;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
@@ -37,11 +37,11 @@ public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder
 
     private static final String TAG = AdapterFavs.class.getSimpleName();
 
-    private List<MovieEntity> movies;
-    private GenericItemListener<MovieEntity, List<Pair<View, String>>> listener;
+    private List<FavsObjectItem> movies;
+    private GenericItemListener<FavsObjectItem, List<Pair<View, String>>> listener;
 
-    public AdapterFavs(List<MovieEntity> movies
-            , GenericItemListener<MovieEntity, List<Pair<View, String>>> listener) {
+    public AdapterFavs(List<FavsObjectItem> movies
+            , GenericItemListener<FavsObjectItem, List<Pair<View, String>>> listener) {
         this.movies = movies;
         this.listener = listener;
     }
@@ -65,13 +65,17 @@ public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder
         return movies != null ? movies.size() : 0;
     }
 
-    private MovieEntity getItem(int pos) {
+    private FavsObjectItem getItem(int pos) {
         return movies != null ? movies.get(pos) : null;
     }
 
-    public void setData(List<MovieEntity> data) {
+    public void setData(List<FavsObjectItem> data) {
         this.movies = data;
-        notifyDataSetChanged();
+        refresh();
+    }
+
+    public void refresh(){
+
     }
 
     class MainViewHolder extends RecyclerView.ViewHolder {
@@ -80,6 +84,8 @@ public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder
         TextView txtName;
         @BindView(R.id.txt_item_desc)
         TextView txtDesc;
+        @BindView(R.id.txt_entity_type)
+        TextView txtType;
         @BindView(R.id.img_item_photo)
         AppCompatImageView imgMovie;
 
@@ -89,13 +95,14 @@ public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder
         }
 
         void binds() {
-            final MovieEntity model = getItem(getAdapterPosition());
+            final FavsObjectItem model = getItem(getAdapterPosition());
 
             // TODO: 24/12/19 see https://stackoverflow.com/a/48454860 for loader image
 
             if (model != null) {
                 txtName.setText(model.getTitle());
                 txtDesc.setText(model.getOverview());
+                txtType.setText(model.getTypeObjectStr(txtType.getContext(), model.getTypeObject()));
 
                 ImageUtils imageUtils = ImageUtils.init(imgMovie.getContext());
                 imageUtils.setFileName(String.format("%s_%s"

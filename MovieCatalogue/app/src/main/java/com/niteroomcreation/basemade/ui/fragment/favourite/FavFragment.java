@@ -14,8 +14,7 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterFavs;
 import com.niteroomcreation.basemade.base.BaseFragmentView;
-import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
-import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.utils.Constants;
@@ -26,7 +25,6 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import io.reactivex.Flowable;
 
 /**
  * Created by Septian Adi Wijaya on 25/01/2020.
@@ -45,9 +43,7 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     private FavPresenter presenter;
     private MovieFragment.MoviesListener listener;
 
-    private List<MovieEntity> movies;
-    private List<TvEntity> tvs;
-
+    private List<FavsObjectItem> movies;
 
     public static FavFragment newInstance() {
         return new FavFragment();
@@ -62,12 +58,17 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     protected void initComponents() {
         presenter = new FavPresenter(this, getContext());
 
-        adapter = new AdapterFavs(movies, new GenericItemListener<MovieEntity, List<Pair<View,
+        adapter = new AdapterFavs(movies, new GenericItemListener<FavsObjectItem, List<Pair<View,
                 String>>>() {
+
             @Override
-            public void onItemViewClicked(MovieEntity item, List<Pair<View, String>> view) {
-                Log.e(TAG, "onItemViewClicked: " + item.toString());
+            public void onItemViewClicked(FavsObjectItem item, List<Pair<View, String>> view) {
+                Log.e(TAG, "onItemViewClicked: " + item.toString()
+                        + "\n" + presenter.convertToEntity(item.getId()).toString());
+
+                listener.onItemSelectedDetail(presenter.convertToEntity(item.getId()), view);
             }
+
         });
 
         listFav.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,7 +108,7 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     }
 
     @Override
-    public void setData(List<MovieEntity> data) {
+    public void setData(List<FavsObjectItem> data) {
 
         Log.e(TAG, "setData: " + data.size());
 
@@ -117,6 +118,11 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
             flFav.setVisibility(View.GONE);
         else
             showOverrideEmptyState();
+    }
+
+    public void refresh() {
+        Log.e(TAG, "refresh: calling meh?");
+        adapter.refresh();
     }
 
     @Override

@@ -1,31 +1,17 @@
 package com.niteroomcreation.basemade.ui.fragment.favourite;
 
 import android.content.Context;
-import android.support.annotation.MainThread;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
-
-import org.reactivestreams.Subscription;
+import com.niteroomcreation.basemade.models.FavsObjectItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Flowable;
-import io.reactivex.FlowableSubscriber;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Septian Adi Wijaya on 25/01/2020.
@@ -43,107 +29,60 @@ public class FavPresenter extends BasePresenter<FavContract.View> implements Fav
     public void getFavs(String lang) {
         mView.showLoading();
 
-        //zip query
-        Flowable flowMovie = Flowable.just(getLocalData().movieDao().getFavMovies());
-        Flowable flowTvs = Flowable.just(getLocalData().tvDao().getFavsTv());
+        //convert first the values query into FavsObjectItem.class
+        List<MovieEntity> movies = getLocalData().movieDao().getFavMovies();
+        List<TvEntity> tvs = getLocalData().tvDao().getFavsTv();
+        List<FavsObjectItem> favs = new ArrayList<>();
 
-        flowMovie.concatMap(new Function() {
-            @Override
-            public Object apply(Object o) throws Exception {
-                Log.e(TAG, "apply: " + o.toString());
+        for (MovieEntity m : movies) {
+            FavsObjectItem result = new FavsObjectItem();
+            result.setId(m.getId());
+            result.setTypeObject(1);
+            result.setTitle(m.getTitle());
+            result.setOverview(m.getOverview());
+            result.setOriginalTitle(m.getOriginalTitle());
+            result.setPosterPath(m.getPosterPath());
+            result.setBackdropPath(m.getBackdropPath());
+            result.setFavorite(m.getIsFavorite());
 
-                return flowTvs;
-            }
-        }).subscribe(new Consumer() {
-            @Override
-            public void accept(Object o) throws Exception {
-                Log.e(TAG, "accept: " + o.toString());
-            }
-        });
+            favs.add(result);
+        }
 
+        for (TvEntity m : tvs) {
+            FavsObjectItem result = new FavsObjectItem();
+            result.setId(m.getId());
+            result.setTypeObject(2);
+            result.setTitle(m.getName());
+            result.setOverview(m.getOverview());
+            result.setOriginalTitle(m.getOriginalName());
+            result.setPosterPath(m.getPosterPath());
+            result.setBackdropPath(m.getBackdropPath());
+            result.setFavorite(m.getIsFavorite());
 
-        Flowable.merge(flowMovie, flowTvs)
-                .subscribe(new FlowableSubscriber() {
-                    @Override
-                    public void onSubscribe(Subscription s) {
-                        Log.e(TAG, "onSubscribe: " + s.toString());
-                    }
+            favs.add(result);
+        }
 
-                    @Override
-                    public void onNext(Object o) {
-                        Log.e(TAG, "onNext: " + o.toString());
-                    }
+        BaseResponse<FavsObjectItem> baseFavs = new BaseResponse<>();
+        baseFavs.setResults(favs);
 
-                    @Override
-                    public void onError(Throwable t) {
-                        Log.e(TAG, "onError: " + t.toString());
-                    }
+        Log.e(TAG, "getFavs: " + baseFavs.toString());
 
-                    @Override
-                    public void onComplete() {
-                        Log.e(TAG, "onComplete: merge");
-                    }
-                });
+        onSuccMovies(baseFavs);
 
-        BaseResponse<MovieEntity> a = new BaseResponse<>();
-        a.setResults(getLocalData().movieDao().getFavMovies());
-
-
-        Observable obMovies = Observable.just(a);
-
-        BaseResponse<TvEntity> b = new BaseResponse<>();
-        b.setResults(getLocalData().tvDao().getFavsTv());
-
-        Observable obTvs = Observable.just(b);
-
-        Observable.zip(obMovies, obTvs, new BiFunction<List<MovieEntity>, List<TvEntity>,
-                List<String>>() {
-            @Override
-            public List<String> apply(List<MovieEntity> movieEntities, List<TvEntity> tvEntities) throws Exception {
-
-                List<String> a = new ArrayList<>();
-
-                for (int i = 0; i < movieEntities.size(); i++) {
-                    a.add("MOVIE - " + movieEntities.get(i).getTitle());
-                }
-
-                for (int i = 0; i < tvEntities.size(); i++) {
-                    a.add("TV SHOW - " + tvEntities.get(i).getName());
-                }
-
-                return a;
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.e(TAG, "onSubscribe: ");
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-                        Log.e(TAG, "onNext: " + o.toString());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError: ");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.e(TAG, "onComplete: ");
-                    }
-                });
-
-
-        onSuccMovies(a, lang, false);
     }
 
-    private void onSuccMovies(BaseResponse<MovieEntity> models, String lang, boolean isNetwork) {
+    private void onSuccMovies(BaseResponse<FavsObjectItem> models) {
         mView.setData(models.getResults());
         mView.hideLoading();
+    }
+
+    public Object convertToEntity(long itemId){
+        MovieEntity m = getLocalData().movieDao().getMovieById(itemId);
+        TvEntity t = getLocalData().tvDao().getTvById(itemId);
+
+        if(m!= null)
+            return m;
+
+        return t;
     }
 }

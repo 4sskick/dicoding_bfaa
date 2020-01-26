@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.fragment.favourite.FavFragment;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
@@ -77,6 +79,20 @@ public class MainActivity extends BaseView implements MainContract.View,
 
                             lastActiveFragmentId = R.id.nav_saved_fav;
                             lastActiveFragmentTag = FavFragment.class.getSimpleName();
+
+                            Fragment f =
+                                    getSupportFragmentManager().findFragmentByTag(FavFragment.class.getSimpleName());
+                            if (f instanceof FavFragment) {
+                                Log.e(TAG, "onNavigationItemSelected: favfragment");
+
+                                ((FavFragment) f).refresh();
+                            } else if (f instanceof MovieFragment)
+                                Log.e(TAG, "onNavigationItemSelected: MovieFragment");
+                            else if (f instanceof TvShowFragment)
+                                Log.e(TAG, "onNavigationItemSelected: TvShowFragment");
+                            else
+                                Log.e(TAG, "onNavigationItemSelected: nothing!");
+
                             break;
                     }
 

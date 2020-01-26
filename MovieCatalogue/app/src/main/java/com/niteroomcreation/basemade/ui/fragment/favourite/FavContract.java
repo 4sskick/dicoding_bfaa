@@ -2,7 +2,7 @@ package com.niteroomcreation.basemade.ui.fragment.favourite;
 
 import com.niteroomcreation.basemade.base.IBasePresenter;
 import com.niteroomcreation.basemade.base.IBaseView;
-import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.models.FavsObjectItem;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class FavContract {
 
     interface View extends IBaseView {
-        void setData(List<MovieEntity> data);
+        void setData(List<FavsObjectItem> data);
     }
 
     interface Presenter extends IBasePresenter<View> {
