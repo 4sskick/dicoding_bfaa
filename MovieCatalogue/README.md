@@ -1,6 +1,6 @@
 **SUBSMISSION**
 
-Anda sudah mempelajari bagaimana konsep penyimpanan lokal pada aplikasi Android. Untuk mempelajari modul selanjutnya, Anda perlu mengirimkan proyek aplikasi dengan tema `Movie Catalogue (Local Storage)`. Movie Catalogue (Local Storage) adalah sebuah aplikasi yang merupakan lanjutan dari submission sebelumnya. Pada proyek ini Anda perlu menerapkan *`SQLite`* sebagai media penyimpanan lokal. 
+Selamat, Anda telah berada di akhir pembelajaran dalam akademi ini. Anda telah belajar banyak tentang pengembangan aplikasi berbasis Android. Untuk bisa lulus dari akademi ini Anda akan memodifikasi proyek submission **Aplikasi Movie Catalogue (Local Storage)** dengan menambahkan beberapa fitur. Anda bisa memanfaatkan beberapa materi yang telah dipelajari. Selamat berkreasi! 
 
 
 ---
@@ -9,71 +9,60 @@ Anda sudah mempelajari bagaimana konsep penyimpanan lokal pada aplikasi Android.
 
 Fitur yang harus ada pada aplikasi:
 
-1. **Daftar Film**
-    - Terdapat 2 (dua) halaman yang menampilkan daftar film `(Movies dan Tv Show)`.
-    - Menggunakan **Fragment** untuk menampung halaman `Movies` dan `Tv Show`.
-    - Menggunakan **RecyclerView** untuk menampilkan daftar film.
-    - Menggunakan **TabLayout, BottomNavigationView**, atau yang lainnya sebagai navigasi antara halaman `Movies` dan `Tv Show`.
-    - Menampilkan indikator loading ketika data sedang dimuat.
-2. **Detail Film**
-    - Menampilkan poster dan informasi film pada halaman detail film.
-    - Menggunakan `ConstraintLayout` untuk menyusun layout.
-    - Menampilkan indikator loading ketika data sedang dimuat.
-3. **Favorite Film**
-    - Dapat menyimpan film ke database favorite.
-    - Dapat menghapus film dari database favorite.
-    - Terdapat halaman untuk menampilkan daftar **Favorite Movies**.
-    - Terdapat halaman untuk menampilkan daftar **Favorite Tv Show**.
-4. **Localization**
-    - Aplikasi harus mendukung bahasa Indonesia dan bahasa Inggris.
-5. **Configuration Changes**
-    - Aplikasi harus bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari `potrait` ke `landscape atau sebaliknya`.
+1. **Pencarian film**
+    - Pengguna dapat melakukan pencarian `Movies`.
+    - Pengguna dapat melakukan pencarian `Tv Show`.
+2. **Widget**
+    - Pengguna dapat menampilkan widget dari film favorite ke halaman utama smartphone.
+    - Tipe widget yang diterapkan adalah `Stack Widget`.
+3. **Reminder**
+    - Daily Reminder, mengirimkan notifikasi ke pengguna untuk kembali ke `Aplikasi Movie Catalogue`. Daily reminder harus selalu berjalan tiap jam 7 pagi.
+    - Release Today Reminder, mengirimkan notifikasi ke pengguna semua film yang rilis hari ini `(wajib menggunakan endpoint seperti yang telah disediakan pada bagian Resources di bawah)`. Release reminder harus selalu berjalan tiap jam 8 pagi.
+    - Terdapat halaman pengaturan untuk mengaktifkan dan menonaktifkan reminder.
+4. **Aplikasi Favorite**
+    - Membuat aplikasi atau modul baru yang menampilkan daftar film favorite.
+    - Menggunakan `Content Provider` sebagai mekanisme untuk mengakses data dari satu aplikasi ke aplikasi lain.
     
 Berikut kerangka tampilan yang bisa Anda gunakan sebagai referensi:
 
-![alt text](https://dicodingacademy.blob.core.windows.net/academies/201902201413394ea16afd9cf7ddc21ea4e00ac6b87fc6.png)
+![alt text](https://dicodingacademy.blob.core.windows.net/academies/201902180856320073cc3b59071a00e26d5be08eecc67d.png)
 
 Kesempatan untuk submission Anda diterima, akan lebih besar jika:
 
-- Menggunakan library pihak ketiga seperti `Retrofit, Fast Android Networking, dsb`.
-- Menggunakan library penyimpanan lokal pihak ketiga seperti `Room, Realm, dsb`.
-- Menerapkan design pattern seperti `MVP, MVVM, Arch Component, dsb`.
+- Notifikasi dapat berjalan pada perangkat `Oreo dan setelahnya`
+- Data pada `widget` dapat diperbarui secara otomatis ketika terdapat perubahan pada data favorite.
+- Menggunakan `SearchView` pada fitur pencarian film.
+- Menggunakan library penyimpanan lokal pihak ketiga seperti Room, Realm, dsb.
+- Menggunakan library pihak ketiga seperti Retrofit, Fast Android Networking, dsb.
+- Menerapkan design pattern seperti MVP, MVVM, Arch Component, dsb.
 - Aplikasi bisa memberikan pesan eror jika data tidak berhasil ditampilkan.
 - Menuliskan kode dengan bersih.
 
 Submission Anda akan ditolak jika:
 
-- Aplikasi `tidak bisa menambahkan film` ke database favorite.
-- Aplikasi `tidak bisa menghapus film` dari database favorite.
-- Tidak terdapat halaman yang menampilkan daftar film favorite (**Movies dan TvShow**).
-- Tidak menggunakan `Fragment` untuk menampung halaman `Movies` dan `Tv Show`.
-- Tidak menggunakan `RecyclerView` untuk menampilkan daftar film.
-- Tidak menggunakan `TabLayout, BottomNavigationView`, atau yang lainnya sebagai navigasi antara `Movies` dan `Tv Show`.
-- Tidak menggunakan `ConstraintLayout` untuk menyusun layout pada halaman detail film.
-- Tidak terdapat indikator loading.
-- Aplikasi tidak mendukung **bahasa Indonesia dan bahasa Inggris**.
-- Aplikasi tidak bisa menjaga data yang sudah dimuat ketika terjadi pergantian orientasi dari potrait ke landscape atau sebaliknya.
-- Poster tidak berhasil ditampilkan.
+- Fitur pencarian tidak berjalan dengan baik.
+- Fitur pencarian tidak memanfaatkan endpoint dari TheMovieDB.
+- Fitur release today reminder tidak memanfaatkan endpoint dari TheMovieDB.
+- Notifikasi reminder tidak dapat ditampilkan pada device Oreo dan di atasnya.
+- Tidak dapat menampilkan data favorite ke dalam Stack Widget.
+- Tidak terdapat aplikasi atau modul baru yang menampilkan data favorite.
+- Tidak menerapkan Content Provider sebagai mekanisme untuk mengakses data dari satu aplikasi ke aplikasi lain.
+- Tidak Mempertahankan semua fitur aplikasi dan komponen yang digunakan pada aplikasi Movie Catalogue (Local Storage).
 - Informasi yang ditampilkan pada daftar ataupun detail film, tidak relevan.
-- Proyek tidak bisa di-build.
 - Aplikasi force closed.
+- Project tidak bisa di-build.
 - Mengirimkan file selain proyek Android Studio.
 - Mengirimkan proyek yang bukan karya sendiri.
 
 ## Resource
 
-- Untuk mendapatkan API Key silakan ikuti tutorial pada tautan [berikut:](https://blog.dicoding.com/registrasi-testing-themoviedb-api/). 
-- Gunakan endpoint berikut untuk mendapatkan data [Movies:](https://api.themoviedb.org/3/discover/movie?api_key={API KEY}&language=en-US)
-- Gunakan endpoint berikut untuk mendapatkan data [Tv Show:](https://api.themoviedb.org/3/discover/tv?api_key={API KEY}&language=en-US)
-- Gunakan url berikut untuk mendapatkan poster [film.](https://image.tmdb.org/t/p/{POSTER SIZE}/{POSTER FILENAME})
+- Untuk melakukan pencarian, gunakan endpoint berikut [Movies]{https://api.themoviedb.org/3/search/movie?api_key={API KEY}&language=en-US&query={MOVIE NAME}}
+- Untuk melakukan pencarian, gunakan endpoint berikut [Tv Show]{https://api.themoviedb.org/3/search/tv?api_key={API KEY}&language=en-US&query={TV SHOW NAME}}
+- Contoh penggunaan, ` https://api.themoviedb.org/3/search/movie?api_key=123456789&language=en-US&query=Avenger`
+- Untuk mendapatkan film yang rilis hari ini, gunakan endpoint berikut [Movies release]{https://api.themoviedb.org/3/discover/movie?api_key={API KEY}&primary_release_date.gte={TODAY DATE}&primary_release_date.lte={TODAY DATE}}
+- Contoh penggunaan, `https://api.themoviedb.org/3/discover/movie?api_key=123456789&primary_release_date.gte=2019-01-31&primary_release_date.lte=2019-01-31`
 
-**POSTER SIZE** di atas adalah ukuran dari poster yang ingin didapatkan. Tersedia beberapa ukuran yang dapat digunakan `w92, w154, w185, w342, w500, w780,` dan `original`. Sedangkan **POSTER FILENAME** adalah path poster yang bisa didapatkan dari response JSON dengan key `poster_path`.
-
-Contoh:
-
-![alt text](https://image.tmdb.org/t/p/w185/kSBXou5Ac7vEqKd97wotJumyJvU.jpg)
-
-- Penjelasan mengenai poster dapat Anda lihat pada tautan [berikut:](https://developers.themoviedb.org/3/configuration/get-api-configuration)
+**Catatan** Pastikan format tanggal yang kalian gunakan benar. Format tanggal yang digunakan adalah **"yyyy-MM-dd"**.
 
 ## Ketentuan
 
