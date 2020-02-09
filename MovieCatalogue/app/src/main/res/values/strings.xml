@@ -171,4 +171,8 @@
     <string name="transistion_img" translatable="false">anim_enter_item_img</string>
     <string name="transition_name" translatable="false">anim_enter_item_name</string>
     <string name="str_empty">Terjadi kesalahan, cek kembali koneksi internet Anda\n\nTap untuk muat ulang</string>
+    <string name="str_empty_fav">Tidak ditemukan daftar favorit film\n\nTap untuk muat
+        ulang</string>
+    <string name="str_query_hint">Type something here</string>
+    <string name="str_warning_empty">Empty, please type something</string>
 </resources>

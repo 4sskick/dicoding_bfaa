@@ -40,4 +40,7 @@ public interface TvDao {
 
     @Query("select * from `TvEntity` where isFavorite = 1")
     List<TvEntity> getFavsTv();
+
+    @Query("select * from `TvEntity` where name like '%'|| :query || '%'")
+    List<TvEntity> gettvShowsOnQuery(String query);
 }

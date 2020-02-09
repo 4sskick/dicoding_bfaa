@@ -1,9 +1,7 @@
 package com.niteroomcreation.basemade.base;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.niteroomcreation.basemade.R;
+import com.niteroomcreation.basemade.utils.NavigationUtils;
 import com.niteroomcreation.basemade.view.GenericStateView;
 
 import butterknife.BindView;
@@ -44,6 +43,12 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     @Nullable
     @BindView(R.id.c_actionbar_title)
     TextView toolbarTextTitle;
+    @Nullable
+    @BindView(R.id.c_actionbar_ic_search)
+    AppCompatImageView iconSearch;
+    @Nullable
+    @BindView(R.id.c_actionbar_ic_setting)
+    AppCompatImageView iconSetting;
 
     private Activity mActivity;
     private FragmentManager fragmentManager;
@@ -99,6 +104,17 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
         if (toolbarTextTitle != null) {
             toolbarTextTitle.setText(show ? title : "");
         }
+    }
+
+    public void showIconSearch(boolean show) {
+        if (iconSearch != null)
+            iconSearch.setVisibility(show ? View.VISIBLE : View.GONE);
+
+        if (iconSetting != null)
+            iconSetting.setVisibility(show ? View.VISIBLE : View.GONE);
+
+        if (getSupportActionBar() != null)
+            setSupportActionBar(null);
     }
 
     @Override
@@ -193,7 +209,7 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     }
 
     @Optional
-    @OnClick({R.id.c_actionbar_ic_back, R.id.c_actionbar_ic_setting})
+    @OnClick({R.id.c_actionbar_ic_back, R.id.c_actionbar_ic_setting, R.id.c_actionbar_ic_search})
     void onItemClickedView(View view) {
 
         Log.e(TAG, "onItemClickedView: ");
@@ -207,8 +223,11 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
                 break;
 
             case R.id.c_actionbar_ic_setting:
-                Intent i = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-                startActivity(i);
+                NavigationUtils.directToLocalSetting(this);
+                break;
+
+            case R.id.c_actionbar_ic_search:
+                NavigationUtils.directToSearchScreen(this);
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.niteroomcreation.basemade.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 
@@ -9,6 +10,7 @@ import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
+import com.niteroomcreation.basemade.ui.act.search.SearchActivity;
 
 /**
  * Created by Septian Adi Wijaya on 15/12/2019.
@@ -25,5 +27,15 @@ public class NavigationUtils {
                 (MovieEntity) obj : obj instanceof TvEntity ?
                 (TvEntity) obj : obj instanceof FavsObjectItem ? (FavsObjectItem) obj : null);
         ActivityCompat.startActivity(act, intent, options.toBundle());
+    }
+
+    public static void directToSearchScreen(Activity act) {
+        Intent intent = new Intent(act, SearchActivity.class);
+        act.startActivity(intent);
+    }
+
+    public static void directToLocalSetting(Activity act) {
+        Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+        act.startActivity(intent);
     }
 }

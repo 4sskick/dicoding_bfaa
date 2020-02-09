@@ -152,7 +152,7 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     public void showOverrideEmptyState() {
         hideLoading();
         mActivity.moveToFragment(flFav.getId()
-                , EmptyFragment.newInstance(getString(R.string.str_empty)
+                , EmptyFragment.newInstance(getString(R.string.str_empty_fav)
                         , new EmptyFragment.EmptyListener() {
                             @Override
                             public void onEmptyClickedView() {

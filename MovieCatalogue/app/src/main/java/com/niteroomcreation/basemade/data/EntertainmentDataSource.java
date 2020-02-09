@@ -26,4 +26,12 @@ public interface EntertainmentDataSource {
 
     Flowable<MoviesDetail> getMoviesDetail(String movieId
             , String apiKey);
+
+    Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String apiKey
+            , String lang
+            , String onQuery);
+
+    Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String apiKey
+            , String lang
+            , String onQuery);
 }

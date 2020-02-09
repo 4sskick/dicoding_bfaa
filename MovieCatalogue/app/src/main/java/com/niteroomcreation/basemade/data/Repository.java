@@ -69,12 +69,33 @@ public class Repository implements EntertainmentDataSource {
     @Override
     public Flowable<MoviesDetail> getTvShowsDetail(String tvId, String apiKey) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getTvShowsDetail(tvId, apiKey) : localRepo.getTvShowsDetail(tvId, apiKey);
+                remoteRepo.getTvShowsDetail(tvId, apiKey) : localRepo.getTvShowsDetail(tvId,
+                apiKey);
     }
 
     @Override
     public Flowable<MoviesDetail> getMoviesDetail(String movieId, String apiKey) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getMoviesDetail(movieId, apiKey) : localRepo.getMoviesDetail(movieId, apiKey);
+                remoteRepo.getMoviesDetail(movieId, apiKey) : localRepo.getMoviesDetail(movieId,
+                apiKey);
+    }
+
+    @Override
+    public Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String apiKey
+            , String lang
+            , String onQuery) {
+        return Utils.isNetworkAvailable(context) ?
+                remoteRepo.getOnQueryMovies(apiKey, lang, onQuery) :
+                localRepo.getOnQueryMovies(apiKey, lang, onQuery);
+    }
+
+    @Override
+    public Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String apiKey
+            , String lang
+            , String onQuery) {
+
+        return Utils.isNetworkAvailable(context)?
+                remoteRepo.getOnQueryTvShows(apiKey, lang, onQuery):
+                localRepo.getOnQueryTvShows(apiKey, lang, onQuery);
     }
 }

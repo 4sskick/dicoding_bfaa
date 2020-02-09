@@ -96,4 +96,26 @@ public class LocalRepo implements EntertainmentDataSource {
 
         return Flowable.just(result);
     }
+
+    @Override
+    public Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String apiKey
+            , String lang
+            , String onQuery) {
+
+        BaseResponse<MovieEntity> a = new BaseResponse<>();
+        a.setResults(getmRoomDb().movieDao().getMoviesOnQuery(onQuery));
+
+        return Flowable.just(a);
+    }
+
+    @Override
+    public Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String apiKey
+            , String lang
+            , String onQuery) {
+
+        BaseResponse<TvEntity> a = new BaseResponse<>();
+        a.setResults(getmRoomDb().tvDao().gettvShowsOnQuery(onQuery));
+
+        return Flowable.just(a);
+    }
 }

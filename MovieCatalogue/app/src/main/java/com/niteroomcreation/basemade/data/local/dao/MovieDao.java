@@ -41,4 +41,8 @@ public interface MovieDao {
 
     @Query("select * from `MovieEntity` where isFavorite = 1")
     List<MovieEntity> getFavMovies();
+
+    @Query("select * from `MovieEntity` where title like '%' || :query || '%'")
+    List<MovieEntity> getMoviesOnQuery(String query);
+
 }

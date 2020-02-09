@@ -34,6 +34,9 @@
         <activity
             android:name=".ui.act.detail.DetailActivity"
             android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.act.search.SearchActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>
