@@ -35,7 +35,7 @@
     </RelativeLayout>
 
     <RadioGroup
-        android:id="@+id/radio_group"
+        android:id="@+id/layout_radio_button_type"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:gravity="center"
@@ -59,7 +59,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/white" />
 
-
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/btn_search_tv"
             android:layout_width="@dimen/icon_default"
@@ -69,7 +68,25 @@
             android:button="@null"
             android:text="@null" />
 
-
     </RadioGroup>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/layout_search_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_radio_button_type" />
+
+    <FrameLayout
+        android:id="@+id/fl_search"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_radio_button_type" />
 
 </android.support.constraint.ConstraintLayout>

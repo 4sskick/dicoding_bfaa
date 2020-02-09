@@ -37,12 +37,12 @@ public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder
 
     private static final String TAG = AdapterFavs.class.getSimpleName();
 
-    private List<FavsObjectItem> movies;
+    private List<FavsObjectItem> favObjItems;
     private GenericItemListener<FavsObjectItem, List<Pair<View, String>>> listener;
 
-    public AdapterFavs(List<FavsObjectItem> movies
+    public AdapterFavs(List<FavsObjectItem> favObjItems
             , GenericItemListener<FavsObjectItem, List<Pair<View, String>>> listener) {
-        this.movies = movies;
+        this.favObjItems = favObjItems;
         this.listener = listener;
     }
 
@@ -62,15 +62,15 @@ public class AdapterFavs extends RecyclerView.Adapter<AdapterFavs.MainViewHolder
 
     @Override
     public int getItemCount() {
-        return movies != null ? movies.size() : 0;
+        return favObjItems != null ? favObjItems.size() : 0;
     }
 
     private FavsObjectItem getItem(int pos) {
-        return movies != null ? movies.get(pos) : null;
+        return favObjItems != null ? favObjItems.get(pos) : null;
     }
 
     public void setData(List<FavsObjectItem> data) {
-        this.movies = data;
+        this.favObjItems = data;
         refresh();
     }
 
