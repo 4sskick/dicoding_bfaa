@@ -133,7 +133,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         for (TvEntity m : data) {
             FavsObjectItem result = new FavsObjectItem();
             result.setId(m.getId());
-            result.setTypeObject(2);
+            result.setTypeObject(3);
             result.setTitle(m.getName());
             result.setOverview(m.getOverview());
             result.setOriginalTitle(m.getOriginalName());

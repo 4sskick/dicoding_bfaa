@@ -102,7 +102,7 @@ public class AdapterSearch extends RecyclerView.Adapter<AdapterSearch.SearchView
                 txtType.setText(model.getTypeObjectStr(txtType.getContext(),
                         model.getTypeObject()));
 
-                if(model.getPosterPath()!= null) {
+                if (model.getPosterPath() != null) {
                     ImageUtils imageUtils = ImageUtils.init(imgObjItem.getContext());
                     imageUtils.setFileName(String.format("%s_%s"
                             , model.getPosterPath().split("/")[1].split(".jpg")[0]
@@ -126,10 +126,10 @@ public class AdapterSearch extends RecyclerView.Adapter<AdapterSearch.SearchView
                                     imgObjItem.setImageBitmap(resource);
                                 }
                             });
-                }else
+                } else
                     Glide.with(imgObjItem.getContext())
-                    .load(R.drawable.ic_placeholder)
-                    .into(imgObjItem);
+                            .load(R.drawable.ic_placeholder)
+                            .into(imgObjItem);
 
             }
         }

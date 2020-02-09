@@ -187,6 +187,9 @@ public class FavsObjectItem implements Parcelable {
 
             case 2:
                 return mContext.getResources().getString(R.string.nav_bot_saved_fav);
+
+            case 3:
+                return mContext.getResources().getString(R.string.nav_bot_tv_shows);
         }
 
         return mContext.getResources().getString(R.string.nav_bot_saved_fav);

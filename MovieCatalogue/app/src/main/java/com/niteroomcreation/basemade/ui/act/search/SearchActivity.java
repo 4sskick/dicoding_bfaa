@@ -20,9 +20,12 @@ import com.niteroomcreation.basemade.adapter.AdapterSearch;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
+import com.niteroomcreation.basemade.ui.fragment.EmptyTransparentFragment;
+import com.niteroomcreation.basemade.utils.Constants;
 import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,6 +40,7 @@ public class SearchActivity extends BaseView implements SearchContract.View
         , SearchView.OnQueryTextListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
+    private static final String EXTRA_VALUE = "extra.put.values";
 
     @BindView(R.id.searchView)
     SearchView searchView;
@@ -49,7 +53,7 @@ public class SearchActivity extends BaseView implements SearchContract.View
     @BindView(R.id.fl_search)
     FrameLayout flSearch;
 
-    private List<FavsObjectItem> searchObjItems;
+    private List<FavsObjectItem> searchObjItems = new ArrayList<>();
     private AdapterSearch adapter;
     private SearchPresenter presenter;
 
@@ -66,12 +70,41 @@ public class SearchActivity extends BaseView implements SearchContract.View
     }
 
     @Override
-    protected void initComponents(@Nullable Bundle savedInstanceState) {
+    protected void initComponents(@Nullable Bundle outstate) {
 
         presenter = new SearchPresenter(this, this);
         initSearchView();
         initSwitch();
         initListSearch();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outstate) {
+        Log.e(TAG, "onSaveInstanceState: ");
+
+        super.onSaveInstanceState(outstate);
+
+        outstate.putParcelableArrayList(Constants.EXTRA_ARR_MODEL,
+                new ArrayList<>(searchObjItems));
+        outstate.putString(Constants.EXTRA_LANG_MODEL,
+                Locale.getDefault().getDisplayLanguage());
+        outstate.putString(EXTRA_VALUE, onTextQuery);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.e(TAG, "onRestoreInstanceState: ");
+
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (!Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(savedInstanceState.getString(Constants.EXTRA_LANG_MODEL))) {
+            initSwitch();
+        } else {
+            searchObjItems = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
+            setData(searchObjItems);
+        }
+
+        onTextQuery = savedInstanceState.getString(EXTRA_VALUE);
     }
 
     private void initListSearch() {
@@ -111,6 +144,7 @@ public class SearchActivity extends BaseView implements SearchContract.View
         btnMovies.performClick();
     }
 
+    @Override
     public void setData(List<FavsObjectItem> data) {
         Log.e(TAG, "setData: " + data.size());
 
@@ -144,8 +178,10 @@ public class SearchActivity extends BaseView implements SearchContract.View
                                     "en-EN" : "id-ID");
                     break;
             }
-        else
+        else {
             showMessage(getResources().getString(R.string.str_warning_empty));
+            showOverrideEmptyState();
+        }
     }
 
     @Override
@@ -169,16 +205,16 @@ public class SearchActivity extends BaseView implements SearchContract.View
     public void showOverrideEmptyState() {
         hideLoading();
         moveToFragment(flSearch.getId()
-                , EmptyFragment.newInstance(getString(R.string.str_empty_fav)
-                        , new EmptyFragment.EmptyListener() {
+                , EmptyTransparentFragment.newInstance(getString(R.string.str_warning_empty)
+                        , new EmptyTransparentFragment.EmptyListener() {
                             @Override
                             public void onEmptyClickedView() {
-                                Log.e(TAG, "onEmptyClickedView: ");
+                                Log.e(TAG, "onEmptyClickedView: " + onTextQuery);
                                 presenter.getMovieOnQuery(onTextQuery
                                         , Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
                                                 "english") ? "en-EN" : "id-ID");
                             }
                         })
-                , EmptyFragment.class.getSimpleName());
+                , EmptyTransparentFragment.class.getSimpleName());
     }
 }
