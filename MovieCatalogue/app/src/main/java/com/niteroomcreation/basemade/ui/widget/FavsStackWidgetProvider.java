@@ -1,6 +1,7 @@
 package com.niteroomcreation.basemade.ui.widget;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -9,8 +10,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.niteroomcreation.basemade.R;
+import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 import com.niteroomcreation.basemade.utils.service.FavsStackWidgetService;
 
 /**
@@ -18,6 +21,10 @@ import com.niteroomcreation.basemade.utils.service.FavsStackWidgetService;
  * please be sure to add credential if you use people's code
  */
 public class FavsStackWidgetProvider extends AppWidgetProvider {
+
+    public static final String TOAST_ACTION = "com.example.android.stackwidget.TOAST_ACTION";
+    public static final String EXTRA_ITEM = "com.example.android.stackwidget.EXTRA_ITEM";
+
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
@@ -35,6 +42,13 @@ public class FavsStackWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+        if (intent.getAction().equals(TOAST_ACTION)) {
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
+            Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+        }
         super.onReceive(context, intent);
     }
 
@@ -52,7 +66,6 @@ public class FavsStackWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int i = 0; i < appWidgetIds.length; i++) {
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.w_favs);
 
             // set intent for widget service that will create the views
             Intent serviceIntent = new Intent(context, FavsStackWidgetService.class);
@@ -62,12 +75,22 @@ public class FavsStackWidgetProvider extends AppWidgetProvider {
             serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             // Instruct the widget manager to update the widget
-            setRemoteAdapter(remoteViews, appWidgetIds[i], serviceIntent);
-//            remoteViews.setRemoteAdapter(appWidgetIds[i], R.id.stackWidgetView, serviceIntent);
-
-            remoteViews.setEmptyView(R.id.stackWidgetView, R.layout.f_empty_transparent);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.w_favs);
+//            setRemoteAdapter(remoteViews, appWidgetIds[i], serviceIntent);
+            remoteViews.setRemoteAdapter(appWidgetIds[i], R.id.stackWidgetView, serviceIntent);
+            remoteViews.setEmptyView(R.id.stackWidgetEmptyView, R.layout.f_empty_transparent);
 
             //doesn't need pending intent on widget clicked
+            //trial to directly into detail act
+            Intent detailIntent = new Intent(context, FavsStackWidgetProvider.class);
+            detailIntent.setAction(FavsStackWidgetProvider.TOAST_ACTION);
+            detailIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            detailIntent.setData(Uri.parse(detailIntent.toUri(Intent.URI_INTENT_SCHEME)));
+
+            //pending intent
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, detailIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setPendingIntentTemplate(R.id.stackWidgetView, pendingIntent);
 
             // update widget
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);

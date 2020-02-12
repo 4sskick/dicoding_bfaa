@@ -37,6 +37,25 @@
         <activity
             android:name=".ui.act.search.SearchActivity"
             android:configChanges="orientation|screenSize" />
+
+
+        <!--widget config-->
+        <!--widget provider-->
+        <receiver android:name=".ui.widget.FavsStackWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_favs" />
+        </receiver>
+
+        <!--widget service-->
+        <service
+            android:name=".utils.service.FavsStackWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

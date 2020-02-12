@@ -39,6 +39,7 @@ public class DetailActivity extends BaseView implements DetailContract.View {
 
     private static final String TAG = DetailActivity.class.getSimpleName();
     public static final String EXTRA_MODEL = "model.object";
+    public static final String EXTRA_MODEL_ID = "model.object.id";
 
     @BindView(R.id.img_detail_movie)
     AppCompatImageView imgDetailMovie;
