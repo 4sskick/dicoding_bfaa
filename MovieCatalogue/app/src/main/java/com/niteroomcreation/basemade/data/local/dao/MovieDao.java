@@ -5,9 +5,9 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.database.Cursor;
 
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
-import com.niteroomcreation.basemade.data.models.BaseResponse;
 
 import java.util.List;
 
@@ -18,22 +18,22 @@ import java.util.List;
 @Dao
 public interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     long[] insertMovies(List<MovieEntity> movies);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insertMovie(MovieEntity movie);
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.IGNORE)
     int updateMovie(MovieEntity movie);
 
     @Query("select * from `MovieEntity` where page = :page")
     MovieEntity getMoviesByPage(Long page);
 
-    @Query("select * from `MovieEntity` where id = :id")
+    @Query("select * from `MovieEntity` where _id = :id")
     MovieEntity getMovieById(Long id);
 
-    @Query("select * from `MovieEntity` where id = :id and languageType = :lang")
+    @Query("select * from `MovieEntity` where _id = :id and languageType = :lang")
     MovieEntity getMovieByIdLang(Long id, String lang);
 
     @Query("select * from `MovieEntity` where languageType = :lang")
@@ -45,4 +45,10 @@ public interface MovieDao {
     @Query("select * from `MovieEntity` where title like '%' || :query || '%'")
     List<MovieEntity> getMoviesOnQuery(String query);
 
+    //content values section queries
+    @Query("select * from " + MovieEntity.T_NAME)
+    Cursor cursorSelectAll();
+
+    @Query("select * from " + MovieEntity.T_NAME + " where _id = :id")
+    Cursor cursorSelectById(long id);
 }

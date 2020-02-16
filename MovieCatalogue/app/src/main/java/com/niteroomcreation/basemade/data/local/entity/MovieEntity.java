@@ -1,27 +1,34 @@
 package com.niteroomcreation.basemade.data.local.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.TypeConverters;
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
+import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.local.converter.GenreListTypeConverter;
 import com.niteroomcreation.basemade.models.details.Genre;
-import com.niteroomcreation.basemade.models.details.tvshow.LastEpisodeToAir;
 
 import java.util.List;
 
-@Entity(primaryKeys = ("id"))
+@Entity(primaryKeys = (BaseColumns._ID), tableName = MovieEntity.T_NAME)
 public class MovieEntity implements Parcelable {
+
+    public static final String C_TITLE = "title";
+    public static final String T_NAME = "MovieEntity";
 
     public MovieEntity() {
 
     }
 
+    @ColumnInfo(index = true, name = BaseColumns._ID)
     @SerializedName("id")
     @Expose
     private Long id;
@@ -46,6 +53,7 @@ public class MovieEntity implements Parcelable {
     @Expose
     private boolean video;
 
+    @ColumnInfo(name = C_TITLE)
     @SerializedName("title")
     @Expose
     private String title;
@@ -88,9 +96,6 @@ public class MovieEntity implements Parcelable {
     @Expose
     private boolean isFavorite;
 
-    /**
-     * an extra from detail data requested in by ID
-     */
     @SerializedName("number_of_episodes")
     @Expose
     private int numberOfEpisodes;
@@ -108,20 +113,6 @@ public class MovieEntity implements Parcelable {
     @SerializedName("first_air_date")
     @Expose
     private String firstAirDate;
-
-    //need a type converters
-//    @SerializedName("seasons")
-//    @Expose
-//    private List<Season> seasons;
-
-    //need a type converters
-//    @SerializedName("created_by")
-//    @Expose
-//    private List<CreatedByItem> createdBy;
-
-//    @SerializedName("last_episode_to_air")
-//    @Expose
-//    private LastEpisodeToAir lastEpisodeToAir;
 
     @SerializedName("last_air_date")
     @Expose
@@ -196,7 +187,8 @@ public class MovieEntity implements Parcelable {
     }
 
     public String getPosterPath() {
-        return posterPath != null ? posterPath : String.format("/%s.jpg", title.replaceAll("\\s+", "_"));
+        return posterPath != null ? posterPath : String.format("/%s.jpg", title.replaceAll("\\s+"
+                , "_"));
     }
 
     public String getFullPosterPath(boolean isHalf) {
@@ -390,6 +382,21 @@ public class MovieEntity implements Parcelable {
             return new MovieEntity[size];
         }
     };
+
+
+    public static MovieEntity fromContentValues(@Nullable ContentValues cv) {
+
+        final MovieEntity m = new MovieEntity();
+        if (cv != null && cv.containsKey(BaseColumns._ID)) {
+            m.id = cv.getAsLong(BaseColumns._ID);
+        }
+
+        if (cv != null && cv.containsKey(C_TITLE)) {
+            m.title = cv.getAsString(C_TITLE);
+        }
+
+        return m;
+    }
 
     @Override
     public String toString() {

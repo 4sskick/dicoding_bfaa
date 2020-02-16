@@ -42,6 +42,14 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                             Log.e(TAG, "onSuccess: Movie " + model.toString());
 
                             getLocalData().movieDao().insertMovies(model.getResults());
+
+                            for (int i = 0; i < model.getResults().size(); i++) {
+                                getLocalData().movieDao().insertMovie(model.getResults().get(i));
+                            }
+
+                            Log.e(TAG,
+                                    "onSuccess: " + getLocalData().movieDao().getMoviesByLang(lang).size());
+
                             convertDataMovie(model.getResults());
                         }
 

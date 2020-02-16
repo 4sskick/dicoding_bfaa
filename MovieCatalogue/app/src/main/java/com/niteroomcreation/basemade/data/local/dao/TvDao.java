@@ -29,10 +29,10 @@ public interface TvDao {
     @Query("select * from `TvEntity` where page = :page")
     TvEntity getTvsByPage(Long page);
 
-    @Query("select * from `TvEntity` where id = :id")
+    @Query("select * from `TvEntity` where _id = :id")
     TvEntity getTvById(Long id);
 
-    @Query("select * from `TvEntity` where id = :id and languageType = :lang")
+    @Query("select * from `TvEntity` where _id = :id and languageType = :lang")
     TvEntity getTvByIdLang(Long id, String lang);
 
     @Query("select * from `TvEntity` where languageType = :lang")

@@ -1,11 +1,9 @@
 package com.niteroomcreation.basemade.utils.service;
 
-import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +12,8 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.AppWidgetTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.niteroomcreation.basemade.BuildConfig;
@@ -22,7 +22,6 @@ import com.niteroomcreation.basemade.data.local.LocalDatabase;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.models.FavsObjectItem;
-import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 import com.niteroomcreation.basemade.ui.widget.FavsStackWidgetProvider;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new FavsRemoteFactory(this.getApplication(), intent);
+        return new FavsRemoteFactory(this.getApplicationContext(), intent);
     }
 
     class FavsRemoteFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -48,7 +47,7 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         private int mAppWidgetId;
 
-        public FavsRemoteFactory(Context mContext, Intent intent) {
+        private FavsRemoteFactory(Context mContext, Intent intent) {
             this.mContext = mContext;
             mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID
                     , AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -56,7 +55,7 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            onDataSetChanged();
+//            onDataSetChanged();
         }
 
         @Override
@@ -125,19 +124,42 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
                 if (fav.getPosterPath() != null) {
                     try {
-                        Glide.with(mContext)
-                                .asBitmap()
-                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG + "w500/" + fav.getPosterPath())
+//                        Glide.with(mContext)
+//                                .asBitmap()
+//                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG
+//                                + "w500/" + fav.getPosterPath())
+//                                .placeholder(R.drawable.ic_placeholder)
+//                                .error(R.drawable.ic_placeholder)
+//                                .into(new SimpleTarget<Bitmap>() {
+//                                          @Override
+//                                          public void onResourceReady(@NonNull Bitmap resource
+//                                                  , @Nullable Transition<? super Bitmap>
+//                                                  transition) {
+//                                              rvs.setImageViewBitmap(R.id.stack_img_item_photo
+//                                                      , resource);
+//                                          }
+//                                      }
+//                                );
+
+                        AppWidgetTarget glideAwt = new AppWidgetTarget(mContext,
+                                R.id.stack_img_item_photo, rvs, mAppWidgetId) {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                                        @Nullable Transition<? super Bitmap> transition) {
+                                super.onResourceReady(resource, transition);
+                            }
+                        };
+
+                        RequestOptions glideOptions = new RequestOptions()
                                 .placeholder(R.drawable.ic_placeholder)
-                                .into(new SimpleTarget<Bitmap>() {
-                                          @Override
-                                          public void onResourceReady(@NonNull Bitmap resource
-                                                  , @Nullable Transition<? super Bitmap> transition) {
-                                              rvs.setImageViewBitmap(R.id.stack_img_item_photo
-                                                      , resource);
-                                          }
-                                      }
-                                );
+                                .error(R.drawable.ic_placeholder);
+
+                        Glide.with(mContext.getApplicationContext())
+                                .asBitmap()
+                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG + "w185/" + fav.getPosterPath())
+                                .apply(glideOptions)
+                                .into(glideAwt);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.e(TAG, "getViewAt: " + e);
@@ -151,8 +173,10 @@ public class FavsStackWidgetService extends RemoteViewsService {
                 //store the ID's into bundle, so the activity could use it
                 Bundle b = new Bundle();
                 b.putLong(FavsStackWidgetProvider.EXTRA_ITEM, fav.getId());
+
                 Intent fillIntent = new Intent();
                 fillIntent.putExtras(b);
+
                 rvs.setOnClickFillInIntent(R.id.stack_layout_item, fillIntent);
             } else
                 Log.e(TAG, "getViewAt: position > getCount() " + position + " count " + getCount());
@@ -172,12 +196,12 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return 0;
         }
 
         @Override
         public boolean hasStableIds() {
-            return true;
+            return false;
         }
     }
 }
