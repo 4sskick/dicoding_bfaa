@@ -148,17 +148,29 @@ public class MainActivity extends BaseView implements MainContract.View,
             @NonNull
             @Override
             public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-                return new CursorLoader(getApplicationContext()
+
+
+                return new CursorLoader(MainActivity.this
                         , FavsContentProvider.URI_FAVS
                         , new String[]{MovieEntity.C_TITLE}
                         , null
                         , null
                         , null);
+
             }
 
             @Override
             public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
-                Log.e(TAG, "onLoadFinished: " + Utils.mapCursorToList(cursor));
+
+                Log.e(TAG, "onLoadFinished: EARLY");
+
+                List<MovieEntity> a = Utils.mapCursorToList(cursor);
+
+                if (a.size() == 0) {
+                    Log.e(TAG, "onLoadFinished: RESTART LOADER");
+                    LoaderManager.getInstance(MainActivity.this).restartLoader(1, null, this).forceLoad();
+                } else
+                    Log.e(TAG, "onLoadFinished: size" + a.size() + "\n" + a.toString());
             }
 
             @Override

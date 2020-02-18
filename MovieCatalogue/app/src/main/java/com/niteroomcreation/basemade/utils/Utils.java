@@ -36,6 +36,8 @@ import static android.support.constraint.Constraints.TAG;
  */
 public class Utils {
 
+    private static final String TAG = Utils.class.getSimpleName();
+
     public static void compressImage(Context context, Drawable resId,
                                      SimpleTarget<Bitmap> listener) {
         Glide.with(context)
