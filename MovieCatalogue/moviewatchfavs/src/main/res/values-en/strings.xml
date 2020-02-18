@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Movie Watch Favourite</string>
+
+    <!--    dumm value sections-->
+    <string name="desc_a_star">
+        Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally.
+        She has just about given up on her dream to make it big as a singer — until Jack coaxes her
+        into the spotlight. But even as Ally\'s career takes off, the personal side of their
+        relationship
+        is breaking down, as Jack fights an ongoing battle with his own internal demons.
+    </string>
+
+    <string name="desc_aquaman">
+        Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom
+        ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer
+        the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry,
+        Orm\'s half-human, half-Atlantean brother and true heir to the throne.
+    </string>
+
+    <string name="desc_avenger">
+        As the Avengers and their allies have continued to protect the world from threats too large
+        for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot
+        of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable
+        power, and use them to inflict his twisted will on all of reality. Everything the Avengers
+        have fought for has led up to this moment - the fate of Earth and existence itself has never
+        been more uncertain.
+    </string>
+
+    <string name="desc_birdbox">
+        Five years after an ominous unseen presence drives most of society to suicide, a survivor
+        and her two children make a desperate bid to reach safety.
+    </string>
+
+    <string name="desc_bohemian">
+        Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon
+        take the music world by storm when they form the rock \'n\' roll band Queen in 1970. Hit
+        songs become instant classics. When Mercury\'s increasingly wild lifestyle starts to
+        spiral out of control, Queen soon faces its greatest challenge yet – finding a way to
+        keep the band together amid the success and excess.
+    </string>
+
+    <string name="desc_bumblebee">
+        On the run in the year 1987, Bumblebee finds refuge in a junkyard in a small Californian
+        beach town. Charlie, on the cusp of turning 18 and trying to find her place in the world,
+        discovers Bumblebee, battle-scarred and broken. When Charlie revives him, she quickly learns
+        this is no ordinary yellow VW bug.
+    </string>
+
+    <string name="desc_creed">
+        The former World Heavyweight Champion Rocky Balboa serves as a trainer and mentor to Adonis
+        Johnson, the son of his late friend and former rival Apollo Creed.
+    </string>
+
+    <string name="desc_deadpool">
+        A kidnapped Fred Savage is forced to endure Deadpool\'s PG-13 rendition of Deadpool 2 as a
+        Princess Bride-esque story that\'s full of magic, wonder &amp; zero F\'s.
+    </string>
+
+    <string name="desc_dragon">
+        As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of
+        an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s
+        reign as village chief is tested, both dragon and rider must make impossible decisions to
+        save their kind.
+    </string>
+
+    <string name="desc_dragonball">
+        Earth is peaceful following the Tournament of Power. Realizing that the universes still
+        hold  many more strong people yet to see, Goku spends all his days training to reach even
+        greater heights. Then one day, Goku and Vegeta are faced by a Saiyan called \'Broly\' who
+        they\'ve never seen before. The Saiyans were supposed to have been almost completely wiped
+        out in the destruction of Planet Vegeta, so what\'s this one doing on Earth? This
+        encounter  between the three Saiyans who have followed completely different destinies
+        turns into a stupendous battle, with even Frieza (back from Hell) getting caught up in
+        the mix.
+    </string>
+
+    <string name="desc_titans">
+        A team of young superheroes led by Nightwing (formerly Batman\'s first Robin) form to combat
+        evil and other perils.
+    </string>
+
+    <string name="desc_legacies">
+        In a place where young witches, vampires, and werewolves are nurtured to be their best selves
+        in spite of their worst impulses, Klaus Mikaelson\’s daughter, 17-year-old Hope Mikaelson,
+        Alaric Saltzman\’s twins, Lizzie and Josie Saltzman, among others, come of age into heroes and
+        villains at The Salvatore School for the Young and Gifted.
+    </string>
+
+    <string name="desc_911">
+        Explore the high-pressure experiences of police officers, paramedics and firefighters who are
+        thrust into the most frightening, shocking and heart-stopping situations. These emergency
+        responders must try to balance saving those who are at their most vulnerable with solving the
+        problems in their own lives.
+    </string>
+
+    <string name="desc_tom_clancy">
+        When CIA analyst Jack Ryan stumbles upon a suspicious series of bank transfers his search for
+        answers pulls him from the safety of his desk job and catapults him into a deadly game of cat
+        and mouse throughout Europe and the Middle East, with a rising terrorist figurehead preparing
+        for a massive attack against the US and her allies.
+    </string>
+
+    <string name="desc_the_resident">
+        A tough, brilliant senior resident guides an idealistic young doctor through his first day,
+        pulling back the curtain on what really happens, both good and bad, in modern-day medicine.
+    </string>
+
+    <string name="desc_castle_rock">
+        Based on the stories of Stephen King, the series intertwines characters and themes from the
+        fictional town of Castle Rock.
+    </string>
+
+    <string name="desc_the_rookie">
+        Starting over isn\’t easy, especially for small-town guy John Nolan who, after a life-altering
+        incident, is pursuing his dream of being an LAPD officer. As the force’s oldest rookie, he\’s
+        met with skepticism from some higher-ups who see him as just a walking midlife crisis.
+    </string>
+
+    <string name="desc_fbi">
+        The elite unit of the New York office of the FBI brings to bear all their talents, intellect
+        and technical expertise on major cases in order to keep New York and the country safe.
+    </string>
+
+    <string name="desc_krypton">
+        Set two generations before the destruction of the legendary Man of Steel\’s home planet, Krypton
+        follows Superman\’s grandfather — whose House of El was ostracized and shamed — as he fights
+        to redeem his family\’s honor and save his beloved world from chaos.
+    </string>
+
+    <string name="desc_britannia">
+        An epic drama set in 43AD as the Roman Imperial Army – determined and terrified in equal measure
+        - returns to crush the Celtic heart of Britannia - a mysterious land ruled by warrior women
+        and powerful druids who can channel the powerful forces of the underworld. Or so they say.
+    </string>
+
+    <string name="desc_final_space">
+        An astronaut named Gary and his planet-destroying sidekick Mooncake embark on serialized journeys
+        through space in order to unlock the mystery of \“Final Space,\” the last point in the universe,
+        if it actually does exist.
+    </string>
+
+    <string name="nav_bot_movies">Movies</string>
+    <string name="nav_bot_tv_shows">Tv Shows</string>
+    <string name="str_trans_not_found">Overview not found</string>
+    <string name="str_empty">Error occurred, please check your internet connection\n\nTap to refresh</string>
+    <string name="nav_bot_saved_fav">Favourite</string>
+    <string name="str_empty_fav">Found no list favourit films  Tap for          refresh</string>
+    <string name="str_overview">Overview</string>
+    <string name="str_query_hint">Type something here</string>
+    <string name="str_warning_empty">Empty, please type something</string>
+</resources>

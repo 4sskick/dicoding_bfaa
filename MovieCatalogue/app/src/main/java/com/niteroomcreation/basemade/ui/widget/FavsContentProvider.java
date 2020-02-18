@@ -29,7 +29,8 @@ public class FavsContentProvider extends ContentProvider {
      * The URI for the Cheese table.
      */
     public static final Uri URI_FAVS =
-            Uri.parse("content://" + AUTHORITY + "/" + MovieEntity.T_NAME);
+//            Uri.parse("content://" + AUTHORITY + "/" + MovieEntity.T_NAME);
+    new Uri.Builder().scheme("content").authority(AUTHORITY).appendPath(MovieEntity.T_NAME).build();
 
     /**
      * The match code for some items in the Cheese table.

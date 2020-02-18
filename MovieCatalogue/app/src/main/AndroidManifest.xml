@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <permission
+        android:name="com.niteroomcreation.basemade.provider.READ_WRITE"
+        android:protectionLevel="normal" />
+
     <application
         android:name=".CustomApplication"
         android:allowBackup="false"
@@ -66,20 +70,20 @@
 
         <receiver android:name=".ui.widget.FavSavedWidgetProvider">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/fav_saved_widget_info"/>
+                android:resource="@xml/fav_saved_widget_info" />
         </receiver>
 
         <!--content provider-->
         <provider
-            android:authorities="com.niteroomcreation.basemade.provider"
             android:name=".ui.widget.FavsContentProvider"
+            android:authorities="com.niteroomcreation.basemade.provider"
             android:exported="true"
-            android:permission="com.niteroomcreation.basemade.provider.READ_WRITE"/>
+            android:readPermission="com.niteroomcreation.basemade.provider.READ_WRITE" />
     </application>
 
 </manifest>

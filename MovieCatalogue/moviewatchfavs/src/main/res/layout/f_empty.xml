@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/s_wrap_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackgroundSecondary"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="@dimen/padding_standard"
+    android:visibility="visible"
+    tools:visibility="visible">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/s_wrap_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/s_wrap_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/s_img_footer"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/ic_empty"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/s_tv_footer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_standard"
+                android:fontFamily="@font/nunito_regular"
+                android:gravity="center"
+                android:text="Empty template state"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="@dimen/font_size_small"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/s_img_footer"
+                tools:text="Untuk saat ini saya belum memiliki bisnis untuk didaftarkan" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <com.niteroomcreation.moviewatchfavs.view.loader.NewtonCradleLoading
+        android:id="@+id/s_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</android.support.constraint.ConstraintLayout>

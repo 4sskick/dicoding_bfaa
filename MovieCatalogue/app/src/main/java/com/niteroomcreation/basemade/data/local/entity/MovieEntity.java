@@ -28,6 +28,11 @@ public class MovieEntity implements Parcelable {
 
     }
 
+    public MovieEntity(long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     @ColumnInfo(index = true, name = BaseColumns._ID)
     @SerializedName("id")
     @Expose

@@ -46,9 +46,9 @@ public interface MovieDao {
     List<MovieEntity> getMoviesOnQuery(String query);
 
     //content values section queries
-    @Query("select * from " + MovieEntity.T_NAME)
+    @Query("select * from `MovieEntity` where isFavorite = 1")
     Cursor cursorSelectAll();
 
-    @Query("select * from " + MovieEntity.T_NAME + " where _id = :id")
+    @Query("select * from `MovieEntity` where _id = :id")
     Cursor cursorSelectById(long id);
 }

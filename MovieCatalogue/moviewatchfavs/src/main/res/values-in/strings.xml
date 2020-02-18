@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Movie Watch Favourite</string>
+
+    <!--    dumm value sections-->
+    <string name="desc_a_star">
+        Musisi kawakan Jackson Maine menemukan - dan jatuh cinta dengan - artis yang sedang
+        berjuang Ally. Dia baru saja menyerah pada mimpinya untuk menjadi besar sebagai penyanyi
+        - sampai Jack membujuknya menjadi sorotan. Tetapi bahkan ketika karir Ally lepas landas,
+        sisi pribadi mereka hubungan sedang mogok, karena Jack berjuang pertempuran yang sedang
+        berlangsung dengan setan internal sendiri.
+    </string>
+
+    <string name="desc_aquaman">
+        Dulunya merupakan rumah bagi peradaban paling maju di Bumi, Atlantis sekarang merupakan
+        kerajaan bawah laut diperintah oleh Raja Orm yang haus kekuasaan. Dengan pasukan yang
+        sangat besar, Orm berencana untuk menaklukkan orang-orang samudera yang tersisa dan
+        kemudian permukaan dunia. Yang menghalanginya adalah Arthur Curry, Setengah manusia,
+        setengah manusia Atlantis, dan pewaris takhta yang sebenarnya.
+    </string>
+
+    <string name="desc_avenger">
+        Sebagai Avengers dan sekutu mereka terus melindungi dunia dari ancaman yang terlalu besar
+        untuk ditangani oleh satu pahlawan, bahaya baru telah muncul dari bayang-bayang kosmik:
+        Thanos. Seorang lalim keburukan intergalaksi, tujuannya adalah untuk mengumpulkan semua
+        enam Batu Infinity, artefak yang tak terbayangkan kekuatan, dan menggunakannya untuk
+        menimbulkan keinginan bengkok pada semua kenyataan. Semuanya Avengers telah diperjuangkan
+        telah mengarah ke saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih
+        tidak pasti.
+    </string>
+
+    <string name="desc_birdbox">
+        Lima tahun setelah kehadiran tak terlihat yang tak menyenangkan membuat sebagian besar
+        masyarakat bunuh diri, yang selamat dan kedua anaknya berusaha keras untuk mencapai keselamatan.
+    </string>
+
+    <string name="desc_bohemian">
+        Penyanyi Freddie Mercury, gitaris Brian May, drummer Roger Taylor dan gitaris bass John
+        Deacon ambil dunia musik dengan badai ketika mereka membentuk band rock Queen Rock pada
+        tahun 1970. Hit lagu menjadi klasik instan. Ketika gaya hidup semakin liar Merkurius
+        mulai spiral di luar kendali, Ratu segera menghadapi tantangan terbesarnya - menemukan
+        cara untuk Pertahankan band bersama di tengah kesuksesan dan kelebihan.
+    </string>
+
+    <string name="desc_bumblebee">
+        Dalam pelarian pada tahun 1987, Bumblebee menemukan perlindungan di tempat barang
+        rongsokan di California kecil kota pantai. Charlie, di puncak usia 18 dan mencoba
+        menemukan tempatnya di dunia, menemukan Bumblebee, pertempuran-bekas luka dan rusak.
+        Ketika Charlie membangkitkannya, dia dengan cepat belajar ini bukan bug VW kuning biasa.
+    </string>
+
+    <string name="desc_creed">
+        Mantan Juara Kelas Berat Dunia, Rocky Balboa, bertindak sebagai pelatih dan mentor bagi
+        Adonis Johnson, putra almarhum teman dan mantan saingannya, Apollo Creed.
+    </string>
+
+    <string name="desc_deadpool">
+        Fred Savage yang diculik dipaksa untuk menanggung rendering PG-13 Deadpool 2 Deadpool 2
+        sebagai a Putri Bride-esque cerita yang penuh keajaiban, keajaiban &amp; nol F.
+    </string>
+
+    <string name="desc_dragon">
+       Ketika Hiccup memenuhi mimpinya untuk menciptakan utopia naga yang damai, penemuan
+        Toothless pasangan yang liar dan sulit ditangkap menarik Night Fury pergi. Saat bahaya
+        memuncak di rumah dan Hiccup memerintah sebagai kepala desa diuji, baik naga dan
+        pengendara harus membuat keputusan yang mustahil untuk simpan jenis mereka.
+    </string>
+
+    <string name="desc_dragonball">
+        Bumi damai setelah Turnamen Kekuasaan. Menyadari bahwa alam semesta masih ada menahan
+        banyak orang yang lebih kuat untuk melihat, Goku menghabiskan semua hari pelatihannya
+        untuk mencapai bahkan ketinggian yang lebih besar. Lalu suatu hari, Goku dan Vegeta
+        dihadapkan oleh seorang Saiyan yang disebut \'Broly \' yang mereka belum pernah melihat
+        sebelumnya. Orang-orang Saiyan seharusnya hampir sepenuhnya terhapus dalam kehancuran
+        Planet Vegeta, jadi apa yang satu ini lakukan di Bumi? Ini pertemuan antara tiga Saiyan
+        yang telah mengikuti takdir yang sama sekali berbeda berubah menjadi pertempuran yang
+        luar biasa, dengan bahkan Frieza (kembali dari Neraka) terperangkap campuran.
+    </string>
+
+    <string name="desc_titans">
+       Sebuah tim pahlawan super muda yang dipimpin oleh Nightwing (sebelumnya Robin pertama
+        Robin) dibentuk untuk bertempur kejahatan dan bahaya lainnya.
+    </string>
+
+    <string name="desc_legacies">
+        Di tempat penyihir muda, vampir, dan manusia serigala diasuh untuk menjadi diri mereka
+        yang terbaik terlepas dari impuls terburuk mereka, putri Klaus Mikaelson, Hope Mikaelson
+        yang berusia 17 tahun,  Kembar Alaric Saltzman, Lizzie dan Josie Saltzman, antara lain,
+        menjadi dewasa menjadi pahlawan dan penjahat di The Salvatore School for the Young dan Gifted.
+    </string>
+
+    <string name="desc_911">
+        Jelajahi pengalaman tekanan tinggi dari petugas polisi, paramedis, dan petugas pemadam
+        kebakaran didorong ke dalam situasi yang paling menakutkan, mengejutkan, dan
+        menghentakkan hati. Darurat ini responden harus mencoba menyeimbangkan menyelamatkan
+        mereka yang paling rentan dengan penyelesaian masalah dalam kehidupan mereka sendiri.
+    </string>
+
+    <string name="desc_tom_clancy">
+        Ketika analis CIA, Jack Ryan, menemukan serangkaian bank yang mencurigakan, transfer
+        pencariannya jawaban menariknya dari keselamatan pekerjaan mejanya dan melontarkannya ke
+        dalam permainan kucing yang mematikan dan tikus di seluruh Eropa dan Timur Tengah, dengan
+        tokoh teror yang sedang bersiap-siap untuk serangan besar-besaran terhadap AS dan sekutunya.
+    </string>
+
+    <string name="desc_the_resident">
+        Seorang residen senior yang tangguh dan cemerlang memandu seorang dokter muda yang
+        idealis melalui hari pertamanya, menarik kembali tirai pada apa yang sebenarnya terjadi,
+        baik dan buruk, dalam kedokteran modern.
+    </string>
+
+    <string name="desc_castle_rock">
+        Berdasarkan cerita dari Stephen King, seri ini menghubungkan karakter dan tema dari film
+        kota fiksi Castle Rock.
+    </string>
+
+    <string name="desc_the_rookie">
+        Memulai dari awal bukanlah hal yang mudah, terutama bagi pria kota kecil John Nolan yang,
+        setelah mengubah hidup Insiden, mengejar mimpinya menjadi petugas LAPD. Sebagai rookie
+        tertua di angkatan, dia adalah bertemu dengan skeptis dari beberapa atasan yang
+        melihatnya hanya sebagai krisis paruh baya berjalan.
+    </string>
+
+    <string name="desc_fbi">
+        Unit elit kantor FBI New York membawa semua bakat, kecerdasan mereka dan keahlian teknis
+        pada kasus-kasus besar untuk menjaga keamanan New York dan negara.
+    </string>
+
+    <string name="desc_krypton">
+        Atur dua generasi sebelum penghancuran planet rumah Man of Steel yang legendaris, Krypton
+        mengikuti kakek Superman - yang House of El dikucilkan dan dipermalukan - saat ia
+        bertarung untuk menebus kehormatan keluarganya dan menyelamatkan dunianya yang tercinta
+        dari kekacauan.
+    </string>
+
+    <string name="desc_britannia">
+        Drama epik berlatar 43AD sebagai Tentara Kekaisaran Romawi - bertekad dan ketakutan dalam
+        ukuran yang sama - Kembali untuk menghancurkan hati Celtic Britannia - tanah misterius
+        yang diperintah oleh wanita pejuang dan druid kuat yang bisa menyalurkan kekuatan kuat
+        dari dunia bawah. Atau begitulah kata mereka.
+    </string>
+
+    <string name="desc_final_space">
+        Seorang astronot bernama Gary dan sahabat karib Mooncake yang menghancurkan planetnya
+        memulai perjalanan bersambung melalui ruang untuk membuka misteri \"Ruang Akhir\", titik
+        terakhir di alam semesta, jika itu benar-benar ada.
+    </string>
+
+    <string name="nav_bot_movies">Layar Lebar</string>
+    <string name="nav_bot_tv_shows">Film TV</string>
+    <string name="str_overview">Deskripsi</string>
+    <string name="str_trans_not_found">Deskripsi tidak ditemukan</string>
+    <string name="str_empty">Terjadi kesalahan, cek kembali koneksi internet Anda\n\nTap untuk muat ulang</string>
+    <string name="nav_bot_saved_fav">Favorit</string>
+    <string name="str_empty_fav">Tidak ditemukan daftar favorit film  Tap untuk          muat ulang</string>
+    <string name="str_query_hint">Cari disini</string>
+    <string name="str_warning_empty">Kosong, mohon isi untuk melakukan pencarian</string>
+</resources>
