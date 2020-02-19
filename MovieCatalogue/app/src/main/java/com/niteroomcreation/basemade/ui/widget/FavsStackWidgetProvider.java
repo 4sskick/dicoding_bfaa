@@ -53,30 +53,42 @@ public class FavsStackWidgetProvider extends AppWidgetProvider {
 
             // Instruct the widget manager to update the widget
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.w_favs);
-//            setRemoteAdapter(remoteViews, appWidgetIds[i], serviceIntent);
             remoteViews.setRemoteAdapter(R.id.stackWidgetView, serviceIntent);
             remoteViews.setEmptyView(R.id.stackWidgetView, R.id.stackWidgetEmptyView);
 
             //doesn't need pending intent on widget clicked
             //trial to directly into detail act
-            Intent detailIntent = new Intent(context, FavsStackWidgetProvider.class);
-            detailIntent.setAction(FavsStackWidgetProvider.TOAST_ACTION);
-            detailIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
-//            detailIntent.setData(Uri.parse(detailIntent.toUri(Intent.URI_INTENT_SCHEME)));
-            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+//            Intent detailIntent = new Intent(context, FavsStackWidgetProvider.class);
+//            detailIntent.setAction(FavsStackWidgetProvider.TOAST_ACTION);
+//            detailIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+////            detailIntent.setData(Uri.parse(detailIntent.toUri(Intent.URI_INTENT_SCHEME)));
+//            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+//
+//            //pending intent
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(context
+//                    , 0
+//                    , detailIntent
+//                    , PendingIntent.FLAG_UPDATE_CURRENT);
+//            remoteViews.setPendingIntentTemplate(R.id.stackWidgetView, pendingIntent);
 
-            //pending intent
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context
-                    , 0
-                    , detailIntent
-                    , PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setPendingIntentTemplate(R.id.stackWidgetView, pendingIntent);
+
+            remoteViews.setOnClickPendingIntent(R.id.stackWidgetView, getPendingSelfIntent(context, appWidgetIds[i], TOAST_ACTION));
+
 
             // update widget
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
         }
 
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    protected static PendingIntent getPendingSelfIntent(Context context
+            , int appWidgetId
+            , String action) {
+        Intent intent = new Intent(context, FavsStackWidgetProvider.class);
+        intent.setAction(action);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        return PendingIntent.getBroadcast(context, appWidgetId, intent, 0);
     }
 
 

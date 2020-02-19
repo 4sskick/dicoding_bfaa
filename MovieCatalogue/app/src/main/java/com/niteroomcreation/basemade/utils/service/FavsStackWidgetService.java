@@ -55,7 +55,7 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-//            onDataSetChanged();
+            onDataSetChanged();
         }
 
         @Override
@@ -196,12 +196,12 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override
         public boolean hasStableIds() {
-            return false;
+            return true;
         }
     }
 }
