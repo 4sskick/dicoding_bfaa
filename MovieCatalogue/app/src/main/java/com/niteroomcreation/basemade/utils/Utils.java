@@ -88,20 +88,4 @@ public class Utils {
             }
         }
     }
-
-    public static List<MovieEntity> mapCursorToList(Cursor moviesCursor) {
-        List<MovieEntity> movies = new ArrayList<>();
-
-        while (moviesCursor.moveToNext()) {
-            long id = moviesCursor.getLong(moviesCursor.getColumnIndexOrThrow(BaseColumns._ID));
-            String title = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_TITLE));
-
-            movies.add(new MovieEntity(id, title));
-        }
-
-
-        Log.e(TAG, "mapCursorToList: movies size " + movies.size() + "\n" + movies.toString());
-
-        return movies;
-    }
 }

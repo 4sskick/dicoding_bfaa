@@ -51,7 +51,7 @@ public class FavPresenter extends BasePresenter<FavContract.View> implements Fav
         for (TvEntity m : tvs) {
             FavsObjectItem result = new FavsObjectItem();
             result.setId(m.getId());
-            result.setTypeObject(2);
+            result.setTypeObject(3);
             result.setTitle(m.getName());
             result.setOverview(m.getOverview());
             result.setOriginalTitle(m.getOriginalName());

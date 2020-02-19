@@ -3,7 +3,6 @@ package com.niteroomcreation.moviewatchfavs.data.local.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.TypeConverters;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,8 +12,6 @@ import android.support.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.moviewatchfavs.BuildConfig;
-import com.niteroomcreation.moviewatchfavs.data.local.converter.GenreListTypeConverter;
-import com.niteroomcreation.moviewatchfavs.models.details.Genre;
 
 import java.util.List;
 
@@ -22,15 +19,19 @@ import java.util.List;
 public class MovieEntity implements Parcelable {
 
     public static final String C_TITLE = "title";
+    public static final String C_POSTER_PATH = "posterPath";
+
     public static final String T_NAME = "MovieEntity";
 
     public MovieEntity() {
 
     }
 
-    public MovieEntity(long id, String title) {
+    public MovieEntity(long id, String title, String posterPath, String overview) {
         this.id = id;
         this.title = title;
+        this.posterPath = posterPath;
+        this.overview = overview;
     }
 
     @ColumnInfo(index = true, name = BaseColumns._ID)
@@ -104,32 +105,6 @@ public class MovieEntity implements Parcelable {
     @SerializedName("number_of_episodes")
     @Expose
     private int numberOfEpisodes;
-
-    //need a type converters
-    @SerializedName("genres")
-    @Expose
-    @TypeConverters(GenreListTypeConverter.class)
-    private List<Genre> genres;
-
-    @SerializedName("number_of_seasons")
-    @Expose
-    private int numberOfSeasons;
-
-    @SerializedName("first_air_date")
-    @Expose
-    private String firstAirDate;
-
-    @SerializedName("last_air_date")
-    @Expose
-    private String lastAirDate;
-
-    @SerializedName("homepage")
-    @Expose
-    private String homepage;
-
-    @SerializedName("status")
-    @Expose
-    private String status;
 
     public Long getPage() {
         return page;
@@ -286,54 +261,6 @@ public class MovieEntity implements Parcelable {
         this.numberOfEpisodes = numberOfEpisodes;
     }
 
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public int getNumberOfSeasons() {
-        return numberOfSeasons;
-    }
-
-    public void setNumberOfSeasons(int numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-
-    public String getFirstAirDate() {
-        return firstAirDate;
-    }
-
-    public void setFirstAirDate(String firstAirDate) {
-        this.firstAirDate = firstAirDate;
-    }
-
-    public String getLastAirDate() {
-        return lastAirDate;
-    }
-
-    public void setLastAirDate(String lastAirDate) {
-        this.lastAirDate = lastAirDate;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     protected MovieEntity(Parcel in) {
         this.overview = in.readString();
         this.originalLanguage = in.readString();
@@ -424,12 +351,6 @@ public class MovieEntity implements Parcelable {
                 ", languageType='" + languageType + '\'' +
                 ", isFavorite=" + isFavorite +
                 ", numberOfEpisodes=" + numberOfEpisodes +
-                ", genres=" + genres +
-                ", numberOfSeasons=" + numberOfSeasons +
-                ", firstAirDate='" + firstAirDate + '\'' +
-                ", lastAirDate='" + lastAirDate + '\'' +
-                ", homepage='" + homepage + '\'' +
-                ", status='" + status + '\'' +
                 '}';
     }
 }

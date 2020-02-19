@@ -22,15 +22,18 @@ import java.util.List;
 public class MovieEntity implements Parcelable {
 
     public static final String C_TITLE = "title";
+    public static final String C_POSTER_PATH = "posterPath";
+
     public static final String T_NAME = "MovieEntity";
 
     public MovieEntity() {
 
     }
 
-    public MovieEntity(long id, String title) {
+    public MovieEntity(long id, String title, String posterPath) {
         this.id = id;
         this.title = title;
+        this.posterPath = posterPath;
     }
 
     @ColumnInfo(index = true, name = BaseColumns._ID)
@@ -398,6 +401,10 @@ public class MovieEntity implements Parcelable {
 
         if (cv != null && cv.containsKey(C_TITLE)) {
             m.title = cv.getAsString(C_TITLE);
+        }
+
+        if (cv != null && cv.containsKey(C_POSTER_PATH)) {
+            m.posterPath = cv.getAsString(C_POSTER_PATH);
         }
 
         return m;

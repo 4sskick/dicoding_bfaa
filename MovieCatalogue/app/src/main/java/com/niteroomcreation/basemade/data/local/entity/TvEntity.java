@@ -22,8 +22,17 @@ import java.util.List;
 public class TvEntity implements Parcelable {
 
     private static final String C_NAME = "name";
+    public static final String C_POSTER_PATH = "posterPath";
+
+    public static final String T_NAME = "TvEntity";
 
     public TvEntity() {
+    }
+
+    public TvEntity(long id, String name, String posterPath) {
+        this.id = id;
+        this.name = name;
+        this.posterPath = posterPath;
     }
 
     protected TvEntity(Parcel in) {

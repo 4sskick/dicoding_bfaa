@@ -1,14 +1,22 @@
 package com.niteroomcreation.moviewatchfavs.adapter;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.niteroomcreation.moviewatchfavs.BuildConfig;
 import com.niteroomcreation.moviewatchfavs.R;
 import com.niteroomcreation.moviewatchfavs.data.local.entity.MovieEntity;
+import com.niteroomcreation.moviewatchfavs.view.image_utils.BlurTransformation;
 
 import java.util.List;
 
@@ -45,6 +53,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         return movies.size();
     }
 
+    private MovieEntity getItem(int pos) {
+        return movies.get(pos);
+    }
 
     public void setData(List<MovieEntity> data) {
         this.movies = data;
@@ -55,6 +66,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         @BindView(R.id.stack_txt_item_name)
         TextView txtName;
+        @BindView(R.id.stack_txt_item_desc)
+        TextView txtDesc;
+        @BindView(R.id.stack_img_item_photo)
+        AppCompatImageView imgItem;
 
         public MainHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +77,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         }
 
         void binds() {
+            txtName.setText(getItem(getAdapterPosition()).getTitle());
+            txtDesc.setText(getItem(getAdapterPosition()).getOverview());
+            Glide.with(imgItem.getContext())
+                    .asBitmap()
+                    .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG + "w342/" + getItem(getAdapterPosition()).getPosterPath())
+                    .transform(BlurTransformation.init(imgItem.getContext()))
+                    .placeholder(R.drawable.ic_placeholder)
+                    .error(R.drawable.ic_placeholder)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            imgItem.setImageBitmap(resource);
+                        }
+                    });
         }
     }
 }

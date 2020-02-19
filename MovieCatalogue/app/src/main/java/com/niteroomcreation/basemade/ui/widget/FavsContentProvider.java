@@ -12,7 +12,13 @@ import android.support.annotation.Nullable;
 
 import com.niteroomcreation.basemade.data.local.LocalDatabase;
 import com.niteroomcreation.basemade.data.local.dao.MovieDao;
+import com.niteroomcreation.basemade.data.local.dao.TvDao;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.models.FavsObjectItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Septian Adi Wijaya on 16/02/2020.
@@ -30,7 +36,7 @@ public class FavsContentProvider extends ContentProvider {
      */
     public static final Uri URI_FAVS =
 //            Uri.parse("content://" + AUTHORITY + "/" + MovieEntity.T_NAME);
-    new Uri.Builder().scheme("content").authority(AUTHORITY).appendPath(MovieEntity.T_NAME).build();
+            new Uri.Builder().scheme("content").authority(AUTHORITY).appendPath(MovieEntity.T_NAME).build();
 
     /**
      * The match code for some items in the Cheese table.
@@ -72,6 +78,7 @@ public class FavsContentProvider extends ContentProvider {
                 return null;
             }
             MovieDao m = LocalDatabase.getInstance(context).movieDao();
+
             final Cursor cursor;
             if (code == CODE_MOVIES_DIR) {
                 cursor = m.cursorSelectAll();

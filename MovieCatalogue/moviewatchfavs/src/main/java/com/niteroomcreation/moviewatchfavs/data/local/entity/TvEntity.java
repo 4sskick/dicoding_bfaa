@@ -3,7 +3,6 @@ package com.niteroomcreation.moviewatchfavs.data.local.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.TypeConverters;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,8 +12,6 @@ import android.support.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.niteroomcreation.moviewatchfavs.BuildConfig;
-import com.niteroomcreation.moviewatchfavs.data.local.converter.GenreListTypeConverter;
-import com.niteroomcreation.moviewatchfavs.models.details.Genre;
 
 import java.util.List;
 
@@ -134,73 +131,12 @@ public class TvEntity implements Parcelable {
     @Expose
     private int numberOfEpisodes;
 
-    @SerializedName("genres")
-    @Expose
-    @TypeConverters(GenreListTypeConverter.class)
-    private List<Genre> genres;
-
-    @SerializedName("number_of_seasons")
-    @Expose
-    private int numberOfSeasons;
-
-    @SerializedName("last_air_date")
-    @Expose
-    private String lastAirDate;
-
-    @SerializedName("homepage")
-    @Expose
-    private String homepage;
-
-    @SerializedName("status")
-    @Expose
-    private String status;
-
     public int getNumberOfEpisodes() {
         return numberOfEpisodes;
     }
 
     public void setNumberOfEpisodes(int numberOfEpisodes) {
         this.numberOfEpisodes = numberOfEpisodes;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public int getNumberOfSeasons() {
-        return numberOfSeasons;
-    }
-
-    public void setNumberOfSeasons(int numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-
-    public String getLastAirDate() {
-        return lastAirDate;
-    }
-
-    public void setLastAirDate(String lastAirDate) {
-        this.lastAirDate = lastAirDate;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Long getPage() {
@@ -373,11 +309,6 @@ public class TvEntity implements Parcelable {
                 ", isFavorite=" + isFavorite +
                 ", page=" + page +
                 ", numberOfEpisodes=" + numberOfEpisodes +
-                ", genres=" + genres +
-                ", numberOfSeasons=" + numberOfSeasons +
-                ", lastAirDate='" + lastAirDate + '\'' +
-                ", homepage='" + homepage + '\'' +
-                ", status='" + status + '\'' +
                 '}';
     }
 }

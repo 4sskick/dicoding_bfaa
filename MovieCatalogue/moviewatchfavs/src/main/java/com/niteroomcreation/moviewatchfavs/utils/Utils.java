@@ -28,8 +28,10 @@ public class Utils {
         while (moviesCursor.moveToNext()) {
             long id = moviesCursor.getLong(moviesCursor.getColumnIndexOrThrow(BaseColumns._ID));
             String title = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_TITLE));
+            String posterPath = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_POSTER_PATH));
+            String overview = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow("overview"));
 
-            movies.add(new MovieEntity(id, title));
+            movies.add(new MovieEntity(id, title, posterPath, overview));
         }
 
 

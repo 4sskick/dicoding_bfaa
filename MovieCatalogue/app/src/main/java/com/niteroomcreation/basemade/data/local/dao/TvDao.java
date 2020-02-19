@@ -5,6 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.database.Cursor;
 
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 
@@ -43,4 +44,11 @@ public interface TvDao {
 
     @Query("select * from `TvEntity` where name like '%'|| :query || '%'")
     List<TvEntity> gettvShowsOnQuery(String query);
+
+    //content values section queries
+    @Query("select * from `TvEntity` where isFavorite = 1")
+    Cursor cursorSelectAll();
+
+    @Query("select * from `TvEntity` where _id = :id")
+    Cursor cursorSelectById(long id);
 }
