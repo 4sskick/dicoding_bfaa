@@ -223,7 +223,8 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
                 break;
 
             case R.id.c_actionbar_ic_setting:
-                NavigationUtils.directToLocalSetting(this);
+//                NavigationUtils.directToLocalSetting(this);
+                NavigationUtils.directToSettingScreen(this);
                 break;
 
             case R.id.c_actionbar_ic_search:

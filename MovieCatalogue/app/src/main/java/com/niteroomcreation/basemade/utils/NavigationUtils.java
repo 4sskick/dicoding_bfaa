@@ -11,6 +11,7 @@ import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
 import com.niteroomcreation.basemade.ui.act.search.SearchActivity;
+import com.niteroomcreation.basemade.ui.act.setting.SettingActivity;
 
 /**
  * Created by Septian Adi Wijaya on 15/12/2019.
@@ -36,6 +37,11 @@ public class NavigationUtils {
 
     public static void directToLocalSetting(Activity act) {
         Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+        act.startActivity(intent);
+    }
+
+    public static void directToSettingScreen(Activity act) {
+        Intent intent = new Intent(act, SettingActivity.class);
         act.startActivity(intent);
     }
 }

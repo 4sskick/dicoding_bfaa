@@ -50,6 +50,9 @@
         <activity
             android:name=".ui.act.search.SearchActivity"
             android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.act.setting.SettingActivity"
+            android:configChanges="orientation|screenSize" />
 
         <!-- widget provider -->
         <receiver android:name=".ui.widget.FavsStackWidgetProvider">
