@@ -3,6 +3,7 @@ package com.niteroomcreation.basemade.utils;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -19,19 +20,37 @@ public class NotificationUtils {
 
     private static final String TAG = NotificationUtils.class.getSimpleName();
 
-    public static final int CHANNEL_ID = 1;
-    public static final String CHANNEL_NAME = "MADe";
+    public static final int CHANNEL_DAILY = 1;
+    public static final int CHANNEL_RELEASE = 2;
+    public static final String EXTRA_DATE_RELEASE = "extra.date.release";
+
+    private static final int CHANNEL_ID = 99;
+    private static final int NOTIFICATION_REQUEST_CODE = 100;
+    private static final String CHANNEL_NAME = "MADe";
 
     private static NotificationManager manager;
 
-    public static void sendNotification(Context context, int notifId, String title, String message) {
+    public static void sendNotification(Context context
+            , int notifId
+            , String title
+            , String message) {
 
         manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent intent = new Intent(context, MainActivity.class);
+        if (notifId == CHANNEL_RELEASE)
+            intent.putExtra(EXTRA_DATE_RELEASE, Utils.getCurrentDateFormatted());
+        PendingIntent pendingIntent = PendingIntent.getActivity(context
+                , NOTIFICATION_REQUEST_CODE
+                , intent
+                , PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, context.getResources().getString(R.string.app_name))
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+                context.getResources().getString(R.string.app_name))
+                .setContentIntent(pendingIntent)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                        R.mipmap.ic_launcher))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(message)

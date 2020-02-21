@@ -3,19 +3,15 @@ package com.niteroomcreation.basemade.data;
 import android.content.Context;
 
 import com.niteroomcreation.basemade.data.local.LocalRepo;
-import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.remote.APIService;
 import com.niteroomcreation.basemade.data.remote.RemoteRepo;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
-import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
 import com.niteroomcreation.basemade.utils.Utils;
 
-import java.util.List;
-
 import io.reactivex.Flowable;
-import retrofit2.Response;
 
 /**
  * Created by Septian Adi Wijaya on 14/12/2019.
@@ -94,8 +90,16 @@ public class Repository implements EntertainmentDataSource {
             , String lang
             , String onQuery) {
 
-        return Utils.isNetworkAvailable(context)?
-                remoteRepo.getOnQueryTvShows(apiKey, lang, onQuery):
+        return Utils.isNetworkAvailable(context) ?
+                remoteRepo.getOnQueryTvShows(apiKey, lang, onQuery) :
                 localRepo.getOnQueryTvShows(apiKey, lang, onQuery);
+    }
+
+    @Override
+    public Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String apiKey
+            , String lang
+            , String date) {
+
+        return remoteRepo.getMoviesOnDate(apiKey, lang, date, date);
     }
 }

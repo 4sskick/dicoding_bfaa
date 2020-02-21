@@ -17,6 +17,7 @@ import com.niteroomcreation.basemade.base.BaseFragmentView;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.utils.Constants;
+import com.niteroomcreation.basemade.utils.NotificationUtils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
 import java.util.ArrayList;
@@ -42,9 +43,26 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     private MoviesListener listener;
     private List<MovieEntity> movies;
     private MoviePresenter presenter;
+    private String extraDate;
 
     public static MovieFragment newInstance() {
+
+        Log.e(TAG, "newInstance: here 1");
+
         return new MovieFragment();
+    }
+
+    public static MovieFragment newInstance(String extraDate) {
+
+        Log.e(TAG, "newInstance: here 2");
+
+        Bundle b = new Bundle();
+        b.putString(NotificationUtils.EXTRA_DATE_RELEASE, extraDate);
+
+        MovieFragment f = new MovieFragment();
+        f.setArguments(b);
+
+        return f;
     }
 
     @Override
@@ -56,7 +74,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
     protected void initComponents() {
         presenter = new MoviePresenter(this, getContext());
 
-        adapter = new AdapterMovies(movies, new GenericItemListener<MovieEntity, List<Pair<View, String>>>() {
+        adapter = new AdapterMovies(movies, new GenericItemListener<MovieEntity, List<Pair<View,
+                String>>>() {
 
             @Override
             public void onItemViewClicked(MovieEntity item, List<Pair<View, String>> view) {
@@ -76,7 +95,8 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
         if (!isShownLoading()) {
             outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(movies));
-            outState.putString(Constants.EXTRA_LANG_MODEL, Locale.getDefault().getDisplayLanguage());
+            outState.putString(Constants.EXTRA_LANG_MODEL,
+                    Locale.getDefault().getDisplayLanguage());
         }
     }
 
@@ -85,15 +105,29 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
+
             if (!Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(savedInstanceState.getString(Constants.EXTRA_LANG_MODEL))) {
-                presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+                presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
+                        "english") ? "en-EN" : "id-ID");
             } else {
                 movies = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
                 setData(movies);
             }
         } else {
-            presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
+            presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
+                    "english") ? "en-EN" : "id-ID");
         }
+
+        Bundle b = getArguments();
+        if (b != null) {
+            Log.e(TAG, "onActivityCreated: " + b.toString());
+
+            presenter.getMoviesOnDate(Locale.getDefault()
+                            .getDisplayLanguage()
+                            .equalsIgnoreCase("english") ? "en-EN" : "id-ID"
+                    , b.getString(NotificationUtils.EXTRA_DATE_RELEASE));
+        } else
+            Log.e(TAG, "onActivityCreated: bundle is NULL");
     }
 
     @Override

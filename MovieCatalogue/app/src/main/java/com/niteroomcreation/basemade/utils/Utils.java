@@ -2,15 +2,10 @@ package com.niteroomcreation.basemade.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.provider.BaseColumns;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.bumptech.glide.Glide;
@@ -18,18 +13,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 /**
  * Created by Septian Adi Wijaya on 05/11/19
@@ -87,5 +75,11 @@ public class Utils {
                 inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
             }
         }
+    }
+
+    public static String getCurrentDateFormatted() {
+        DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return dt.format(date);
     }
 }

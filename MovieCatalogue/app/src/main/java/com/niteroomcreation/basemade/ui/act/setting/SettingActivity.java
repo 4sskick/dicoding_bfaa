@@ -2,7 +2,6 @@ package com.niteroomcreation.basemade.ui.act.setting;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +19,8 @@ import butterknife.OnClick;
  * please be sure to add credential if you use people's code
  */
 public class SettingActivity extends BaseView implements SettingContract.View {
+
+    private static final String TAG = SettingActivity.class.getSimpleName();
 
     @BindView(R.id.c_actionbar_ic_back)
     AppCompatImageView backButton;
@@ -52,45 +53,45 @@ public class SettingActivity extends BaseView implements SettingContract.View {
         swReminderDaily.setOnCheckedChangeListener(mSwButtonListener);
     }
 
-    private SwitchButton.OnCheckedChangeListener mSwButtonListener = new SwitchButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+    private SwitchButton.OnCheckedChangeListener mSwButtonListener =
+            new SwitchButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(SwitchButton view, boolean isChecked) {
 
-            switch (view.getId()) {
-                case R.id.switch_reminder_release:
+                    switch (view.getId()) {
+                        case R.id.switch_reminder_release:
 
-                    showMessage("reminder release " + (swReminderRelease.isChecked() ? "diaktifkan" : "dimatikan"));
+                            showMessage("reminder release " + (swReminderRelease.isChecked() ?
+                                    "diaktifkan" : "dimatikan"));
 
-                    NotificationUtils.sendNotification(SettingActivity.this
-                            , NotificationUtils.CHANNEL_ID
-                            , "Reminder Release"
-                            , "NOTIFICATION CONTENT Release");
+                            NotificationUtils.sendNotification(SettingActivity.this
+                                    , NotificationUtils.CHANNEL_RELEASE
+                                    , "Reminder Release"
+                                    , "NOTIFICATION CONTENT Release");
 
-                    break;
+                            break;
 
-                case R.id.switch_reminder_daily:
+                        case R.id.switch_reminder_daily:
 
-                    showMessage("reminder daily " + (swReminderDaily.isChecked() ? "diaktifkan" : "dimatikan"));
+                            showMessage("reminder daily " + (swReminderDaily.isChecked() ?
+                                    "diaktifkan" :
+                                    "dimatikan"));
 
-                    NotificationUtils.sendNotification(SettingActivity.this
-                            , NotificationUtils.CHANNEL_ID
-                            , "Reminder Daily"
-                            , "NOTIFICATION CONTENT Daily");
+                            NotificationUtils.sendNotification(SettingActivity.this
+                                    , NotificationUtils.CHANNEL_DAILY
+                                    , "Reminder Daily"
+                                    , "NOTIFICATION CONTENT Daily");
 
-                    break;
-            }
-        }
-    };
+                            break;
+                    }
+                }
+            };
 
     @OnClick({R.id.layout_reminder_daily, R.id.layout_reminder_release})
     void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.layout_reminder_daily:
-//                swReminderDaily.toggle();
-                NotificationUtils.sendNotification(SettingActivity.this
-                        , NotificationUtils.CHANNEL_ID
-                        , "Reminder Daily"
-                        , "NOTIFICATION CONTENT Daily");
+                swReminderDaily.toggle();
                 break;
             case R.id.layout_reminder_release:
                 swReminderRelease.toggle();

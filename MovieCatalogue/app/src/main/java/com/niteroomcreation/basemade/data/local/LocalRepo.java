@@ -1,19 +1,14 @@
 package com.niteroomcreation.basemade.data.local;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.niteroomcreation.basemade.data.EntertainmentDataSource;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.models.details.movie.MoviesDetail;
-import com.niteroomcreation.basemade.models.details.tvshow.TvShowsDetail;
-
-import java.util.List;
 
 import io.reactivex.Flowable;
-import retrofit2.Response;
 
 /**
  * Created by Septian Adi Wijaya on 07/01/20
@@ -117,5 +112,12 @@ public class LocalRepo implements EntertainmentDataSource {
         a.setResults(getmRoomDb().tvDao().gettvShowsOnQuery(onQuery));
 
         return Flowable.just(a);
+    }
+
+    @Override
+    public Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String apiKey
+            , String lang
+            , String date) {
+        return null;
     }
 }
