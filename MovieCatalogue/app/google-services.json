@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "730916018261",
+    "firebase_url": "https://made-push.firebaseio.com",
+    "project_id": "made-push",
+    "storage_bucket": "made-push.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730916018261:android:618bbad9f4394af8071cdc",
+        "android_client_info": {
+          "package_name": "com.niteroomcreation.basemade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730916018261-7urd1orahdut5b0gjj3th5hmhcs32ive.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0uVJvyzGI8-rYXO9ePrLsIBV7f7QGZ8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730916018261-7urd1orahdut5b0gjj3th5hmhcs32ive.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

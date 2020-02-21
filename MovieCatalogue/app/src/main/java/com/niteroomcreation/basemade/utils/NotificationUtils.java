@@ -20,6 +20,11 @@ public class NotificationUtils {
 
     private static final String TAG = NotificationUtils.class.getSimpleName();
 
+    /**
+     * CHANNEL id:
+     * - 1 only for make sure to bring back user to the application
+     * - 2 bring back user to the application by querying list movies by current date released
+     */
     public static final int CHANNEL_DAILY = 1;
     public static final int CHANNEL_RELEASE = 2;
     public static final String EXTRA_DATE_RELEASE = "extra.date.release";

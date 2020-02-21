@@ -53,8 +53,6 @@ android {
         global {
             signingConfig signingConfigs.release
             buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/\""
-            buildConfigField "String", "BASE_PATH", "\"3/discover/\""
-            buildConfigField "String", "BASE_PATH_BASIC", "\"3/\""
 
             buildConfigField "String", "BASE_URL_IMG", "\"https://image.tmdb.org/\""
             buildConfigField "String", "BASE_PATH_IMG", "\"t/p/\""
@@ -68,7 +66,6 @@ android {
         staging {
             signingConfig signingConfigs.debug
             buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/\""
-            buildConfigField "String", "BASE_PATH", "\"3/discover/\""
 
             buildConfigField "String", "BASE_URL_IMG", "\"https://image.tmdb.org/\""
             buildConfigField "String", "BASE_PATH_IMG", "\"t/p/\""
@@ -87,15 +84,15 @@ android {
     buildTypes {
         release {
             debuggable false
-            useProguard true
-            minifyEnabled true
+//            useProguard true
+//            minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
-            useProguard false
-            minifyEnabled false
+//            useProguard false
+//            minifyEnabled false
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -159,8 +156,6 @@ dependencies {
         exclude group: 'glide-parent'
     }
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
-
-    implementation "pub.devrel:easypermissions:$easyPermissionVersion"
 
     //design component
     implementation 'com.github.angads25:toggle:1.1.0'

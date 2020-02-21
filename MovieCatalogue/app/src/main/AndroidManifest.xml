@@ -54,6 +54,25 @@
             android:name=".ui.act.setting.SettingActivity"
             android:configChanges="orientation|screenSize" />
 
+        <!--firebase messaging-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/str_notification_channel_release"/>
+
+        <service android:name=".utils.service.FCMService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <!-- widget provider -->
         <receiver android:name=".ui.widget.FavsStackWidgetProvider">
             <intent-filter>
