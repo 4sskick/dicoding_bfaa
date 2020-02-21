@@ -1,13 +1,13 @@
 package com.niteroomcreation.basemade.ui.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.utils.service.FavsStackWidgetService;
@@ -18,6 +18,8 @@ import com.niteroomcreation.basemade.utils.service.FavsStackWidgetService;
  */
 public class FavsStackWidgetProvider extends AppWidgetProvider {
 
+    private static final String TAG = FavsStackWidgetProvider.class.getSimpleName();
+
     public static final String TOAST_ACTION = "com.example.android.stackwidget.TOAST_ACTION";
     public static final String EXTRA_ITEM = "com.example.android.stackwidget.EXTRA_ITEM";
 
@@ -25,71 +27,59 @@ public class FavsStackWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        if (intent.getAction() != null) {
-            if (intent.getAction().equals(TOAST_ACTION)) {
-                AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        final String action = intent.getAction();
 
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.w_favs);
+        if (intent.getAction() != null && intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
+            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName()
+                    , R.layout.w_favs);
 
-                int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-                int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
-                Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
-                manager.updateAppWidget(appWidgetId, remoteViews);
-            }
+            ComponentName cn = new ComponentName(context, FavsStackWidgetProvider.class);
+
+            manager.updateAppWidget(appWidgetId, remoteViews);
+            manager.notifyAppWidgetViewDataChanged(manager.getAppWidgetIds(cn),
+                    R.id.stackWidgetView);
         }
+    }
+
+    public static void sendRefreshBroadcast(Context context) {
+
+        Log.e(TAG, "sendRefreshBroadcast: called");
+
+        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.setComponent(new ComponentName(context, FavsStackWidgetProvider.class));
+        context.sendBroadcast(intent);
+    }
+
+    static void updateAppWidget(Context context
+            , AppWidgetManager appWidgetManager
+            , int appWidgetIds) {
+
+        // set intent for widget service that will create the views
+        Intent serviceIntent = new Intent(context, FavsStackWidgetService.class);
+        serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
+
+        // embed extras so they don't get ignored
+        serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+
+        // Instruct the widget manager to update the widget
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.w_favs);
+        remoteViews.setRemoteAdapter(R.id.stackWidgetView, serviceIntent);
+        remoteViews.setEmptyView(R.id.stackWidgetView, R.id.stackWidgetEmptyView);
+
+        // update widget
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int i = 0; i < appWidgetIds.length; i++) {
 
-            // set intent for widget service that will create the views
-            Intent serviceIntent = new Intent(context, FavsStackWidgetService.class);
-            serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
-
-            // embed extras so they don't get ignored
-            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
-
-            // Instruct the widget manager to update the widget
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.w_favs);
-            remoteViews.setRemoteAdapter(R.id.stackWidgetView, serviceIntent);
-            remoteViews.setEmptyView(R.id.stackWidgetView, R.id.stackWidgetEmptyView);
-
-            //doesn't need pending intent on widget clicked
-            //trial to directly into detail act
-//            Intent detailIntent = new Intent(context, FavsStackWidgetProvider.class);
-//            detailIntent.setAction(FavsStackWidgetProvider.TOAST_ACTION);
-//            detailIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
-////            detailIntent.setData(Uri.parse(detailIntent.toUri(Intent.URI_INTENT_SCHEME)));
-//            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
-//
-//            //pending intent
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(context
-//                    , 0
-//                    , detailIntent
-//                    , PendingIntent.FLAG_UPDATE_CURRENT);
-//            remoteViews.setPendingIntentTemplate(R.id.stackWidgetView, pendingIntent);
-
-
-            remoteViews.setOnClickPendingIntent(R.id.stackWidgetView, getPendingSelfIntent(context, appWidgetIds[i], TOAST_ACTION));
-
-
-            // update widget
-            appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
 
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
-
-    protected static PendingIntent getPendingSelfIntent(Context context
-            , int appWidgetId
-            , String action) {
-        Intent intent = new Intent(context, FavsStackWidgetProvider.class);
-        intent.setAction(action);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        return PendingIntent.getBroadcast(context, appWidgetId, intent, 0);
-    }
-
-
 }

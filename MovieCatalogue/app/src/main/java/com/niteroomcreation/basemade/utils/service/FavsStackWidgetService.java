@@ -5,17 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.AppWidgetTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.data.local.LocalDatabase;
@@ -26,6 +21,8 @@ import com.niteroomcreation.basemade.ui.widget.FavsStackWidgetProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * Created by Septian Adi Wijaya on 09/02/2020.
@@ -44,6 +41,7 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         private List<FavsObjectItem> favs = new ArrayList<>();
         private Context mContext;
+        private LocalDatabase db;
 
         private int mAppWidgetId;
 
@@ -55,17 +53,25 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            onDataSetChanged();
+//            onDataSetChanged();
+
+            Log.e(TAG, "onCreate: called");
+
+            db = LocalDatabase.getInstance(mContext);
         }
 
         @Override
         public void onDataSetChanged() {
+
+            Log.e(TAG, "onDataSetChanged: " + favs.size() + "\n" + favs.toString());
+
             favs = convertObjToFavs();
+
         }
 
         private List<FavsObjectItem> convertObjToFavs() {
-            List<MovieEntity> mFavs = LocalDatabase.getInstance(mContext).movieDao().getFavMovies();
-            List<TvEntity> tFavs = LocalDatabase.getInstance(mContext).tvDao().getFavsTv();
+            List<MovieEntity> mFavs = db.movieDao().getFavMovies();
+            List<TvEntity> tFavs = db.tvDao().getFavsTv();
             List<FavsObjectItem> favs = new ArrayList<>();
 
             for (MovieEntity m : mFavs) {
@@ -104,12 +110,16 @@ public class FavsStackWidgetService extends RemoteViewsService {
         @Override
         public void onDestroy() {
             favs.clear();
+            db = null;
         }
 
         @Override
         public int getCount() {
             return favs.size();
         }
+
+        @BindView(R.id.stack_img_item_photo)
+        ImageView img;
 
         //place to set items
         @Override
@@ -122,48 +132,52 @@ public class FavsStackWidgetService extends RemoteViewsService {
 
                 FavsObjectItem fav = favs.get(position);
 
+                Log.e(TAG, "getViewAt: processing " + fav.toString());
+
                 if (fav.getPosterPath() != null) {
-                    try {
-//                        Glide.with(mContext)
+//                    try {
+//                        AppWidgetTarget glideAwt = new AppWidgetTarget(mContext
+//                                , R.id.stack_img_item_photo
+//                                , rvs
+//                                , mAppWidgetId) {
+//                            @Override
+//                            public void onResourceReady(@NonNull Bitmap resource
+//                                    , @Nullable Transition<? super Bitmap> transition) {
+//                                super.onResourceReady(resource, transition);
+//
+//                            }
+//                        };
+//
+//                        RequestOptions glideOptions = new RequestOptions()
+//                                .placeholder(R.drawable.ic_placeholder)
+//                                .error(R.drawable.ic_placeholder);
+//
+//                        Glide.with(mContext.getApplicationContext())
 //                                .asBitmap()
 //                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG
-//                                + "w500/" + fav.getPosterPath())
-//                                .placeholder(R.drawable.ic_placeholder)
-//                                .error(R.drawable.ic_placeholder)
-//                                .into(new SimpleTarget<Bitmap>() {
-//                                          @Override
-//                                          public void onResourceReady(@NonNull Bitmap resource
-//                                                  , @Nullable Transition<? super Bitmap>
-//                                                  transition) {
-//                                              rvs.setImageViewBitmap(R.id.stack_img_item_photo
-//                                                      , resource);
-//                                          }
-//                                      }
-//                                );
+//                                        + "w500/" + fav.getPosterPath())
+//                                .apply(glideOptions)
+//                                .into(glideAwt);
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        Log.e(TAG, "getViewAt: " + e);
+//                    }
 
-                        AppWidgetTarget glideAwt = new AppWidgetTarget(mContext,
-                                R.id.stack_img_item_photo, rvs, mAppWidgetId) {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource,
-                                                        @Nullable Transition<? super Bitmap> transition) {
-                                super.onResourceReady(resource, transition);
-                            }
-                        };
-
-                        RequestOptions glideOptions = new RequestOptions()
-                                .placeholder(R.drawable.ic_placeholder)
-                                .error(R.drawable.ic_placeholder);
-
-                        Glide.with(mContext.getApplicationContext())
+                    try {
+                        Bitmap b = Glide.with(mContext.getApplicationContext())
                                 .asBitmap()
-                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG + "w185/" + fav.getPosterPath())
-                                .apply(glideOptions)
-                                .into(glideAwt);
+                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG
+                                        + "w500/" + fav.getPosterPath())
+                                .submit(300, 300)
+                                .get();
 
+                        rvs.setImageViewBitmap(R.id.stack_img_item_photo, b);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.e(TAG, "getViewAt: " + e);
                     }
+
                 }
 
                 if (!fav.getTitle().isEmpty()) {

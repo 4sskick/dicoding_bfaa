@@ -1,7 +1,6 @@
 package com.niteroomcreation.basemade.ui.act.detail;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +23,7 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.ui.widget.FavsStackWidgetProvider;
 import com.niteroomcreation.basemade.utils.ImageUtils;
 import com.niteroomcreation.basemade.view.TagPickerView;
 
@@ -262,6 +262,8 @@ public class DetailActivity extends BaseView implements DetailContract.View {
         if (tvShows != null) {
             presenter.saveTvFav(tvShows.getId(), isSaveChosen);
         }
+
+        FavsStackWidgetProvider.sendRefreshBroadcast(this);
     }
 
     private void visibleFrame(View contentView) {
