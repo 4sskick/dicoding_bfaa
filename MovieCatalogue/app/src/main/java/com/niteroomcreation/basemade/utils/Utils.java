@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -81,5 +83,22 @@ public class Utils {
         DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         return dt.format(date);
+    }
+
+    public static boolean isDateInvalid(String date, String format) {
+        try {
+            DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
+            df.setLenient(false);
+            df.parse(date);
+
+            Log.e(TAG, "isDateInvalid: try");
+
+            return false;
+        } catch (ParseException e) {
+
+            Log.e(TAG, "isDateInvalid: catch");
+
+            return true;
+        }
     }
 }

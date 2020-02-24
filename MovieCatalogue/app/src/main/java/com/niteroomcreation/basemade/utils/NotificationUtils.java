@@ -28,6 +28,7 @@ public class NotificationUtils {
     public static final int CHANNEL_DAILY = 1;
     public static final int CHANNEL_RELEASE = 2;
     public static final String EXTRA_DATE_RELEASE = "extra.date.release";
+    public static final String NOTIF_TYPE = "extra.notif.type";
 
     private static final int CHANNEL_ID = 99;
     private static final int NOTIFICATION_REQUEST_CODE = 100;

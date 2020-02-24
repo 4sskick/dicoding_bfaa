@@ -13,7 +13,9 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
+import com.niteroomcreation.basemade.utils.NotificationUtils;
 import com.niteroomcreation.basemade.utils.PrefsKey;
+import com.niteroomcreation.basemade.utils.receiver.AlarmReceiver;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.suke.widget.SwitchButton;
 
@@ -36,6 +38,8 @@ public class SettingActivity extends BaseView implements SettingContract.View {
     SwitchButton swReminderRelease;
     @BindView(R.id.switch_reminder_daily)
     SwitchButton swReminderDaily;
+
+    private AlarmReceiver alarmReceiver = new AlarmReceiver();
 
     @Override
     protected int parentLayout() {
@@ -77,22 +81,27 @@ public class SettingActivity extends BaseView implements SettingContract.View {
                                     "diaktifkan" : "dimatikan"));
 
                             if (swReminderRelease.isChecked()) {
-                                FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.str_notification_channel_release));
+//                                FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.str_notification_channel_release));
+//
+//                                Log.e(TAG,
+//                                        "onCheckedChanged: trial subs to topic" + getResources().getString(R.string.str_notification_channel_release));
+//
+//                                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+//                                    @Override
+//                                    public void onSuccess(InstanceIdResult instanceIdResult) {
+//                                        String deviceToken = instanceIdResult.getToken();
+//                                        Prefs.putString(PrefsKey.KEY_FCM_TOKEN, deviceToken);
+//
+//                                        Log.e(TAG, "onSuccess: token refreshed " + deviceToken);
+//                                    }
+//                                });
 
-                                Log.e(TAG,
-                                        "onCheckedChanged: trial subs to topic" + getResources().getString(R.string.str_notification_channel_release));
-
-                                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                                    @Override
-                                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                                        String deviceToken = instanceIdResult.getToken();
-                                        Prefs.putString(PrefsKey.KEY_FCM_TOKEN, deviceToken);
-
-                                        Log.e(TAG, "onSuccess: token refreshed " + deviceToken);
-                                    }
-                                });
+                                alarmReceiver.setRepeatingAlarm(SettingActivity.this
+                                        , NotificationUtils.CHANNEL_RELEASE);
                             } else
-                                FirebaseMessaging.getInstance().unsubscribeFromTopic(getResources().getString(R.string.str_notification_channel_release));
+//                                FirebaseMessaging.getInstance().unsubscribeFromTopic(getResources().getString(R.string.str_notification_channel_release));
+                                alarmReceiver.cancelAlarm(SettingActivity.this
+                                        , NotificationUtils.CHANNEL_RELEASE);
 
                             break;
 
@@ -106,22 +115,27 @@ public class SettingActivity extends BaseView implements SettingContract.View {
                                     "dimatikan"));
 
                             if (swReminderDaily.isChecked()) {
-                                FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.str_notification_channel_daily));
+//                                FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.str_notification_channel_daily));
+//
+//                                Log.e(TAG,
+//                                        "onCheckedChanged: trial subs to topic" + getResources().getString(R.string.str_notification_channel_daily));
+//
+//                                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+//                                    @Override
+//                                    public void onSuccess(InstanceIdResult instanceIdResult) {
+//                                        String devieToken = instanceIdResult.getToken();
+//                                        Prefs.putString(PrefsKey.KEY_FCM_TOKEN, devieToken);
+//
+//                                        Log.e(TAG, "onSuccess: token refreshed " + devieToken);
+//                                    }
+//                                });
 
-                                Log.e(TAG,
-                                        "onCheckedChanged: trial subs to topic" + getResources().getString(R.string.str_notification_channel_daily));
-
-                                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                                    @Override
-                                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                                        String devieToken = instanceIdResult.getToken();
-                                        Prefs.putString(PrefsKey.KEY_FCM_TOKEN, devieToken);
-
-                                        Log.e(TAG, "onSuccess: token refreshed " + devieToken);
-                                    }
-                                });
+                                alarmReceiver.setRepeatingAlarm(SettingActivity.this
+                                        , NotificationUtils.CHANNEL_DAILY);
                             } else
-                                FirebaseMessaging.getInstance().unsubscribeFromTopic(getResources().getString(R.string.str_notification_channel_daily));
+//                                FirebaseMessaging.getInstance().unsubscribeFromTopic(getResources().getString(R.string.str_notification_channel_daily));
+                                alarmReceiver.cancelAlarm(SettingActivity.this
+                                        , NotificationUtils.CHANNEL_DAILY);
 
                             break;
                     }
