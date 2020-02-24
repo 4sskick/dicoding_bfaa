@@ -41,11 +41,24 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                         public void onSuccess(BaseResponse<MovieEntity> model) {
                             Log.e(TAG, "onSuccess: Movie " + model.toString());
 
-                            getLocalData().movieDao().insertMovies(model.getResults());
+//                            getLocalData().movieDao().insertMovies(model.getResults());
+//
+//                            for (int i = 0; i < model.getResults().size(); i++) {
+//                                getLocalData().movieDao().insertMovie(model.getResults().get(i));
+//                            }
 
-                            for (int i = 0; i < model.getResults().size(); i++) {
-                                getLocalData().movieDao().insertMovie(model.getResults().get(i));
+                            List<MovieEntity> movies = new ArrayList<>();
+                            for (MovieEntity movie : model.getResults()) {
+
+                                movie.setPage(model.getPage());
+                                movie.setLanguageType(lang);
+                                movie.setIsFavorite(false);
+
+                                movies.add(movie);
                             }
+
+                            getLocalData().movieDao().insertMovies(movies);
+
 
                             Log.e(TAG,
                                     "onSuccess: " + getLocalData().movieDao().getMoviesByLang(lang).size());
@@ -84,7 +97,20 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                         public void onSuccess(BaseResponse<TvEntity> model) {
                             Log.e(TAG, "onSuccess: Tv " + model.toString());
 
-                            getLocalData().tvDao().insertTvs(model.getResults());
+//                            getLocalData().tvDao().insertTvs(model.getResults());
+
+                            List<TvEntity> tvs = new ArrayList<>();
+                            for (TvEntity tv : model.getResults()) {
+
+                                tv.setPage(model.getPage());
+                                tv.setLanguageType(lang);
+                                tv.setIsFavorite(false);
+
+                                tvs.add(tv);
+                            }
+
+                            getLocalData().tvDao().insertTvs(tvs);
+
                             convertDataTvs(model.getResults());
                         }
 
@@ -164,5 +190,15 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mView.hideLoading();
         mView.setData(models.getResults());
         Log.e(TAG, "onSuccRetrieveData: " + models.toString());
+    }
+
+    public Object convertToEntity(long itemId) {
+        MovieEntity m = getLocalData().movieDao().getMovieById(itemId);
+        TvEntity t = getLocalData().tvDao().getTvById(itemId);
+
+        if (m != null)
+            return m;
+
+        return t;
     }
 }

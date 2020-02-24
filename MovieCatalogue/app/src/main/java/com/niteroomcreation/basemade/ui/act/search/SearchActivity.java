@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +19,13 @@ import android.widget.FrameLayout;
 import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.adapter.AdapterSearch;
 import com.niteroomcreation.basemade.base.BaseView;
+import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
+import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.fragment.EmptyFragment;
 import com.niteroomcreation.basemade.ui.fragment.EmptyTransparentFragment;
 import com.niteroomcreation.basemade.utils.Constants;
+import com.niteroomcreation.basemade.utils.NavigationUtils;
 import com.niteroomcreation.basemade.utils.Utils;
 import com.niteroomcreation.basemade.view.listener.GenericItemListener;
 
@@ -113,11 +117,36 @@ public class SearchActivity extends BaseView implements SearchContract.View
             @Override
             public void onItemViewClicked(FavsObjectItem item, List<Pair<View, String>> view) {
                 Log.e(TAG, "onItemViewClicked: " + item.toString());
+
+                onItemSelectedDetail(presenter.convertToEntity(item.getId()), view);
             }
         });
 
         listSearch.setLayoutManager(new LinearLayoutManager(this));
         listSearch.setAdapter(adapter);
+    }
+
+    public void onItemSelectedDetail(Object item, List<Pair<View, String>> view) {
+        Log.e(TAG, String.format("onItemSelectedDetail: %s", item.toString()));
+
+        if (item instanceof MovieEntity) {
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this
+                    , view.get(0)
+                    , view.get(1));
+            NavigationUtils.directToDetailScreen(this, item, options);
+
+        } else if (item instanceof TvEntity) {
+            Log.e(TAG, "onItemSelectedDetail: here tv show");
+
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this
+                            , view.get(0)
+                            , view.get(1));
+            NavigationUtils.directToDetailScreen(this, item, options);
+
+        } else
+            throw new RuntimeException("item object doesn't found");
     }
 
     private void initSwitch() {
