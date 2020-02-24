@@ -42,8 +42,8 @@ public interface MovieDao {
     @Query("select * from `MovieEntity` where isFavorite = 1")
     List<MovieEntity> getFavMovies();
 
-    @Query("select * from `MovieEntity` where title like '%' || :query || '%'")
-    List<MovieEntity> getMoviesOnQuery(String query);
+    @Query("select * from `MovieEntity` where title like '%' || :query || '%' and languageType = :lang")
+    List<MovieEntity> getMoviesOnQuery(String query, String lang);
 
     //content values section queries
 //    @Query("select * from `MovieEntity` where isFavorite = 1")

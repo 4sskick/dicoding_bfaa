@@ -98,7 +98,7 @@ public class LocalRepo implements EntertainmentDataSource {
             , String onQuery) {
 
         BaseResponse<MovieEntity> a = new BaseResponse<>();
-        a.setResults(getmRoomDb().movieDao().getMoviesOnQuery(onQuery));
+        a.setResults(getmRoomDb().movieDao().getMoviesOnQuery(onQuery, lang));
 
         return Flowable.just(a);
     }
@@ -109,7 +109,7 @@ public class LocalRepo implements EntertainmentDataSource {
             , String onQuery) {
 
         BaseResponse<TvEntity> a = new BaseResponse<>();
-        a.setResults(getmRoomDb().tvDao().gettvShowsOnQuery(onQuery));
+        a.setResults(getmRoomDb().tvDao().gettvShowsOnQuery(onQuery, lang));
 
         return Flowable.just(a);
     }

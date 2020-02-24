@@ -33,19 +33,13 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     public void getMovieOnQuery(String onQuery, String lang) {
         mView.showLoading();
 
-        if (getLocalData().movieDao().getMoviesOnQuery(onQuery).size() == 0) {
+        if (getLocalData().movieDao().getMoviesOnQuery(onQuery, lang).size() == 0) {
             addSubscribe(Repository.getInstance(mContext).getOnQueryMovies(BuildConfig.API_KEY,
                     lang, onQuery)
                     , new NetworkCallback<BaseResponse<MovieEntity>>() {
                         @Override
                         public void onSuccess(BaseResponse<MovieEntity> model) {
                             Log.e(TAG, "onSuccess: Movie " + model.toString());
-
-//                            getLocalData().movieDao().insertMovies(model.getResults());
-//
-//                            for (int i = 0; i < model.getResults().size(); i++) {
-//                                getLocalData().movieDao().insertMovie(model.getResults().get(i));
-//                            }
 
                             List<MovieEntity> movies = new ArrayList<>();
                             for (MovieEntity movie : model.getResults()) {
@@ -82,22 +76,20 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                     });
         } else {
             Log.e(TAG,
-                    "getMovieOnQuery: ELSE " + getLocalData().movieDao().getMoviesOnQuery(onQuery));
+                    "getMovieOnQuery: ELSE " + getLocalData().movieDao().getMoviesOnQuery(onQuery, lang));
 
-            convertDataMovie(getLocalData().movieDao().getMoviesOnQuery(onQuery));
+            convertDataMovie(getLocalData().movieDao().getMoviesOnQuery(onQuery, lang));
         }
     }
 
     public void getTvShowOnQuery(String onQuery, String lang) {
-        if (getLocalData().tvDao().gettvShowsOnQuery(onQuery).size() == 0) {
+        if (getLocalData().tvDao().gettvShowsOnQuery(onQuery, lang).size() == 0) {
             addSubscribe(Repository.getInstance(mContext).getOnQueryTvShows(BuildConfig.API_KEY,
                     lang, onQuery)
                     , new NetworkCallback<BaseResponse<TvEntity>>() {
                         @Override
                         public void onSuccess(BaseResponse<TvEntity> model) {
                             Log.e(TAG, "onSuccess: Tv " + model.toString());
-
-//                            getLocalData().tvDao().insertTvs(model.getResults());
 
                             List<TvEntity> tvs = new ArrayList<>();
                             for (TvEntity tv : model.getResults()) {
@@ -130,8 +122,8 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                     });
         } else {
             Log.e(TAG,
-                    "getTvShowOnQuery: ELSE" + getLocalData().tvDao().gettvShowsOnQuery(onQuery));
-            convertDataTvs(getLocalData().tvDao().gettvShowsOnQuery(onQuery));
+                    "getTvShowOnQuery: ELSE" + getLocalData().tvDao().gettvShowsOnQuery(onQuery, lang));
+            convertDataTvs(getLocalData().tvDao().gettvShowsOnQuery(onQuery, lang));
         }
     }
 

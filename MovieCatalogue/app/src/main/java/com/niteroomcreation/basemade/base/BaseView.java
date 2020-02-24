@@ -209,7 +209,10 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
     }
 
     @Optional
-    @OnClick({R.id.c_actionbar_ic_back, R.id.c_actionbar_ic_setting, R.id.c_actionbar_ic_search})
+    @OnClick({R.id.c_actionbar_ic_back
+            , R.id.c_actionbar_ic_setting
+            , R.id.c_actionbar_ic_search
+            , R.id.c_actionbar_ic_lang})
     void onItemClickedView(View view) {
 
         Log.e(TAG, "onItemClickedView: ");
@@ -222,8 +225,11 @@ public abstract class BaseView extends AppCompatActivity implements IBaseView,
                 }
                 break;
 
+            case R.id.c_actionbar_ic_lang:
+                NavigationUtils.directToLocalSetting(this);
+                break;
+
             case R.id.c_actionbar_ic_setting:
-//                NavigationUtils.directToLocalSetting(this);
                 NavigationUtils.directToSettingScreen(this);
                 break;
 

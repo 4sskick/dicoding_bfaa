@@ -42,8 +42,8 @@ public interface TvDao {
     @Query("select * from `TvEntity` where isFavorite = 1")
     List<TvEntity> getFavsTv();
 
-    @Query("select * from `TvEntity` where name like '%'|| :query || '%'")
-    List<TvEntity> gettvShowsOnQuery(String query);
+    @Query("select * from `TvEntity` where name like '%'|| :query || '%' and languageType = :lang")
+    List<TvEntity> gettvShowsOnQuery(String query, String lang);
 
     //content values section queries
     @Query("select * from `TvEntity` where isFavorite = 1")
