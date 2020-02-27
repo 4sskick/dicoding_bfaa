@@ -18,9 +18,9 @@ android {
 
     //app versioning
     def versionMajor = 5
-    def versionMinor = 0
-    def versionPatch = 64
-    def versionBuild = 7054
+    def versionMinor = 1
+    def versionPatch = 312
+    def versionBuild = 1085
 
     defaultConfig {
         applicationId "com.niteroomcreation.basemade"
