@@ -25,14 +25,15 @@ public class Utils {
     public static List<MovieEntity> mapCursorToList(Cursor moviesCursor) {
         List<MovieEntity> movies = new ArrayList<>();
 
-        while (moviesCursor.moveToNext()) {
-            long id = moviesCursor.getLong(moviesCursor.getColumnIndexOrThrow(BaseColumns._ID));
-            String title = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_TITLE));
-            String posterPath = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_POSTER_PATH));
-            String overview = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow("overview"));
+        if (moviesCursor != null)
+            while (moviesCursor.moveToNext()) {
+                long id = moviesCursor.getLong(moviesCursor.getColumnIndexOrThrow(BaseColumns._ID));
+                String title = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_TITLE));
+                String posterPath = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow(MovieEntity.C_POSTER_PATH));
+                String overview = moviesCursor.getString(moviesCursor.getColumnIndexOrThrow("overview"));
 
-            movies.add(new MovieEntity(id, title, posterPath, overview));
-        }
+                movies.add(new MovieEntity(id, title, posterPath, overview));
+            }
 
 
         Log.e(TAG, "mapCursorToList: movies size " + movies.size() + "\n" + movies.toString());
