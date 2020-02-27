@@ -56,8 +56,8 @@ public class NotificationUtils {
                 context.getResources().getString(R.string.app_name))
                 .setContentIntent(pendingIntent)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                        R.mipmap.ic_launcher))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                        R.drawable.ic_empty))
+                .setSmallIcon(R.drawable.ic_empty)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true);
