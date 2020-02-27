@@ -110,16 +110,13 @@ public class FavsStackWidgetService extends RemoteViewsService {
         @Override
         public void onDestroy() {
             favs.clear();
-            db = null;
+//            db = null;
         }
 
         @Override
         public int getCount() {
             return favs.size();
         }
-
-        @BindView(R.id.stack_img_item_photo)
-        ImageView img;
 
         //place to set items
         @Override
@@ -135,41 +132,13 @@ public class FavsStackWidgetService extends RemoteViewsService {
                 Log.e(TAG, "getViewAt: processing " + fav.toString());
 
                 if (fav.getPosterPath() != null) {
-//                    try {
-//                        AppWidgetTarget glideAwt = new AppWidgetTarget(mContext
-//                                , R.id.stack_img_item_photo
-//                                , rvs
-//                                , mAppWidgetId) {
-//                            @Override
-//                            public void onResourceReady(@NonNull Bitmap resource
-//                                    , @Nullable Transition<? super Bitmap> transition) {
-//                                super.onResourceReady(resource, transition);
-//
-//                            }
-//                        };
-//
-//                        RequestOptions glideOptions = new RequestOptions()
-//                                .placeholder(R.drawable.ic_placeholder)
-//                                .error(R.drawable.ic_placeholder);
-//
-//                        Glide.with(mContext.getApplicationContext())
-//                                .asBitmap()
-//                                .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG
-//                                        + "w500/" + fav.getPosterPath())
-//                                .apply(glideOptions)
-//                                .into(glideAwt);
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        Log.e(TAG, "getViewAt: " + e);
-//                    }
 
                     try {
                         Bitmap b = Glide.with(mContext.getApplicationContext())
                                 .asBitmap()
                                 .load(BuildConfig.BASE_URL_IMG + "" + BuildConfig.BASE_PATH_IMG
                                         + "w500/" + fav.getPosterPath())
-                                .submit(300, 300)
+                                .submit()
                                 .get();
 
                         rvs.setImageViewBitmap(R.id.stack_img_item_photo, b);

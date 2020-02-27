@@ -80,26 +80,9 @@ public class MainActivity extends BaseView implements MainContract.View {
 
         @Override
         public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+
             Log.e(TAG, "onLoadFinished: EARLY");
-
-            List<MovieEntity> a = Utils.mapCursorToList(cursor);
-
-//            if (a.size() == 0) {
-//
-//                if (trialLoaded < 8) {
-//                    Log.e(TAG, "onLoadFinished: RESTART LOADER");
-//                    LoaderManager.getInstance(MainActivity.this).restartLoader(1, null, this).forceLoad();
-//                    trialLoaded++;
-//                } else
-//                    showOverrideEmptyState();
-//
-//            } else {
-//                Log.e(TAG, "onLoadFinished: size" + a.size() + "\n" + a.toString());
-//
-//                adapter.setData(a);
-//            }
-
-            setData(a);
+            setData(Utils.mapCursorToList(cursor));
         }
 
         @Override
@@ -123,6 +106,8 @@ public class MainActivity extends BaseView implements MainContract.View {
             Log.e(TAG, "setData: load finished, size " + data.size() + "\n" + data.toString());
 
             adapter.setData(movies);
+
+            hideLoading();
             flEmpty.setVisibility(View.GONE);
         }
     }
