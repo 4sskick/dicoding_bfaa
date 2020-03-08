@@ -1,10 +1,14 @@
 package com.niteroomcreation.basemade.data.local.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.TypeConverters;
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
+import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -14,10 +18,21 @@ import com.niteroomcreation.basemade.models.details.Genre;
 
 import java.util.List;
 
-@Entity(primaryKeys = ("id"))
+@Entity(primaryKeys = (BaseColumns._ID))
 public class TvEntity implements Parcelable {
 
+    private static final String C_NAME = "name";
+    public static final String C_POSTER_PATH = "posterPath";
+
+    public static final String T_NAME = "TvEntity";
+
     public TvEntity() {
+    }
+
+    public TvEntity(long id, String name, String posterPath) {
+        this.id = id;
+        this.name = name;
+        this.posterPath = posterPath;
     }
 
     protected TvEntity(Parcel in) {
@@ -104,9 +119,11 @@ public class TvEntity implements Parcelable {
     @SerializedName("vote_average")
     private double voteAverage;
 
+    @ColumnInfo(name = C_NAME)
     @SerializedName("name")
     private String name;
 
+    @ColumnInfo(index = true, name = BaseColumns._ID)
     @SerializedName("id")
     private long id;
 
@@ -122,14 +139,10 @@ public class TvEntity implements Parcelable {
     @Expose
     private Long page;
 
-    /**
-     * an extra from detail data requested in by ID
-     */
     @SerializedName("number_of_episodes")
     @Expose
     private int numberOfEpisodes;
 
-    //need a type converters
     @SerializedName("genres")
     @Expose
     @TypeConverters(GenreListTypeConverter.class)
@@ -138,20 +151,6 @@ public class TvEntity implements Parcelable {
     @SerializedName("number_of_seasons")
     @Expose
     private int numberOfSeasons;
-
-    //need a type converters
-//    @SerializedName("seasons")
-//    @Expose
-//    private List<Season> seasons;
-
-    //need a type converters
-//    @SerializedName("created_by")
-//    @Expose
-//    private List<CreatedByItem> createdBy;
-
-//    @SerializedName("last_episode_to_air")
-//    @Expose
-//    private LastEpisodeToAir lastEpisodeToAir;
 
     @SerializedName("last_air_date")
     @Expose
@@ -258,7 +257,8 @@ public class TvEntity implements Parcelable {
     }
 
     public String getPosterPath() {
-        return posterPath != null ? posterPath : String.format("/%s.jpg", name.replaceAll("\\s+", "_"));
+        return posterPath != null ? posterPath : String.format("/%s.jpg", name.replaceAll("\\s+",
+                "_"));
     }
 
     public String getFullPosterPath(boolean isHalf) {
@@ -346,6 +346,20 @@ public class TvEntity implements Parcelable {
 
     public void setIsFavorite(boolean isFavorite) {
         this.isFavorite = isFavorite;
+    }
+
+    public static TvEntity fromContentValues(@Nullable ContentValues cv) {
+        final TvEntity e = new TvEntity();
+
+        if (cv != null && cv.containsKey(BaseColumns._ID)) {
+            e.id = cv.getAsLong(BaseColumns._ID);
+        }
+
+        if (cv != null && cv.containsKey(C_NAME)) {
+            e.name = cv.getAsString(C_NAME);
+        }
+
+        return e;
     }
 
     @Override

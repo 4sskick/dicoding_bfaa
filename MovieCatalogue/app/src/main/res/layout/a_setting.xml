@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding_standard"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_marginEnd="@dimen/padding_standard">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_reminder_release"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linear_reminder_release"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/switch_reminder_release"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txt_reminder_release"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="Release Reminder"
+                android:textSize="@dimen/font_size_xlarge"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_sub_reminder_release"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="reminder showing the movie that release today"
+                android:textSize="@dimen/font_size_small" />
+
+        </LinearLayout>
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_reminder_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/linear_reminder_release"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linear_reminder_release"
+            app:sb_checked_color="@color/colorPrimary" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_reminder_daily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_reminder_release">
+
+        <LinearLayout
+            android:id="@+id/linear_reminder_daily"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/switch_reminder_daily"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txt_reminder_daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="Daily Reminder"
+                android:textSize="@dimen/font_size_xlarge"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_sub_reminder_daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="reminder for return to app"
+                android:textSize="@dimen/font_size_small" />
+
+        </LinearLayout>
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_reminder_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/linear_reminder_daily"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linear_reminder_daily"
+            app:sb_checked_color="@color/colorPrimary" />
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

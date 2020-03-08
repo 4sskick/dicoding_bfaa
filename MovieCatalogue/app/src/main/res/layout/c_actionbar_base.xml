@@ -6,17 +6,47 @@
     android:layout_height="match_parent"
     android:layout_gravity="center">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/c_actionbar_ic_setting"
-        style="@style/EffectRipple"
-        android:layout_width="@dimen/icon_default"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="@dimen/icon_default"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/padding_small"
-        android:adjustViewBounds="true"
-        android:tint="@color/windowBackgroundSecondary"
-        app:srcCompat="@drawable/ic_settings"
-        tools:tint="@color/colorPrimary" />
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/c_actionbar_ic_lang"
+            style="@style/EffectRipple"
+            android:layout_width="@dimen/icon_default"
+            android:layout_height="@dimen/icon_default"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:adjustViewBounds="true"
+            android:tint="@color/windowBackgroundSecondary"
+            app:srcCompat="@drawable/ic_language"
+            tools:tint="@color/colorPrimary" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/c_actionbar_ic_setting"
+            style="@style/EffectRipple"
+            android:layout_width="@dimen/icon_default"
+            android:layout_height="@dimen/icon_default"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:adjustViewBounds="true"
+            android:tint="@color/windowBackgroundSecondary"
+            app:srcCompat="@drawable/ic_settings"
+            tools:tint="@color/colorPrimary" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/c_actionbar_ic_search"
+            style="@style/EffectRipple"
+            android:layout_width="@dimen/icon_default"
+            android:layout_height="@dimen/icon_default"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:adjustViewBounds="true"
+            android:tint="@color/windowBackgroundSecondary"
+            app:srcCompat="@drawable/ic_search"
+            tools:tint="@color/colorPrimary" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/c_actionbar_title"

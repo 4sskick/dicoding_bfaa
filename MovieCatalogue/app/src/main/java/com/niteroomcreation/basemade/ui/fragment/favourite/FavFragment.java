@@ -43,7 +43,7 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     private FavPresenter presenter;
     private MovieFragment.MoviesListener listener;
 
-    private List<FavsObjectItem> movies;
+    private List<FavsObjectItem> favObjItems;
 
     public static FavFragment newInstance() {
         return new FavFragment();
@@ -58,8 +58,8 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     protected void initComponents() {
         presenter = new FavPresenter(this, getContext());
 
-        adapter = new AdapterFavs(movies, new GenericItemListener<FavsObjectItem, List<Pair<View,
-                String>>>() {
+        adapter = new AdapterFavs(favObjItems
+                , new GenericItemListener<FavsObjectItem, List<Pair<View, String>>>() {
 
             @Override
             public void onItemViewClicked(FavsObjectItem item, List<Pair<View, String>> view) {
@@ -82,7 +82,8 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
         Log.e(TAG, "onSaveInstanceState: ");
 
         if (!isShownLoading()) {
-            outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL, new ArrayList<>(movies));
+            outState.putParcelableArrayList(Constants.EXTRA_ARR_MODEL,
+                    new ArrayList<>(favObjItems));
             outState.putString(Constants.EXTRA_LANG_MODEL,
                     Locale.getDefault().getDisplayLanguage());
         }
@@ -98,8 +99,8 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
                 presenter.getFavs(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
                         "english") ? "en-EN" : "id-ID");
             } else {
-                movies = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
-                setData(movies);
+                favObjItems = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
+                setData(favObjItems);
             }
         } else {
             presenter.getFavs(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
@@ -112,8 +113,8 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
 
         Log.e(TAG, "setData: " + data.size());
 
-        movies = data;
-        adapter.setData(movies);
+        favObjItems = data;
+        adapter.setData(favObjItems);
         if (adapter.getItemCount() > 0)
             flFav.setVisibility(View.GONE);
         else
@@ -152,7 +153,7 @@ public class FavFragment extends BaseFragmentView implements FavContract.View {
     public void showOverrideEmptyState() {
         hideLoading();
         mActivity.moveToFragment(flFav.getId()
-                , EmptyFragment.newInstance(getString(R.string.str_empty)
+                , EmptyFragment.newInstance(getString(R.string.str_empty_fav)
                         , new EmptyFragment.EmptyListener() {
                             @Override
                             public void onEmptyClickedView() {

@@ -1,12 +1,13 @@
 package com.niteroomcreation.basemade.utils;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -14,17 +15,18 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
  * Created by Septian Adi Wijaya on 05/11/19
  */
 public class Utils {
+
+    private static final String TAG = Utils.class.getSimpleName();
 
     public static void compressImage(Context context, Drawable resId,
                                      SimpleTarget<Bitmap> listener) {
@@ -65,5 +67,38 @@ public class Utils {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo connection = manager.getActiveNetworkInfo();
         return connection != null;
+    }
+
+    public static void closeKeyboard(Activity activity) {
+        final InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()) {
+            if (activity.getCurrentFocus() != null) {
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+    }
+
+    public static String getCurrentDateFormatted() {
+        DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return dt.format(date);
+    }
+
+    public static boolean isDateInvalid(String date, String format) {
+        try {
+            DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
+            df.setLenient(false);
+            df.parse(date);
+
+            Log.e(TAG, "isDateInvalid: try");
+
+            return false;
+        } catch (ParseException e) {
+
+            Log.e(TAG, "isDateInvalid: catch");
+
+            return true;
+        }
     }
 }

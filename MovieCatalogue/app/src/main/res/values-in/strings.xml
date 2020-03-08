@@ -152,4 +152,7 @@
     <string name="str_trans_not_found">Deskripsi tidak ditemukan</string>
     <string name="str_empty">Terjadi kesalahan, cek kembali koneksi internet Anda\n\nTap untuk muat ulang</string>
     <string name="nav_bot_saved_fav">Favorit</string>
+    <string name="str_empty_fav">Tidak ditemukan daftar favorit film  Tap untuk          muat ulang</string>
+    <string name="str_query_hint">Cari disini</string>
+    <string name="str_warning_empty">Kosong, mohon isi untuk melakukan pencarian</string>
 </resources>

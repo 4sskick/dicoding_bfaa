@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,11 +16,11 @@ import com.niteroomcreation.basemade.R;
 import com.niteroomcreation.basemade.base.BaseView;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
-import com.niteroomcreation.basemade.models.FavsObjectItem;
 import com.niteroomcreation.basemade.ui.fragment.favourite.FavFragment;
 import com.niteroomcreation.basemade.ui.fragment.movie.MovieFragment;
 import com.niteroomcreation.basemade.ui.fragment.tv_show.TvShowFragment;
 import com.niteroomcreation.basemade.utils.NavigationUtils;
+import com.niteroomcreation.basemade.utils.NotificationUtils;
 
 import java.util.List;
 
@@ -56,8 +55,16 @@ public class MainActivity extends BaseView implements MainContract.View,
 
                     switch (menuItem.getItemId()) {
                         case R.id.nav_movies:
-                            moveToFragment(flMainContent.getId(), MovieFragment.newInstance()
-                                    , MovieFragment.class.getSimpleName());
+
+                            if (getIntent() != null
+                                    && getIntent().getStringExtra(NotificationUtils.EXTRA_DATE_RELEASE) != null)
+                                moveToFragment(flMainContent.getId()
+                                        , MovieFragment.newInstance(getIntent()
+                                                .getStringExtra(NotificationUtils.EXTRA_DATE_RELEASE))
+                                        , MovieFragment.class.getSimpleName());
+                            else
+                                moveToFragment(flMainContent.getId(), MovieFragment.newInstance()
+                                        , MovieFragment.class.getSimpleName());
 
                             lastActiveFragmentId = R.id.nav_movies;
                             lastActiveFragmentTag = MovieFragment.class.getSimpleName();
@@ -79,19 +86,6 @@ public class MainActivity extends BaseView implements MainContract.View,
 
                             lastActiveFragmentId = R.id.nav_saved_fav;
                             lastActiveFragmentTag = FavFragment.class.getSimpleName();
-
-                            Fragment f =
-                                    getSupportFragmentManager().findFragmentByTag(FavFragment.class.getSimpleName());
-                            if (f instanceof FavFragment) {
-                                Log.e(TAG, "onNavigationItemSelected: favfragment");
-
-                                ((FavFragment) f).refresh();
-                            } else if (f instanceof MovieFragment)
-                                Log.e(TAG, "onNavigationItemSelected: MovieFragment");
-                            else if (f instanceof TvShowFragment)
-                                Log.e(TAG, "onNavigationItemSelected: TvShowFragment");
-                            else
-                                Log.e(TAG, "onNavigationItemSelected: nothing!");
 
                             break;
                     }
@@ -125,6 +119,8 @@ public class MainActivity extends BaseView implements MainContract.View,
         navView.setOnNavigationItemSelectedListener(mOnNavSelectedListener);
 
         if (savedInstanceState == null) {
+            Log.e(TAG, "initComponents: savedInstanceState == null");
+
             navView.setSelectedItemId(R.id.nav_movies);
             navView.getMenu().findItem(R.id.nav_movies).setChecked(true);
         }
@@ -157,5 +153,12 @@ public class MainActivity extends BaseView implements MainContract.View,
 
         } else
             throw new RuntimeException("item object doesn't found");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG, "onActivityResult: " + requestCode);
+
     }
 }

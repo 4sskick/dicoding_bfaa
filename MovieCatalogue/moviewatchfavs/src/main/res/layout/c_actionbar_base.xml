@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_default"
+        android:layout_alignParentEnd="true"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/c_actionbar_ic_setting"
+            style="@style/EffectRipple"
+            android:layout_width="@dimen/icon_default"
+            android:layout_height="@dimen/icon_default"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:adjustViewBounds="true"
+            android:tint="@color/windowBackgroundSecondary"
+            app:srcCompat="@drawable/ic_settings"
+            tools:tint="@color/colorPrimary" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/c_actionbar_ic_search"
+            style="@style/EffectRipple"
+            android:layout_width="@dimen/icon_default"
+            android:layout_height="@dimen/icon_default"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:adjustViewBounds="true"
+            android:tint="@color/windowBackgroundSecondary"
+            app:srcCompat="@drawable/ic_search"
+            tools:tint="@color/colorPrimary" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/c_actionbar_title"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@color/windowBackgroundSecondary"
+        tools:text="title action bar"
+        tools:textColor="@color/colorPrimary" />
+
+</RelativeLayout>

@@ -31,6 +31,37 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
         super.onViewActive(view, context);
     }
 
+    public void getMoviesOnDate(String lang, String date) {
+        mView.showLoading();
+
+        addSubscribe(Repository.getInstance(mContext).getMoviesOnDate(BuildConfig.API_KEY,
+                lang, date)
+                , new NetworkCallback<BaseResponse<MovieEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<MovieEntity> model) {
+                        Log.e(TAG, "onSuccess: " + model.toString());
+
+                        onSuccMovies(model, lang, true);
+                    }
+
+                    @Override
+                    public void onFailure(int code
+                            , String message
+                            , @Nullable JSONObject jsonObject) {
+                        Log.e(TAG, "onFailure: " + message + " code " + code);
+
+                        mView.showOverrideEmptyState();
+                    }
+
+                    @Override
+                    public void onFinish(boolean isFailure) {
+                        Log.e(TAG, "onFinish: ");
+
+                        mView.hideLoading();
+                    }
+                });
+    }
+
     @Override
     public void getMovies(String lang) {
         mView.showLoading();

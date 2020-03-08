@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.gms.google-services'
 
 ext {
     // Sdk and tools
@@ -17,10 +17,10 @@ android {
     flavorDimensions "default"
 
     //app versioning
-    def versionMajor = 4
-    def versionMinor = 0
-    def versionPatch = 64
-    def versionBuild = 7054
+    def versionMajor = 5
+    def versionMinor = 1
+    def versionPatch = 312
+    def versionBuild = 1085
 
     defaultConfig {
         applicationId "com.niteroomcreation.basemade"
@@ -87,15 +87,15 @@ android {
     buildTypes {
         release {
             debuggable false
-            useProguard true
-            minifyEnabled true
+//            useProguard true
+//            minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
-            useProguard false
-            minifyEnabled false
+//            useProguard false
+//            minifyEnabled false
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -160,7 +160,11 @@ dependencies {
     }
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
-    implementation "pub.devrel:easypermissions:$easyPermissionVersion"
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation 'com.pixplicity.easyprefs:library:1.9.0'
+
+    //design component
+    implementation 'com.github.angads25:toggle:1.1.0'
 
     //rx2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
@@ -187,4 +191,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-analytics:16.0.8'
+    implementation 'com.google.firebase:firebase-messaging:17.4.0'
 }
