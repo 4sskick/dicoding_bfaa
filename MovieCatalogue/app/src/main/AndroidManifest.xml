@@ -25,7 +25,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".ui.act.splash.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -35,16 +35,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.act.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".ui.act.detail.DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".ui.act.search.SearchActivity"
+            android:name=".ui.search.SearchActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".ui.act.setting.SettingActivity"
+            android:name=".ui.setting.SettingActivity"
             android:configChanges="orientation|screenSize" />
 
         <!--firebase messaging-->

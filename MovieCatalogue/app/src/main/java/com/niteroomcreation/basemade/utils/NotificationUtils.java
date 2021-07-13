@@ -11,7 +11,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.niteroomcreation.basemade.R;
-import com.niteroomcreation.basemade.ui.act.main.MainActivity;
+import com.niteroomcreation.basemade.ui.main.MainActivity;
 
 /**
  * Created by Septian Adi Wijaya on 20/02/20

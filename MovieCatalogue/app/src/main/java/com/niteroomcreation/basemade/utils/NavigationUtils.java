@@ -9,9 +9,9 @@ import android.support.v4.app.ActivityOptionsCompat;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
 import com.niteroomcreation.basemade.models.FavsObjectItem;
-import com.niteroomcreation.basemade.ui.act.detail.DetailActivity;
-import com.niteroomcreation.basemade.ui.act.search.SearchActivity;
-import com.niteroomcreation.basemade.ui.act.setting.SettingActivity;
+import com.niteroomcreation.basemade.ui.detail.DetailActivity;
+import com.niteroomcreation.basemade.ui.search.SearchActivity;
+import com.niteroomcreation.basemade.ui.setting.SettingActivity;
 
 /**
  * Created by Septian Adi Wijaya on 15/12/2019.
