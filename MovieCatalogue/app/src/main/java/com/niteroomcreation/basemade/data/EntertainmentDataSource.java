@@ -12,26 +12,20 @@ import io.reactivex.Flowable;
  */
 public interface EntertainmentDataSource {
 
-    Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang);
+    Flowable<BaseResponse<MovieEntity>> getMovies(String lang);
 
-    Flowable<BaseResponse<TvEntity>> getTvShows(String apiKey
-            , String lang);
+    Flowable<BaseResponse<TvEntity>> getTvShows(String lang);
 
-    Flowable<MoviesDetail> getTvShowsDetail(String tvId
-            , String apiKey);
+    Flowable<MoviesDetail> getTvShowsDetail(String tvId);
 
-    Flowable<MoviesDetail> getMoviesDetail(String movieId
-            , String apiKey);
+    Flowable<MoviesDetail> getMoviesDetail(String movieId);
 
-    Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String apiKey
-            , String lang
+    Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String lang
             , String onQuery);
 
-    Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String apiKey
-            , String lang
+    Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String lang
             , String onQuery);
 
-    Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String apiKey
-            , String lang
+    Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String lang
             , String date);
 }

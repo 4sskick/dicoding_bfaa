@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
@@ -34,8 +33,7 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
     public void getMoviesOnDate(String lang, String date) {
         mView.showLoading();
 
-        addSubscribe(Repository.getInstance(mContext).getMoviesOnDate(BuildConfig.API_KEY,
-                lang, date)
+        addSubscribe(Repository.getInstance(mContext).getMoviesOnDate(lang, date)
                 , new NetworkCallback<BaseResponse<MovieEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<MovieEntity> model) {
@@ -68,7 +66,7 @@ public class MoviePresenter extends BasePresenter<MovieContract.View> implements
 
         if (getLocalData().movieDao().getMoviesByLang(lang).size() == 0) {
 
-            addSubscribe(Repository.getInstance(mContext).getMovies(BuildConfig.API_KEY, lang)
+            addSubscribe(Repository.getInstance(mContext).getMovies(lang)
                     , new NetworkCallback<BaseResponse<MovieEntity>>() {
                         @Override
                         public void onSuccess(BaseResponse<MovieEntity> model) {

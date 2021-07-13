@@ -38,8 +38,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
         MovieEntity entity = getLocalData().movieDao().getMovieById(Long.parseLong(movieId));
 
         if (entity.getGenres() == null) {
-            addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId, BuildConfig
-                            .API_KEY)
+            addSubscribe(Repository.getInstance(mContext).getMoviesDetail(movieId)
                     , new NetworkCallback<MoviesDetail>() {
                         @Override
                         public void onSuccess(MoviesDetail model) {
@@ -144,7 +143,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
         TvEntity entity = getLocalData().tvDao().getTvById(Long.parseLong(tvId));
 
         if (entity.getGenres() == null) {
-            addSubscribe(Repository.getInstance(mContext).getTvShowsDetail(tvId, BuildConfig.API_KEY)
+            addSubscribe(Repository.getInstance(mContext).getTvShowsDetail(tvId)
                     , new NetworkCallback<MoviesDetail>() {
                         @Override
                         public void onSuccess(MoviesDetail model) {

@@ -2,6 +2,7 @@ package com.niteroomcreation.basemade.data;
 
 import android.content.Context;
 
+import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.data.local.LocalRepo;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
@@ -51,55 +52,47 @@ public class Repository implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang) {
+    public Flowable<BaseResponse<MovieEntity>> getMovies(String lang) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getMovies(apiKey, lang) : localRepo.getMovies(apiKey, lang);
+                remoteRepo.getMovies(BuildConfig.API_KEY, lang) : localRepo.getMovies(lang);
     }
 
     @Override
-    public Flowable<BaseResponse<TvEntity>> getTvShows(String apiKey, String lang) {
+    public Flowable<BaseResponse<TvEntity>> getTvShows(String lang) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getTvShows(apiKey, lang) : localRepo.getTvShows(apiKey, lang);
+                remoteRepo.getTvShows(BuildConfig.API_KEY, lang) : localRepo.getTvShows(lang);
     }
 
     @Override
-    public Flowable<MoviesDetail> getTvShowsDetail(String tvId, String apiKey) {
+    public Flowable<MoviesDetail> getTvShowsDetail(String tvId) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getTvShowsDetail(tvId, apiKey) : localRepo.getTvShowsDetail(tvId,
-                apiKey);
+                remoteRepo.getTvShowsDetail(tvId, BuildConfig.API_KEY) : localRepo.getTvShowsDetail(tvId);
     }
 
     @Override
-    public Flowable<MoviesDetail> getMoviesDetail(String movieId, String apiKey) {
+    public Flowable<MoviesDetail> getMoviesDetail(String movieId) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getMoviesDetail(movieId, apiKey) : localRepo.getMoviesDetail(movieId,
-                apiKey);
+                remoteRepo.getMoviesDetail(movieId, BuildConfig.API_KEY) : localRepo.getMoviesDetail(movieId);
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String apiKey
-            , String lang
-            , String onQuery) {
+    public Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String lang, String onQuery) {
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getOnQueryMovies(apiKey, lang, onQuery) :
-                localRepo.getOnQueryMovies(apiKey, lang, onQuery);
+                remoteRepo.getOnQueryMovies(BuildConfig.API_KEY, lang, onQuery) :
+                localRepo.getOnQueryMovies(lang, onQuery);
     }
 
     @Override
-    public Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String apiKey
-            , String lang
-            , String onQuery) {
+    public Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String lang, String onQuery) {
 
         return Utils.isNetworkAvailable(context) ?
-                remoteRepo.getOnQueryTvShows(apiKey, lang, onQuery) :
-                localRepo.getOnQueryTvShows(apiKey, lang, onQuery);
+                remoteRepo.getOnQueryTvShows(BuildConfig.API_KEY, lang, onQuery) :
+                localRepo.getOnQueryTvShows(lang, onQuery);
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String apiKey
-            , String lang
-            , String date) {
+    public Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String lang, String date) {
 
-        return remoteRepo.getMoviesOnDate(apiKey, lang, date, date);
+        return remoteRepo.getMoviesOnDate(BuildConfig.API_KEY, lang, date, date);
     }
 }

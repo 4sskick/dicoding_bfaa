@@ -4,11 +4,10 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
-import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.local.entity.TvEntity;
+import com.niteroomcreation.basemade.data.models.BaseResponse;
 import com.niteroomcreation.basemade.data.remote.http.NetworkCallback;
 import com.niteroomcreation.basemade.utils.thread.ImageHandlerThread;
 
@@ -36,7 +35,7 @@ public class TvShowPresenter extends BasePresenter<TvShowContract.View> implemen
         mView.showLoading();
 
         if (getLocalData().tvDao().getTvsByLang(lang).size() == 0) {
-            addSubscribe(Repository.getInstance(mContext).getTvShows(BuildConfig.API_KEY, lang)
+            addSubscribe(Repository.getInstance(mContext).getTvShows(lang)
                     , new NetworkCallback<BaseResponse<TvEntity>>() {
                         @Override
                         public void onSuccess(BaseResponse<TvEntity> model) {

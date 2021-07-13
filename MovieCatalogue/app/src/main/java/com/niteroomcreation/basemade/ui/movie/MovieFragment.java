@@ -47,14 +47,10 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
 
     public static MovieFragment newInstance() {
 
-        Log.e(TAG, "newInstance: here 1");
-
         return new MovieFragment();
     }
 
     public static MovieFragment newInstance(String extraDate) {
-
-        Log.e(TAG, "newInstance: here 2");
 
         Bundle b = new Bundle();
         b.putString(NotificationUtils.EXTRA_DATE_RELEASE, extraDate);
@@ -107,15 +103,13 @@ public class MovieFragment extends BaseFragmentView implements MovieContract.Vie
         if (savedInstanceState != null) {
 
             if (!Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(savedInstanceState.getString(Constants.EXTRA_LANG_MODEL))) {
-                presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
-                        "english") ? "en-EN" : "id-ID");
+                presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
             } else {
                 movies = savedInstanceState.getParcelableArrayList(Constants.EXTRA_ARR_MODEL);
                 setData(movies);
             }
         } else {
-            presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase(
-                    "english") ? "en-EN" : "id-ID");
+            presenter.getMovies(Locale.getDefault().getDisplayLanguage().equalsIgnoreCase("english") ? "en-EN" : "id-ID");
         }
 
         Bundle b = getArguments();

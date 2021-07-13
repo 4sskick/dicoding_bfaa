@@ -36,7 +36,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getMovies(String apiKey, String lang) {
+    public Flowable<BaseResponse<MovieEntity>> getMovies(String lang) {
 
         BaseResponse<MovieEntity> a = new BaseResponse<>();
         a.setResults(getmRoomDb().movieDao().getMoviesByLang(lang));
@@ -45,7 +45,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<TvEntity>> getTvShows(String apiKey, String lang) {
+    public Flowable<BaseResponse<TvEntity>> getTvShows(String lang) {
 
         BaseResponse<TvEntity> a = new BaseResponse<>();
         a.setResults(getmRoomDb().tvDao().getTvsByLang(lang));
@@ -54,7 +54,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<MoviesDetail> getTvShowsDetail(String tvId, String apiKey) {
+    public Flowable<MoviesDetail> getTvShowsDetail(String tvId) {
 
         TvEntity tvEntity = getmRoomDb().tvDao().getTvById(Long.parseLong(tvId));
         MoviesDetail result = new MoviesDetail();
@@ -73,7 +73,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<MoviesDetail> getMoviesDetail(String movieId, String apiKey) {
+    public Flowable<MoviesDetail> getMoviesDetail(String movieId) {
 
         MovieEntity movieEntity = getmRoomDb().movieDao().getMovieById(Long.parseLong(movieId));
         MoviesDetail result = new MoviesDetail();
@@ -93,9 +93,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String apiKey
-            , String lang
-            , String onQuery) {
+    public Flowable<BaseResponse<MovieEntity>> getOnQueryMovies(String lang, String onQuery) {
 
         BaseResponse<MovieEntity> a = new BaseResponse<>();
         a.setResults(getmRoomDb().movieDao().getMoviesOnQuery(onQuery, lang));
@@ -104,9 +102,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String apiKey
-            , String lang
-            , String onQuery) {
+    public Flowable<BaseResponse<TvEntity>> getOnQueryTvShows(String lang, String onQuery) {
 
         BaseResponse<TvEntity> a = new BaseResponse<>();
         a.setResults(getmRoomDb().tvDao().gettvShowsOnQuery(onQuery, lang));
@@ -115,9 +111,7 @@ public class LocalRepo implements EntertainmentDataSource {
     }
 
     @Override
-    public Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String apiKey
-            , String lang
-            , String date) {
+    public Flowable<BaseResponse<MovieEntity>> getMoviesOnDate(String lang, String date) {
         return null;
     }
 }

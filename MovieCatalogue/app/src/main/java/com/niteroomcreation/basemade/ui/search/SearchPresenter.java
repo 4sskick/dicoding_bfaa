@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.niteroomcreation.basemade.BuildConfig;
 import com.niteroomcreation.basemade.base.BasePresenter;
 import com.niteroomcreation.basemade.data.Repository;
 import com.niteroomcreation.basemade.data.local.entity.MovieEntity;
@@ -34,8 +33,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mView.showLoading();
 
         if (getLocalData().movieDao().getMoviesOnQuery(onQuery, lang).size() == 0) {
-            addSubscribe(Repository.getInstance(mContext).getOnQueryMovies(BuildConfig.API_KEY,
-                    lang, onQuery)
+            addSubscribe(Repository.getInstance(mContext).getOnQueryMovies(lang, onQuery)
                     , new NetworkCallback<BaseResponse<MovieEntity>>() {
                         @Override
                         public void onSuccess(BaseResponse<MovieEntity> model) {
@@ -84,8 +82,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
     public void getTvShowOnQuery(String onQuery, String lang) {
         if (getLocalData().tvDao().gettvShowsOnQuery(onQuery, lang).size() == 0) {
-            addSubscribe(Repository.getInstance(mContext).getOnQueryTvShows(BuildConfig.API_KEY,
-                    lang, onQuery)
+            addSubscribe(Repository.getInstance(mContext).getOnQueryTvShows(lang, onQuery)
                     , new NetworkCallback<BaseResponse<TvEntity>>() {
                         @Override
                         public void onSuccess(BaseResponse<TvEntity> model) {
